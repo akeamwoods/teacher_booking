@@ -8,10 +8,10 @@ export const DayTimelineWrapper = styled.div`
 
 export const DayWrapper = styled.div`
   display: flex;
-  padding: 10px;
-  background: grey;
+  /* padding: 10px; */
+  width: 50px;
   cursor: pointer;
   :not(:last-child) {
-    margin-right: 20px;
+    /* margin-right: 20px; */
   }
 `;

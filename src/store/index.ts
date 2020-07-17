@@ -8,7 +8,7 @@ import produce from "immer";
 import { getType } from "typesafe-actions";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { setMonth, getMonth, setDay, getDay } from "date-fns";
+import { setMonth, getMonth } from "date-fns";
 
 const persistConfig = {
   key: "root",
