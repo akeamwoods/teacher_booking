@@ -24,10 +24,18 @@ export const Month: React.FC<{ month: Date; currentMonth: boolean }> = ({
   currentMonth,
 }) => {
   const dispatch = useDispatch();
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    dispatch(actions.exampleAction(month));
+    e.currentTarget.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center",
+    });
+  };
   return (
     <MonthWrapper
       style={{ fontWeight: currentMonth ? 800 : 400 }}
-      onClick={() => dispatch(actions.exampleAction(month))}
+      onClick={handleClick}
     >
       {format(month, "MMMM")}
     </MonthWrapper>
