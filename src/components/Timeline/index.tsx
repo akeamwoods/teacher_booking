@@ -7,9 +7,9 @@ export const Timeline: React.FC<{ selectedDate: Date }> = ({
   selectedDate,
 }) => {
   return (
-    <Wrapper>
+    <>
       <MonthTimeline selectedDate={selectedDate} />
       <DayTimeline selectedDate={selectedDate} />
-    </Wrapper>
+    </>
   );
 };
