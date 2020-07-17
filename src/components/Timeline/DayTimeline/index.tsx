@@ -23,9 +23,6 @@ export const DayTimeline: React.FC<{ selectedDate: Date }> = ({
   const days = Array.from(Array(daysInMonth), (_, index) =>
     addDays(start, index)
   );
-
-  console.log(start);
-
   return (
     <DayTimelineWrapper>
       {days.map((day) => (
