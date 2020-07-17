@@ -13,7 +13,7 @@ import { setMonth, getMonth } from "date-fns";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["testState"],
+  blacklist: ["selectedDate"],
 };
 
 const initialState = () => ({

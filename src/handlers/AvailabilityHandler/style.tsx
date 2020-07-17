@@ -21,4 +21,11 @@ export const Header = styled.header`
   h4 {
     margin: 0;
   }
+  button {
+    background: #ffce85;
+    padding: 0 30px;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.7em;
+  }
 `;

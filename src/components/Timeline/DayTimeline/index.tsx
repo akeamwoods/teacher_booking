@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   getDaysInMonth,
   startOfMonth,
@@ -43,6 +43,7 @@ export const Day: React.FC<{ day: Date; isCurrentDay: boolean }> = ({
   isCurrentDay,
 }) => {
   const dispatch = useDispatch();
+  const ref = useRef<HTMLDivElement>(null);
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     dispatch(actions.selectedDayChanged(day));
     e.currentTarget.scrollIntoView({
@@ -51,6 +52,15 @@ export const Day: React.FC<{ day: Date; isCurrentDay: boolean }> = ({
       inline: "center",
     });
   };
+
+  useEffect(() => {
+    if (isCurrentDay)
+      ref.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+  }, [day]);
   const getDayColour = (day: Date): string => {
     const dayAsNumber = getDay(day);
     //is mon/wed/fri
@@ -70,6 +80,7 @@ export const Day: React.FC<{ day: Date; isCurrentDay: boolean }> = ({
   };
   return (
     <DayWrapper
+      ref={ref}
       onClick={handleClick}
       style={{ borderBottomColor: isCurrentDay ? "#000" : "#e1e1e1" }}
     >

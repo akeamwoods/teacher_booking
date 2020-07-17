@@ -2,17 +2,17 @@ import React from "react";
 import { DayTimeline } from "./DayTimeline";
 import { MonthTimeline } from "./MonthTimeline";
 import { Wrapper } from "./style";
+import { useTypedSelector } from "../../store";
 
-export const Timeline: React.FC<{ selectedDate: Date }> = ({
-  selectedDate,
-}) => {
+export const Timeline = () => {
+  const selectedDate = useTypedSelector((state) => state.selectedDate);
   return (
     <>
       <Wrapper>
-        <MonthTimeline selectedDate={selectedDate} />
+        <MonthTimeline selectedDate={new Date(selectedDate)} />
       </Wrapper>
       <Wrapper>
-        <DayTimeline selectedDate={selectedDate} />
+        <DayTimeline selectedDate={new Date(selectedDate)} />
       </Wrapper>
     </>
   );
