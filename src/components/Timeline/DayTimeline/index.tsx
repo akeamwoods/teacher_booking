@@ -15,6 +15,7 @@ import {
 } from "./style";
 import { actions } from "../../../store/actions";
 import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 export const DayTimeline: React.FC<{ selectedDate: Date }> = ({
   selectedDate,
@@ -27,7 +28,11 @@ export const DayTimeline: React.FC<{ selectedDate: Date }> = ({
   return (
     <DayTimelineWrapper>
       {days.map((day) => (
-        <Day day={day} isCurrentDay={isSameDay(selectedDate, day)} />
+        <Day
+          key={uuidv4()}
+          day={day}
+          isCurrentDay={isSameDay(selectedDate, day)}
+        />
       ))}
     </DayTimelineWrapper>
   );
@@ -72,6 +77,7 @@ export const Day: React.FC<{ day: Date; isCurrentDay: boolean }> = ({
         style={{
           background: isCurrentDay ? "#000" : getDayColour(day),
           color: isCurrentDay ? "#fff" : "#000",
+          boxShadow: isCurrentDay ? "0 4px 8px 0 rgba(0,0,0,0.2)" : "none",
         }}
       >
         {format(day, "d")}

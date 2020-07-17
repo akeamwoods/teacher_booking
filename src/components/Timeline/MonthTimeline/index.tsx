@@ -3,6 +3,7 @@ import { startOfYear, addMonths, isSameMonth, format } from "date-fns";
 import { MonthTimelineWrapper, MonthWrapper } from "./style";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../store/actions";
+import { v4 as uuidv4 } from "uuid";
 
 export const MonthTimeline: React.FC<{ selectedDate: Date }> = ({
   selectedDate,
@@ -13,7 +14,11 @@ export const MonthTimeline: React.FC<{ selectedDate: Date }> = ({
   return (
     <MonthTimelineWrapper>
       {months.map((month) => (
-        <Month month={month} currentMonth={isSameMonth(selectedDate, month)} />
+        <Month
+          key={uuidv4()}
+          month={month}
+          currentMonth={isSameMonth(selectedDate, month)}
+        />
       ))}
     </MonthTimelineWrapper>
   );
