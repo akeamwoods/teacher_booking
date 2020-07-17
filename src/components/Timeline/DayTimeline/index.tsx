@@ -40,8 +40,16 @@ export const Day: React.FC<{ day: Date; currentDay: boolean }> = ({
   currentDay,
 }) => {
   const dispatch = useDispatch();
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    dispatch(actions.selectedDayChanged(day));
+    e.currentTarget.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center",
+    });
+  };
   return (
-    <DayWrapper onClick={() => dispatch(actions.selectedDayChanged(day))}>
+    <DayWrapper onClick={handleClick}>
       <DayContainer style={{ background: currentDay ? "gold" : "#e1e1e1" }}>
         {format(day, "d")}
       </DayContainer>

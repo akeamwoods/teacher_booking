@@ -18,7 +18,6 @@ export const DayWrapper = styled.div`
 `;
 
 export const Day = styled.div`
-  margin-bottom: 10px;
   display: flex;
   background: #e1e1e1;
   padding: 10px;
@@ -30,4 +29,8 @@ export const Day = styled.div`
   text-align: center;
 `;
 
-export const DayText = styled.p``;
+export const DayText = styled.p`
+  font-size: 0.7em;
+  font-weight: 800;
+  color: #abb1b6;
+`;
