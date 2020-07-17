@@ -46,7 +46,10 @@ export const Day: React.FC<{ day: Date; currentDay: boolean }> = ({
     });
   };
   return (
-    <DayWrapper onClick={handleClick}>
+    <DayWrapper
+      onClick={handleClick}
+      style={{ borderBottomColor: currentDay ? "#000" : "#e1e1e1" }}
+    >
       <DayContainer style={{ background: currentDay ? "gold" : "#e1e1e1" }}>
         {format(day, "d")}
       </DayContainer>

@@ -13,8 +13,13 @@ export const DayWrapper = styled.div`
   text-align: center;
   cursor: pointer;
   :not(:last-child) {
-    margin-right: 20px;
+    padding-right: 10px;
   }
+  :not(:first-child) {
+    padding-left: 10px;
+  }
+  border-bottom: 2px solid;
+  margin: 0;
 `;
 
 export const Day = styled.div`
@@ -33,4 +38,5 @@ export const DayText = styled.p`
   font-size: 0.7em;
   font-weight: 800;
   color: #abb1b6;
+  padding-bottom: 15px;
 `;
