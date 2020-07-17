@@ -7,7 +7,7 @@ export const MonthTimelineWrapper = styled.div`
 
 export const MonthWrapper = styled.div`
   display: flex;
-  padding: 10px;
-  margin: 10px;
-  background: grey;
+  :not(:last-child) {
+    margin-right: 30px;
+  }
 `;

@@ -29,7 +29,7 @@ export const Month: React.FC<{ month: Date; currentMonth: boolean }> = ({
   currentMonth,
 }) => {
   return (
-    <MonthWrapper style={{ background: currentMonth ? "blue" : "red" }}>
+    <MonthWrapper style={{ fontWeight: currentMonth ? 800 : 400 }}>
       {format(month, "MMMM")}
     </MonthWrapper>
   );

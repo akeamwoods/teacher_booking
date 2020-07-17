@@ -1,5 +1,4 @@
 import React from "react";
-import { Wrapper } from "./style";
 import { DayTimeline } from "./DayTimeline";
 import { MonthTimeline } from "./MonthTimeline";
 

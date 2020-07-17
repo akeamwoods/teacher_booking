@@ -7,4 +7,5 @@ export const Wrapper = styled.div`
   flex: 1;
   align-items: stretch;
   overflow: auto;
+  padding: 20px;
 `;
