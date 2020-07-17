@@ -4,7 +4,6 @@ import { Wrapper } from "./style";
 export const UserBar = () => {
   return (
     <Wrapper>
-      UserBar
       <img
         color="white"
         height="200px"

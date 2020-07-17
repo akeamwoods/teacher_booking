@@ -7,6 +7,7 @@ export const MonthTimelineWrapper = styled.div`
 
 export const MonthWrapper = styled.div`
   display: flex;
+  cursor: pointer;
   :not(:last-child) {
     margin-right: 30px;
   }

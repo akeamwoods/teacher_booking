@@ -10,6 +10,7 @@ export const DayWrapper = styled.div`
   display: flex;
   padding: 10px;
   background: grey;
+  cursor: pointer;
   :not(:last-child) {
     margin-right: 20px;
   }
