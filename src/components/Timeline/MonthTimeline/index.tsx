@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  getMonth,
-  startOfYear,
-  addMonths,
-  isSameMonth,
-  format,
-} from "date-fns";
+import { startOfYear, addMonths, isSameMonth, format } from "date-fns";
 import { MonthTimelineWrapper, MonthWrapper } from "./style";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../store/actions";
@@ -13,7 +7,6 @@ import { actions } from "../../../store/actions";
 export const MonthTimeline: React.FC<{ selectedDate: Date }> = ({
   selectedDate,
 }) => {
-  const currentMonth = getMonth(selectedDate);
   const start = startOfYear(selectedDate);
   const months = Array.from(Array(12), (_, index) => addMonths(start, index));
 

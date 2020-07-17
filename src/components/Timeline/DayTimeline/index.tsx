@@ -6,7 +6,12 @@ import {
   isSameDay,
   format,
 } from "date-fns";
-import { DayTimelineWrapper, DayWrapper } from "./style";
+import {
+  DayTimelineWrapper,
+  DayWrapper,
+  Day as DayContainer,
+  DayText,
+} from "./style";
 import { actions } from "../../../store/actions";
 import { useDispatch } from "react-redux";
 
@@ -18,6 +23,8 @@ export const DayTimeline: React.FC<{ selectedDate: Date }> = ({
   const days = Array.from(Array(daysInMonth), (_, index) =>
     addDays(start, index)
   );
+
+  console.log(start);
 
   return (
     <DayTimelineWrapper>
@@ -34,11 +41,11 @@ export const Day: React.FC<{ day: Date; currentDay: boolean }> = ({
 }) => {
   const dispatch = useDispatch();
   return (
-    <DayWrapper
-      style={{ background: currentDay ? "blue" : "red" }}
-      onClick={() => dispatch(actions.selectedDayChanged(day))}
-    >
-      {format(day, "d")}
+    <DayWrapper onClick={() => dispatch(actions.selectedDayChanged(day))}>
+      <DayContainer style={{ background: currentDay ? "gold" : "#e1e1e1" }}>
+        {format(day, "d")}
+      </DayContainer>
+      <DayText>{format(day, "E")}</DayText>
     </DayWrapper>
   );
 };
