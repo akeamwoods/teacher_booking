@@ -53,14 +53,14 @@ export const Day: React.FC<{ day: Date; isCurrentDay: boolean }> = ({
     });
   };
 
-  useEffect(() => {
-    if (isCurrentDay)
-      ref.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "center",
-      });
-  }, [day]);
+  // useEffect(() => {
+  //   if (isCurrentDay)
+  //     ref.current?.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "center",
+  //       inline: "center",
+  //     });
+  // }, [isCurrentDay]);
   const getDayColour = (day: Date): string => {
     const dayAsNumber = getDay(day);
     //is mon/wed/fri

@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 export const MonthTimeline: React.FC<{ selectedDate: Date }> = ({
   selectedDate,
 }) => {
-  const start = startOfYear(new Date());
+  const start = startOfYear(selectedDate);
   const months = Array.from(Array(12), (_, index) => addMonths(start, index));
   return (
     <MonthTimelineWrapper>
@@ -36,19 +36,18 @@ export const Month: React.FC<{ month: Date; currentMonth: boolean }> = ({
       block: "center",
       inline: "center",
     });
+    console.log("done", ref.current);
   };
-
-  useEffect(() => {
-    if (currentMonth) {
-      ref.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "center",
-      });
-      console.log("hit");
-    }
-  }, [month]);
-
+  // useEffect(() => {
+  //   if (currentMonth) {
+  //     ref.current?.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "center",
+  //       inline: "center",
+  //     });
+  //     console.log("hit");
+  //   }
+  // }, [month]);
   return (
     <MonthWrapper
       style={{ fontWeight: currentMonth ? 800 : 400 }}
