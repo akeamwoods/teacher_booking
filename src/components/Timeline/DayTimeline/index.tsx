@@ -7,6 +7,8 @@ import {
   format,
 } from "date-fns";
 import { DayTimelineWrapper, DayWrapper } from "./style";
+import { actions } from "../../../store/actions";
+import { useDispatch } from "react-redux";
 
 export const DayTimeline: React.FC<{ selectedDate: Date }> = ({
   selectedDate,
@@ -30,8 +32,12 @@ export const Day: React.FC<{ day: Date; currentDay: boolean }> = ({
   day,
   currentDay,
 }) => {
+  const dispatch = useDispatch();
   return (
-    <DayWrapper style={{ background: currentDay ? "blue" : "red" }}>
+    <DayWrapper
+      style={{ background: currentDay ? "blue" : "red" }}
+      onClick={() => dispatch(actions.selectedDayChanged(day))}
+    >
       {format(day, "d")}
     </DayWrapper>
   );

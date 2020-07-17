@@ -7,6 +7,8 @@ import {
   format,
 } from "date-fns";
 import { MonthTimelineWrapper, MonthWrapper } from "./style";
+import { useDispatch } from "react-redux";
+import { actions } from "../../../store/actions";
 
 export const MonthTimeline: React.FC<{ selectedDate: Date }> = ({
   selectedDate,
@@ -28,8 +30,12 @@ export const Month: React.FC<{ month: Date; currentMonth: boolean }> = ({
   month,
   currentMonth,
 }) => {
+  const dispatch = useDispatch();
   return (
-    <MonthWrapper style={{ fontWeight: currentMonth ? 800 : 400 }}>
+    <MonthWrapper
+      style={{ fontWeight: currentMonth ? 800 : 400 }}
+      onClick={() => dispatch(actions.exampleAction(month))}
+    >
       {format(month, "MMMM")}
     </MonthWrapper>
   );

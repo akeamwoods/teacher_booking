@@ -8,6 +8,7 @@ import produce from "immer";
 import { getType } from "typesafe-actions";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import { setMonth, getMonth, setDay, getDay } from "date-fns";
 
 const persistConfig = {
   key: "root",
@@ -16,7 +17,7 @@ const persistConfig = {
 };
 
 const initialState = () => ({
-  testState: false,
+  selectedDate: new Date().toISOString(),
 });
 
 export type State = Readonly<ReturnType<typeof initialState>>;
@@ -28,7 +29,13 @@ export const rootReducer: Reducer<State, Actions> = (
   produce(state, (draft) => {
     switch (action.type) {
       case getType(actions.exampleAction):
-        draft.testState = true;
+        draft.selectedDate = setMonth(
+          new Date(draft.selectedDate),
+          getMonth(action.payload)
+        ).toISOString();
+        break;
+      case getType(actions.selectedDayChanged):
+        draft.selectedDate = new Date(action.payload).toISOString();
         break;
     }
   });
