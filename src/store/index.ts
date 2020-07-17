@@ -28,7 +28,7 @@ export const rootReducer: Reducer<State, Actions> = (
 ) =>
   produce(state, (draft) => {
     switch (action.type) {
-      case getType(actions.exampleAction):
+      case getType(actions.selectedMonthChanged):
         draft.selectedDate = setMonth(
           new Date(draft.selectedDate),
           getMonth(action.payload)

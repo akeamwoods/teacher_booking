@@ -25,7 +25,7 @@ export const Month: React.FC<{ month: Date; currentMonth: boolean }> = ({
 }) => {
   const dispatch = useDispatch();
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    dispatch(actions.exampleAction(month));
+    dispatch(actions.selectedMonthChanged(month));
     e.currentTarget.scrollIntoView({
       behavior: "smooth",
       block: "center",
