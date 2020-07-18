@@ -11,12 +11,37 @@ import { setMonth, getMonth, startOfDay } from "date-fns";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["selectedDate"],
+  blacklist: ["selectedDate", "lessons"],
+};
+
+export type Student = {
+  id: string;
+  firstName: string;
+  surname: string;
+};
+
+export type Lesson = {
+  id: string;
+  subject: string;
+  start: string;
+  end: string;
+  students?: Student[];
 };
 
 const initialState = () => ({
   selectedDate: startOfDay(new Date()).toISOString(),
   availabilityView: "Day" as string,
+  lessons: {
+    "2020-07-17T23:00:00.000Z": [
+      {
+        id: "01",
+        subject: "English",
+        start: "2020-07-18T10:00:00.000Z",
+        end: "2020-07-18T11:00:00.000Z",
+        students: [],
+      },
+    ],
+  } as { [key: string]: Lesson[] },
 });
 
 export type State = Readonly<ReturnType<typeof initialState>>;

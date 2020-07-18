@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   overflow: auto;
   padding: 20px;
   div::-webkit-scrollbar {
+    height: 0px;
     width: 0px; /* Remove scrollbar space */
     background: transparent; /* Optional: just make scrollbar invisible */
   }
