@@ -63,27 +63,27 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
 
   console.log("Day", day);
 
-  // useEffect(() => {
-  //   if (isCurrentDay)
-  //     ref.current?.scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "center",
-  //       inline: "center",
-  //     });
-  // }, [isCurrentDay]);
+  useEffect(() => {
+    if (isCurrentDay)
+      ref.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+  }, [isCurrentDay]);
 
   return (
     <DayWrapper
       ref={ref}
       onClick={handleClick}
-      // style={{ borderBottomColor: isCurrentDay ? "#000" : "#e1e1e1" }}
+      style={{ borderBottomColor: isCurrentDay ? "#000" : "#e1e1e1" }}
     >
       <DayContainer
-      // style={{
-      //   background: isCurrentDay ? "#000" : getDayColour(new Date(day)),
-      //   color: isCurrentDay ? "#fff" : "#000",
-      //   boxShadow: isCurrentDay ? "0 4px 8px 0 rgba(0,0,0,0.2)" : "none",
-      // }}
+        style={{
+          background: isCurrentDay ? "#000" : getDayColour(new Date(day)),
+          color: isCurrentDay ? "#fff" : "#000",
+          boxShadow: isCurrentDay ? "0 4px 8px 0 rgba(0,0,0,0.2)" : "none",
+        }}
       >
         {format(new Date(day), "d")}
       </DayContainer>
