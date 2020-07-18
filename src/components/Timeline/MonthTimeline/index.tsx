@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, createRef } from "react";
 import { addMonths, isSameMonth, format } from "date-fns";
 import { MonthTimelineWrapper, MonthWrapper } from "./style";
 import { useDispatch } from "react-redux";
@@ -26,10 +26,10 @@ export const Month: React.FC<{
   month: Date;
 }> = React.memo(({ month }) => {
   const dispatch = useDispatch();
-  const currentMonth = useTypedSelector((state) =>
-    isSameMonth(new Date(state.selectedDate), month)
-  );
-  const ref = useRef<HTMLDivElement>(null);
+  // const currentMonth = useTypedSelector((state) =>
+  //   isSameMonth(new Date(state.selectedDate), month)
+  // );
+  const ref = createRef<HTMLDivElement>();
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     dispatch(actions.selectedMonthChanged(month));
     e.currentTarget.scrollIntoView({
@@ -41,7 +41,7 @@ export const Month: React.FC<{
   console.log("Month", month);
   return (
     <MonthWrapper
-      style={{ fontWeight: currentMonth ? 800 : 400 }}
+      // style={{ fontWeight: currentMonth ? 800 : 400 }}
       onClick={handleClick}
       ref={ref}
     >
