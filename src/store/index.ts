@@ -8,7 +8,7 @@ import produce from "immer";
 import { getType } from "typesafe-actions";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { setMonth, getMonth } from "date-fns";
+import { setMonth, getMonth, startOfDay } from "date-fns";
 
 const persistConfig = {
   key: "root",
@@ -17,7 +17,7 @@ const persistConfig = {
 };
 
 const initialState = () => ({
-  selectedDate: new Date().toISOString(),
+  selectedDate: startOfDay(new Date()).toISOString(),
 });
 
 export type State = Readonly<ReturnType<typeof initialState>>;

@@ -6,7 +6,7 @@ import { format } from "date-fns";
 
 export const AvailabilityHandler = () => {
   const date = useTypedSelector((state) => state.selectedDate);
-
+  console.log("avail");
   return (
     <Wrapper>
       <Header>

@@ -8,6 +8,7 @@ export const Timeline: React.FC<{ selectedDate: string }> = React.memo(
   ({ selectedDate }) => {
     const yearStart = startOfYear(new Date(selectedDate)).toISOString();
     const selectedMonth = startOfMonth(new Date(selectedDate)).toISOString();
+    console.log("timeline");
     return (
       <>
         <Wrapper>
