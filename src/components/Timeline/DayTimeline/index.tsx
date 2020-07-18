@@ -58,6 +58,16 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
       )`;
     }
   };
+
+  // useEffect(() => {
+  //   if (isCurrentDay)
+  //     ref.current?.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "center",
+  //       inline: "center",
+  //     });
+  // }, [isCurrentDay]);
+
   return (
     <DayWrapper
       ref={ref}

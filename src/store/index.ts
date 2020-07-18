@@ -1,9 +1,7 @@
 import { Actions, actions } from "./actions";
-import { Reducer, createStore, applyMiddleware } from "redux";
+import { Reducer, createStore } from "redux";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { rootSaga } from "./rootSaga";
 import produce from "immer";
 import { getType } from "typesafe-actions";
 import { persistStore, persistReducer } from "redux-persist";
@@ -40,16 +38,8 @@ export const rootReducer: Reducer<State, Actions> = (
     }
   });
 
-const sagaMiddleware = createSagaMiddleware();
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(
-  persistedReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
-);
-sagaMiddleware.run(rootSaga);
-
+export const store = createStore(persistedReducer, composeWithDevTools());
 export const persistor = persistStore(store);
-
 export const useTypedSelector: TypedUseSelectorHook<State> = useSelector;
