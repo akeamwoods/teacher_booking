@@ -17,6 +17,7 @@ export const DayTimeline: React.FC<{ startOfMonth: string }> = React.memo(
     const days = Array.from(Array(daysInMonth), (_, index) =>
       addDays(new Date(startOfMonth), index).toISOString()
     );
+    console.log("DayTimeline");
     return (
       <DayTimelineWrapper>
         {days.map((day) => (
@@ -31,7 +32,6 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const isCurrentDay = useTypedSelector((state) => state.selectedDate === day);
-
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     dispatch(actions.selectedDayChanged(new Date(day)));
     e.currentTarget.scrollIntoView({
@@ -43,11 +43,10 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
 
   const getDayColour = (day: Date): string => {
     const dayAsNumber = getDay(day);
-    //is mon/wed/fri
     if ([1, 3, 5].includes(dayAsNumber)) {
-      return "#fdf6ec";
+      return "#fdf6ec"; //mon/wed/fri
     } else if ([2, 4].includes(dayAsNumber)) {
-      return "#ffce85";
+      return "#ffce85"; //tue/thur
     } else {
       return `repeating-linear-gradient(
         135deg,
@@ -55,9 +54,11 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
         #f8f8f7 2px,
         #efefef 2px,
         #efefef 4px
-      )`;
+      )`; //sat/sun
     }
   };
+
+  console.log("Day", day);
 
   // useEffect(() => {
   //   if (isCurrentDay)

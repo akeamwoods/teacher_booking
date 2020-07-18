@@ -12,7 +12,7 @@ export const MonthTimeline: React.FC<{
   const months = Array.from(Array(12), (_, index) =>
     addMonths(new Date(startOfYear), index)
   );
-  console.log("month timeline");
+  console.log("MonthTimeline");
   return (
     <MonthTimelineWrapper>
       {months.map((month) => (
@@ -38,7 +38,7 @@ export const Month: React.FC<{
       inline: "center",
     });
   };
-  console.log(month);
+  console.log("Month", month);
   return (
     <MonthWrapper
       style={{ fontWeight: currentMonth ? 800 : 400 }}
