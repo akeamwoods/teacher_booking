@@ -16,6 +16,7 @@ const persistConfig = {
 
 const initialState = () => ({
   selectedDate: startOfDay(new Date()).toISOString(),
+  availabilityView: "Day" as string,
 });
 
 export type State = Readonly<ReturnType<typeof initialState>>;
@@ -34,6 +35,9 @@ export const rootReducer: Reducer<State, Actions> = (
         break;
       case getType(actions.selectedDayChanged):
         draft.selectedDate = new Date(action.payload).toISOString();
+        break;
+      case getType(actions.availabilityViewChanged):
+        draft.availabilityView = action.payload;
         break;
     }
   });

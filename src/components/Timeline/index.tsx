@@ -8,18 +8,20 @@ import { useTypedSelector } from "../../store";
 
 export const Timeline = () => {
   const selectedDate = useTypedSelector((state) => state.selectedDate);
+  const mode = useTypedSelector((state) => state.availabilityView);
   const yearStart = startOfYear(new Date(selectedDate)).toISOString();
   const monthStart = startOfMonth(new Date(selectedDate)).toISOString();
-  console.log("Timeline");
   return (
     <>
-      <TimelineHeader selectedDate={selectedDate} />
+      <TimelineHeader selectedDate={selectedDate} mode={mode} />
       <Wrapper>
         <MonthTimeline startOfYear={yearStart} />
       </Wrapper>
-      <Wrapper>
-        <DayTimeline startOfMonth={monthStart} />
-      </Wrapper>
+      {mode === "Day View" && (
+        <Wrapper>
+          <DayTimeline startOfMonth={monthStart} />
+        </Wrapper>
+      )}
     </>
   );
 };

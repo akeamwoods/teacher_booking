@@ -17,7 +17,6 @@ export const DayTimeline: React.FC<{ startOfMonth: string }> = React.memo(
     const days = Array.from(Array(daysInMonth), (_, index) =>
       addDays(startOfDay(new Date(startOfMonth)), index).toISOString()
     );
-    console.log("DayTimeline");
     return (
       <DayTimelineWrapper>
         {days.map((day) => (
@@ -67,7 +66,7 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
           block: "center",
           inline: "center",
         });
-    }, 100);
+    }, 140);
   }, [isCurrentDay, ref]);
 
   return (

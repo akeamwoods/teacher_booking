@@ -16,5 +16,6 @@ export const Header = styled.header`
     border-radius: 4px;
     border: none;
     font-size: 0.7em;
+    font-weight: 800;
   }
 `;
