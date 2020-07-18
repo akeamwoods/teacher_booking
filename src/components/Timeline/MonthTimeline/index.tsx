@@ -4,11 +4,11 @@ import { MonthTimelineWrapper, MonthWrapper } from "./style";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../store/actions";
 import { v4 as uuidv4 } from "uuid";
+import { useTypedSelector } from "../../../store";
 
 export const MonthTimeline: React.FC<{
   startOfYear: string;
-  selectedMonth: string;
-}> = React.memo(({ startOfYear, selectedMonth }) => {
+}> = React.memo(({ startOfYear }) => {
   const months = Array.from(Array(12), (_, index) =>
     addMonths(new Date(startOfYear), index)
   );
@@ -16,21 +16,19 @@ export const MonthTimeline: React.FC<{
   return (
     <MonthTimelineWrapper>
       {months.map((month) => (
-        <Month
-          key={uuidv4()}
-          month={month}
-          currentMonth={isSameMonth(new Date(selectedMonth), month)}
-        />
+        <Month key={uuidv4()} month={month} />
       ))}
     </MonthTimelineWrapper>
   );
 });
 
-export const Month: React.FC<{ month: Date; currentMonth: boolean }> = ({
-  month,
-  currentMonth,
-}) => {
+export const Month: React.FC<{
+  month: Date;
+}> = React.memo(({ month }) => {
   const dispatch = useDispatch();
+  const currentMonth = useTypedSelector((state) =>
+    isSameMonth(new Date(state.selectedDate), month)
+  );
   const ref = useRef<HTMLDivElement>(null);
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     dispatch(actions.selectedMonthChanged(month));
@@ -40,7 +38,7 @@ export const Month: React.FC<{ month: Date; currentMonth: boolean }> = ({
       inline: "center",
     });
   };
-
+  console.log(month);
   return (
     <MonthWrapper
       style={{ fontWeight: currentMonth ? 800 : 400 }}
@@ -50,4 +48,4 @@ export const Month: React.FC<{ month: Date; currentMonth: boolean }> = ({
       {format(month, "MMMM")}
     </MonthWrapper>
   );
-};
+});

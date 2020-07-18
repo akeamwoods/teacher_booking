@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { getDaysInMonth, addDays, format, getDay } from "date-fns";
 import {
   DayTimelineWrapper,
@@ -40,17 +40,6 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
       inline: "center",
     });
   };
-
-  console.log(isCurrentDay, day);
-
-  // useEffect(() => {
-  //   if (isCurrentDay)
-  //     ref.current?.scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "center",
-  //       inline: "center",
-  //     });
-  // }, [isCurrentDay]);
 
   const getDayColour = (day: Date): string => {
     const dayAsNumber = getDay(day);
