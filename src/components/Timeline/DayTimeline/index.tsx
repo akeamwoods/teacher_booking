@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, createRef, useMemo } from "react";
+import React, { createRef } from "react";
 import { getDaysInMonth, addDays, format, getDay, startOfDay } from "date-fns";
 import {
   DayTimelineWrapper,
@@ -10,8 +10,6 @@ import { actions } from "../../../store/actions";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { useTypedSelector } from "../../../store";
-import { useSelector } from "react-redux";
-import { createSelector } from "reselect";
 
 export const DayTimeline: React.FC<{ startOfMonth: string }> = React.memo(
   ({ startOfMonth }) => {
@@ -61,16 +59,16 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
     }
   };
 
-  console.log("Day", day);
-
-  useEffect(() => {
-    if (isCurrentDay)
-      ref.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "center",
-      });
-  }, [isCurrentDay]);
+  React.useLayoutEffect(() => {
+    setTimeout(() => {
+      if (isCurrentDay)
+        ref.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+    }, 100);
+  }, [isCurrentDay, ref]);
 
   return (
     <DayWrapper
