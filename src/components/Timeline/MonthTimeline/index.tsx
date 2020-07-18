@@ -40,16 +40,7 @@ export const Month: React.FC<{ month: Date; currentMonth: boolean }> = ({
       inline: "center",
     });
   };
-  // useEffect(() => {
-  //   if (currentMonth) {
-  //     ref.current?.scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "center",
-  //       inline: "center",
-  //     });
-  //     console.log("hit");
-  //   }
-  // }, [month]);
+
   return (
     <MonthWrapper
       style={{ fontWeight: currentMonth ? 800 : 400 }}

@@ -1,12 +1,5 @@
 import React, { useRef } from "react";
-import {
-  getDaysInMonth,
-  startOfMonth,
-  addDays,
-  isSameDay,
-  format,
-  getDay,
-} from "date-fns";
+import { getDaysInMonth, addDays, format, getDay } from "date-fns";
 import {
   DayTimelineWrapper,
   DayWrapper,
@@ -21,11 +14,9 @@ import { useTypedSelector } from "../../../store";
 export const DayTimeline: React.FC<{ startOfMonth: string }> = React.memo(
   ({ startOfMonth }) => {
     const daysInMonth = getDaysInMonth(new Date(startOfMonth));
-
     const days = Array.from(Array(daysInMonth), (_, index) =>
-      addDays(new Date(startOfMonth), index)
+      addDays(new Date(startOfMonth), index).toISOString()
     );
-    console.log("day timeline");
     return (
       <DayTimelineWrapper>
         {days.map((day) => (
@@ -36,29 +27,22 @@ export const DayTimeline: React.FC<{ startOfMonth: string }> = React.memo(
   }
 );
 
-export const Day: React.FC<{ day: Date }> = ({ day }) => {
+export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
-  const isCurrentDay = useTypedSelector((state) =>
-    isSameDay(new Date(state.selectedDate), day)
-  );
+  const isCurrentDay = useTypedSelector((state) => state.selectedDate === day);
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    dispatch(actions.selectedDayChanged(day));
+    dispatch(actions.selectedDayChanged(new Date(day)));
     e.currentTarget.scrollIntoView({
       behavior: "smooth",
       block: "center",
       inline: "center",
     });
   };
+
   console.log(day);
-  // useEffect(() => {
-  //   if (isCurrentDay)
-  //     ref.current?.scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "center",
-  //       inline: "center",
-  //     });
-  // }, [isCurrentDay]);
+
   const getDayColour = (day: Date): string => {
     const dayAsNumber = getDay(day);
     //is mon/wed/fri
@@ -84,14 +68,14 @@ export const Day: React.FC<{ day: Date }> = ({ day }) => {
     >
       <DayContainer
         style={{
-          background: isCurrentDay ? "#000" : getDayColour(day),
+          background: isCurrentDay ? "#000" : getDayColour(new Date(day)),
           color: isCurrentDay ? "#fff" : "#000",
           boxShadow: isCurrentDay ? "0 4px 8px 0 rgba(0,0,0,0.2)" : "none",
         }}
       >
-        {format(day, "d")}
+        {format(new Date(day), "d")}
       </DayContainer>
-      <DayText>{format(day, "E")}</DayText>
+      <DayText>{format(new Date(day), "E")}</DayText>
     </DayWrapper>
   );
-};
+});

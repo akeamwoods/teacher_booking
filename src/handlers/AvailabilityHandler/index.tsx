@@ -18,7 +18,7 @@ export const AvailabilityHandler = () => {
           <button>+Add</button>
         </span>
       </Header>
-      <Timeline />
+      <Timeline selectedDate={date} />
     </Wrapper>
   );
 };

@@ -4,5 +4,7 @@ import { actions } from "./actions";
 import { exampleSaga } from "./saga";
 
 export function* rootSaga() {
-  yield all([takeLatest(getType(actions.selectedMonthChanged), exampleSaga)]);
+  yield all([
+    // takeLatest(getType(actions.selectedMonthChanged), exampleSaga)
+  ]);
 }
