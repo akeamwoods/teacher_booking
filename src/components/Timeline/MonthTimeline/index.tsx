@@ -12,7 +12,6 @@ export const MonthTimeline: React.FC<{
   const months = Array.from(Array(12), (_, index) =>
     addMonths(new Date(startOfYear), index)
   );
-  console.log("MonthTimeline");
   return (
     <MonthTimelineWrapper>
       {months.map((month) => (
@@ -38,17 +37,6 @@ export const Month: React.FC<{
       inline: "center",
     });
   };
-
-  React.useLayoutEffect(() => {
-    setTimeout(() => {
-      if (isCurrentMonth)
-        ref.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "center",
-        });
-    }, 100);
-  }, [isCurrentMonth, ref]);
 
   return (
     <MonthWrapper
