@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import {
   getDaysInMonth,
   startOfMonth,
@@ -25,6 +25,7 @@ export const DayTimeline: React.FC<{ selectedDate: Date }> = ({
   const days = Array.from(Array(daysInMonth), (_, index) =>
     addDays(start, index)
   );
+  console.log("day timeline");
   return (
     <DayTimelineWrapper>
       {days.map((day) => (
