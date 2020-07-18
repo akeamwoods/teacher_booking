@@ -7,15 +7,15 @@ import { startOfYear, startOfMonth } from "date-fns";
 
 export const Timeline = () => {
   const selectedDate = useTypedSelector((state) => state.selectedDate);
-  const start = startOfYear(new Date(selectedDate)).toISOString();
+  const yearStart = startOfYear(new Date(selectedDate)).toISOString();
   const selectedMonth = startOfMonth(new Date(selectedDate)).toISOString();
   return (
     <>
       <Wrapper>
-        <MonthTimeline startOfYear={start} selectedMonth={selectedMonth} />
+        <MonthTimeline startOfYear={yearStart} selectedMonth={selectedMonth} />
       </Wrapper>
       <Wrapper>
-        <DayTimeline selectedDate={new Date(selectedDate)} />
+        <DayTimeline startOfMonth={selectedMonth} />
       </Wrapper>
     </>
   );

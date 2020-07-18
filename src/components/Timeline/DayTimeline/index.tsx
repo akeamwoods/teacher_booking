@@ -16,35 +16,32 @@ import {
 import { actions } from "../../../store/actions";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { useTypedSelector } from "../../../store";
 
-export const DayTimeline: React.FC<{ selectedDate: Date }> = ({
-  selectedDate,
-}) => {
-  const daysInMonth = getDaysInMonth(selectedDate);
-  const start = startOfMonth(selectedDate);
-  const days = Array.from(Array(daysInMonth), (_, index) =>
-    addDays(start, index)
-  );
-  console.log("day timeline");
-  return (
-    <DayTimelineWrapper>
-      {days.map((day) => (
-        <Day
-          key={uuidv4()}
-          day={day}
-          isCurrentDay={isSameDay(selectedDate, day)}
-        />
-      ))}
-    </DayTimelineWrapper>
-  );
-};
+export const DayTimeline: React.FC<{ startOfMonth: string }> = React.memo(
+  ({ startOfMonth }) => {
+    const daysInMonth = getDaysInMonth(new Date(startOfMonth));
 
-export const Day: React.FC<{ day: Date; isCurrentDay: boolean }> = ({
-  day,
-  isCurrentDay,
-}) => {
+    const days = Array.from(Array(daysInMonth), (_, index) =>
+      addDays(new Date(startOfMonth), index)
+    );
+    console.log("day timeline");
+    return (
+      <DayTimelineWrapper>
+        {days.map((day) => (
+          <Day key={uuidv4()} day={day} />
+        ))}
+      </DayTimelineWrapper>
+    );
+  }
+);
+
+export const Day: React.FC<{ day: Date }> = ({ day }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
+  const isCurrentDay = useTypedSelector((state) =>
+    isSameDay(new Date(state.selectedDate), day)
+  );
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     dispatch(actions.selectedDayChanged(day));
     e.currentTarget.scrollIntoView({
@@ -53,7 +50,7 @@ export const Day: React.FC<{ day: Date; isCurrentDay: boolean }> = ({
       inline: "center",
     });
   };
-
+  console.log(day);
   // useEffect(() => {
   //   if (isCurrentDay)
   //     ref.current?.scrollIntoView({

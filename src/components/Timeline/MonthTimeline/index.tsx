@@ -39,7 +39,6 @@ export const Month: React.FC<{ month: Date; currentMonth: boolean }> = ({
       block: "center",
       inline: "center",
     });
-    console.log("done", ref.current);
   };
   // useEffect(() => {
   //   if (currentMonth) {
