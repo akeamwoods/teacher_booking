@@ -11,6 +11,7 @@ export const LessonWrapper = styled.div`
   display: flex;
   flex: 1;
   font-size: 0.85em;
+  font-weight: 800;
   align-items: center;
   padding-left: 20px;
   height: 50px;
