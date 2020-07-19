@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex: 1;
   position: relative;
+  overflow: auto;
 `;
 
 export const LessonWrapper = styled.rect.attrs<{
@@ -27,7 +28,6 @@ export const LessonWrapper = styled.rect.attrs<{
   cursor: pointer;
   transition: 0.3s;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0);
-  margin-left: 10px;
   p {
     margin: 0;
   }

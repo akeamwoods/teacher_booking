@@ -22,7 +22,7 @@ export const Schedule = () => {
   return (
     <Wrapper
       style={{
-        margin: `${
+        padding: `${
           scale(new Date("2020-07-19T06:00:00.000Z")) -
           scale(new Date("2020-07-19T05:00:00.000Z"))
         }px 0`,
