@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../store/actions";
 import { Popup } from "../../Popup";
+import { LessonForm } from "../../LessonForm";
 
 export const TimelineHeader: React.FC<{
   selectedDate: string;
@@ -17,8 +18,11 @@ export const TimelineHeader: React.FC<{
       <Popup
         isVisible={isVisible}
         onClick={() => setVisibility(false)}
+        header="New Lesson"
         scrollLock
-      ></Popup>
+      >
+        <LessonForm />
+      </Popup>
       <h1>Availability</h1>
       <span>
         <h4>{format(new Date(selectedDate), "EEEE do MMM Y")}</h4>

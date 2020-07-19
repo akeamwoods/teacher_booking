@@ -14,7 +14,6 @@ export const Wrapper = styled(animated.div)`
 `;
 
 export const Container = styled(animated.div)`
-  padding: 40px;
   display: flex;
   flex-direction: column;
   background: #fff;
@@ -25,12 +24,22 @@ export const Container = styled(animated.div)`
   position: relative;
   max-width: 80%;
   max-height: 80%;
+  align-items: stretch;
+`;
+
+export const Header = styled.header`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex: 1;
+  padding: 10px 20px;
 `;
 
 export const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
   background: transparent;
   border: none;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 0;
 `;
