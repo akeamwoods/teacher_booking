@@ -3,11 +3,14 @@ import ReactDOM from "react-dom";
 import { useTransition } from "react-spring";
 import { FaTimes } from "react-icons/fa";
 import { Wrapper, Container, CloseButton } from "./style";
+import { useScrollLock } from "../../hooks/useScrollLock";
 
 export const Popup: React.FC<{
   isVisible: boolean;
   onClick: () => void;
-}> = ({ isVisible, onClick, children }) => {
+  scrollLock?: boolean;
+}> = ({ isVisible, onClick, children, scrollLock = false }) => {
+  useScrollLock(isVisible && scrollLock ? true : false);
   const transitions = useTransition(isVisible, null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
