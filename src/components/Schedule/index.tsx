@@ -9,7 +9,7 @@ export const Schedule = () => {
   const lessons = useTypedSelector(
     (state) => state.lessons[state.selectedDate]
   );
-  const tickHeight = 50;
+  const tickHeight = 35;
 
   const scale = scaleTime()
     .range([tickHeight * 15, 0])
