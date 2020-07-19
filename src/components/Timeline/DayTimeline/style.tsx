@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const DayTimelineWrapper = styled.div`
   display: flex;
   overflow: auto;
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 
 export const DayWrapper = styled.div`

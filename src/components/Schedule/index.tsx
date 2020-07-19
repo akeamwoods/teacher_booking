@@ -9,24 +9,24 @@ export const Schedule = () => {
   const lessons = useTypedSelector(
     (state) => state.lessons[state.selectedDate]
   );
-  const tickHeight = 40;
+  const tickHeight = 50;
 
   const scale = scaleTime()
-    .range([
-      tickHeight *
-        differenceInHours(
-          addHours(new Date("2020-07-19T17:00:00.000Z"), 4),
-          new Date("2020-07-19T06:00:00.000Z")
-        ),
-      0,
-    ])
+    .range([tickHeight * 15, 0])
     .domain([
-      new Date("2020-07-19T17:00:00.000Z"),
-      new Date("2020-07-19T06:00:00.000Z"),
+      new Date("2020-07-19T16:00:00.000Z"),
+      new Date("2020-07-19T07:00:00.000Z"),
     ]);
 
   return (
-    <Wrapper>
+    <Wrapper
+      style={{
+        margin: `${
+          scale(new Date("2020-07-19T06:00:00.000Z")) -
+          scale(new Date("2020-07-19T05:00:00.000Z"))
+        }px 0`,
+      }}
+    >
       <Axis tickHeight={tickHeight} scale={scale} />
       <span
         style={{
