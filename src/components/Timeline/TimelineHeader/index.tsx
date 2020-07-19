@@ -18,7 +18,6 @@ export const TimelineHeader: React.FC<{
       <Popup
         isVisible={isVisible}
         onClick={() => setVisibility(false)}
-        header="New Lesson"
         scrollLock
       >
         <LessonForm />

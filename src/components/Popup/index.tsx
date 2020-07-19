@@ -10,8 +10,7 @@ export const Popup: React.FC<{
   isVisible: boolean;
   onClick: () => void;
   scrollLock?: boolean;
-  header?: string;
-}> = ({ isVisible, onClick, children, scrollLock = false, header = "" }) => {
+}> = ({ isVisible, onClick, children, scrollLock = false }) => {
   useScrollLock(isVisible && scrollLock ? true : false);
   useKeyboardEvent("Escape", () => {
     onClick();
@@ -47,12 +46,11 @@ export const Popup: React.FC<{
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Header>
-                        {header && <h3>{header}</h3>}
                         <CloseButton onClick={onClick}>
                           <FaTimes />
                         </CloseButton>
                       </Header>
-                      <div>{children}</div>
+                      {children}
                     </Container>
                   )
               )}

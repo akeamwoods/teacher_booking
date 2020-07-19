@@ -32,7 +32,6 @@ export const Header = styled.header`
   flex-direction: row;
   justify-content: center;
   flex: 1;
-  padding: 10px 20px;
 `;
 
 export const CloseButton = styled.button`
