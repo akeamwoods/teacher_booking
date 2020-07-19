@@ -22,6 +22,7 @@ export type Student = {
 
 export type Lesson = {
   id: string;
+  teacherId: string;
   subject: string;
   start: string;
   end: string;
@@ -35,6 +36,7 @@ const initialState = () => ({
     "2020-07-18T23:00:00.000Z": [
       {
         id: "01",
+        teacherId: "01",
         subject: "English",
         start: "2020-07-19T07:30:00.000Z",
         end: "2020-07-19T08:30:00.000Z",
@@ -42,6 +44,7 @@ const initialState = () => ({
       },
       {
         id: "02",
+        teacherId: "01",
         subject: "French",
         start: "2020-07-19T10:30:00.000Z",
         end: "2020-07-19T11:30:00.000Z",
@@ -49,6 +52,7 @@ const initialState = () => ({
       },
       {
         id: "03",
+        teacherId: "01",
         subject: "English",
         start: "2020-07-19T11:45:00.000Z",
         end: "2020-07-19T13:00:00.000Z",
