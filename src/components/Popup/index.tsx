@@ -9,8 +9,8 @@ export const Popup: React.FC<{ isVisible: boolean; onClick: () => void }> = ({
 }) => {
   return isVisible
     ? ReactDOM.createPortal(
-        <Wrapper>
-          {children}
+        <Wrapper onClick={onClick}>
+          <span onClick={(e) => e.stopPropagation()}>{children}</span>
           <button onClick={onClick}>Close</button>
         </Wrapper>,
         document.body
