@@ -4,6 +4,7 @@ import { useTransition } from "react-spring";
 import { FaTimes } from "react-icons/fa";
 import { Wrapper, Container, CloseButton } from "./style";
 import { useScrollLock } from "../../hooks/useScrollLock";
+import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
 
 export const Popup: React.FC<{
   isVisible: boolean;
@@ -11,6 +12,9 @@ export const Popup: React.FC<{
   scrollLock?: boolean;
 }> = ({ isVisible, onClick, children, scrollLock = false }) => {
   useScrollLock(isVisible && scrollLock ? true : false);
+  useKeyboardEvent("Escape", () => {
+    onClick();
+  });
   const transitions = useTransition(isVisible, null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
