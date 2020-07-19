@@ -7,7 +7,7 @@ export const Controls: React.FC<{
   date: Date;
   left: () => void;
   right: () => void;
-}> = ({ date, left, right }) => {
+}> = React.memo(({ date, left, right }) => {
   return (
     <Wrapper>
       <TransparentButton onClick={left}>
@@ -19,4 +19,4 @@ export const Controls: React.FC<{
       </TransparentButton>
     </Wrapper>
   );
-};
+});

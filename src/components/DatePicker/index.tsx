@@ -19,7 +19,7 @@ import { Controls } from "./Controls";
 
 export const DatePicker: React.FC<{
   currentPageDate: Date;
-}> = ({ currentPageDate }) => {
+}> = React.memo(({ currentPageDate }) => {
   const [date, setDate] = useState(currentPageDate);
   const dayHeadings = ["M", "T", "W", "T", "F", "S", "S"];
   const padding = getDay(startOfMonth(date));
@@ -77,13 +77,9 @@ export const DatePicker: React.FC<{
       : false;
   };
 
-  const sameMonth = (date: Date): boolean => {
-    return date && isSameMonth(date, date) ? true : false;
+  const sameMonth = (day: Date): boolean => {
+    return day && isSameMonth(day, date) ? true : false;
   };
-
-  // const sameMonth = useTypedSelector((state) =>
-  //   date && isSameMonth(date, state.date) ? true : false
-  // );
 
   return (
     <Wrapper>
@@ -135,4 +131,4 @@ export const DatePicker: React.FC<{
       </DayWrapper>
     </Wrapper>
   );
-};
+});
