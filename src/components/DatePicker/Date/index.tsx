@@ -8,23 +8,19 @@ export const Date: React.FC<{
   onClick?: (date: Date) => void;
   isSameMonth: boolean;
   isSelected: boolean;
-  isWithinRange: boolean;
-}> = React.memo(
-  ({ heading, date, onClick, isSelected, isWithinRange, isSameMonth }) => {
-    return (
-      <Wrapper
-        isDate={date ? true : false}
-        isWithinRange={isWithinRange}
-        isSelected={isSelected}
-        onClick={() => (date && onClick ? onClick(date) : void {})}
+}> = React.memo(({ heading, date, onClick, isSelected, isSameMonth }) => {
+  return (
+    <Wrapper
+      isDate={date ? true : false}
+      isSelected={isSelected}
+      onClick={() => (date && onClick ? onClick(date) : void {})}
+    >
+      <DateText
+        isHeading={heading ? true : false}
+        differentMonth={!isSameMonth}
       >
-        <DateText
-          isHeading={heading ? true : false}
-          differentMonth={!isSameMonth}
-        >
-          {heading ? heading : date ? format(date, "d") : undefined}
-        </DateText>
-      </Wrapper>
-    );
-  }
-);
+        {heading ? heading : date ? format(date, "d") : undefined}
+      </DateText>
+    </Wrapper>
+  );
+});

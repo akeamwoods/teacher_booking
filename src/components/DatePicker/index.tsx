@@ -8,9 +8,7 @@ import {
   subMonths,
   endOfMonth,
   subDays,
-  isAfter,
   isSameDay,
-  isBefore,
   isSameMonth,
   startOfDay,
 } from "date-fns";
@@ -29,28 +27,10 @@ export const DatePicker: React.FC<{
   const daysInMonth = getDaysInMonth(date);
   const futureDays = 42 - paddingDays - daysInMonth;
 
-  const [start, setStart] = useState(date as undefined | Date);
-  const [end, setEnd] = useState(undefined as undefined | Date);
+  const [start, setStart] = useState(date);
 
   const handleClick = (date: Date) => {
-    console.log("handle click, date");
-    if (start && end) {
-      setStart(date);
-      setEnd(undefined);
-    } else if (start) {
-      if (start === date) {
-        setStart(undefined);
-      } else {
-        if (isAfter(date, start)) {
-          setEnd(date);
-        } else {
-          setEnd(start);
-          setStart(date);
-        }
-      }
-    } else {
-      setStart(date);
-    }
+    setStart(date);
     changeDate(date);
   };
 
@@ -67,18 +47,6 @@ export const DatePicker: React.FC<{
   const nextDays = Array(futureDays > 0 ? futureDays : 0)
     .fill(0)
     .map((_, i) => addDays(startOfMonth(addMonths(date, 1)), i));
-
-  const isSelected = (date: Date): boolean => {
-    return (start && isSameDay(date, start)) || (end && isSameDay(date, end))
-      ? true
-      : false;
-  };
-
-  const isWithinRange = (date: Date): boolean => {
-    return date && end && start && isBefore(date, end) && isAfter(date, start)
-      ? true
-      : false;
-  };
 
   const sameMonth = (day: Date): boolean => {
     return day && isSameMonth(day, date) ? true : false;
@@ -97,7 +65,6 @@ export const DatePicker: React.FC<{
             key={day + index}
             heading={day}
             isSelected={false}
-            isWithinRange={false}
             isSameMonth={false}
           />
         ))}
@@ -106,8 +73,7 @@ export const DatePicker: React.FC<{
             key={day.toISOString()}
             date={day}
             onClick={handleClick}
-            isSelected={isSelected(day)}
-            isWithinRange={isWithinRange(day)}
+            isSelected={isSameDay(day, start)}
             isSameMonth={sameMonth(day)}
           />
         ))}
@@ -116,8 +82,7 @@ export const DatePicker: React.FC<{
             key={day.toISOString()}
             date={day}
             onClick={handleClick}
-            isSelected={isSelected(day)}
-            isWithinRange={isWithinRange(day)}
+            isSelected={isSameDay(day, start)}
             isSameMonth={sameMonth(day)}
           />
         ))}
@@ -126,8 +91,7 @@ export const DatePicker: React.FC<{
             key={day.toISOString()}
             date={day}
             onClick={handleClick}
-            isSelected={isSelected(day)}
-            isWithinRange={isWithinRange(day)}
+            isSelected={isSameDay(day, start)}
             isSameMonth={sameMonth(day)}
           />
         ))}
