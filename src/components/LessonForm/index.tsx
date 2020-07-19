@@ -37,7 +37,7 @@ export const LessonForm = () => {
           );
         }}
       >
-        <DatePicker selectedDate={date ? date : new Date(currentDate)} />
+        <DatePicker currentPageDate={new Date(currentDate)} />
       </form>
     </div>
   );
