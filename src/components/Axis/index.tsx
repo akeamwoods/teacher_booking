@@ -6,17 +6,17 @@ import { Wrapper, Tick } from "./style";
 
 export const Axis: React.FC<{
   scale: ScaleLinear<number, number> | ScaleTime<number, number>;
-  tickWidth?: number;
-}> = ({ scale, tickWidth = 30 }) => {
+  tickHeight?: number;
+}> = ({ scale, tickHeight = 30 }) => {
   const height = scale.range()[0];
 
   const ticks = (
     scale: ScaleLinear<number, number> | ScaleTime<number, number>,
-    width: number,
-    tickWidth = 100
+    height: number,
+    tickHeight: number
   ) => {
     try {
-      const maxNumber = Math.max(Math.floor(width / tickWidth), 1);
+      const maxNumber = Math.max(Math.floor(height / tickHeight), 1);
       const ticks: any = scale.ticks(maxNumber);
       return ticks.length < maxNumber
         ? ticks
@@ -27,7 +27,7 @@ export const Axis: React.FC<{
   };
   return (
     <Wrapper>
-      {ticks(scale, height, tickWidth).map((tick: Date) => (
+      {ticks(scale, height, tickHeight).map((tick: Date) => (
         <Tick
           key={tick.toISOString()}
           transform={`translateY(${scale(tick).toFixed(0)}px)`}
