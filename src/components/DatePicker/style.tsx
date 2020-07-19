@@ -8,6 +8,8 @@ export const Wrapper = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   border: 1px solid #e1e1e1;
   padding: 10px;
+  background: white;
+  position: absolute;
 `;
 export const DayWrapper = styled.div`
   display: grid;

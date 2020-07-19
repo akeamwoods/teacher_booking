@@ -12,22 +12,24 @@ import {
   isSameDay,
   isBefore,
   isSameMonth,
+  startOfDay,
 } from "date-fns";
 import { Wrapper, DayWrapper } from "./style";
 import { Date } from "./Date";
 import { Controls } from "./Controls";
 
 export const DatePicker: React.FC<{
-  currentPageDate: Date;
-}> = React.memo(({ currentPageDate }) => {
-  const [date, setDate] = useState(currentPageDate);
+  selectedDate: Date;
+  changeDate: (date: Date) => void;
+}> = React.memo(({ selectedDate, changeDate }) => {
+  const [date, setDate] = useState(startOfDay(selectedDate));
   const dayHeadings = ["M", "T", "W", "T", "F", "S", "S"];
   const padding = getDay(startOfMonth(date));
   const paddingDays = padding > 0 ? padding - 1 : padding;
   const daysInMonth = getDaysInMonth(date);
   const futureDays = 42 - paddingDays - daysInMonth;
 
-  const [start, setStart] = useState(undefined as undefined | Date);
+  const [start, setStart] = useState(date as undefined | Date);
   const [end, setEnd] = useState(undefined as undefined | Date);
 
   const handleClick = (date: Date) => {
@@ -49,6 +51,7 @@ export const DatePicker: React.FC<{
     } else {
       setStart(date);
     }
+    changeDate(date);
   };
 
   const prevDays = Array(paddingDays)

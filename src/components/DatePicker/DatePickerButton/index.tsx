@@ -3,11 +3,12 @@ import { format } from "date-fns";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { Button } from "./style";
 
-export const DatePickerButton: React.FC<{ selectedDate: Date }> = ({
-  selectedDate,
-}) => {
+export const DatePickerButton: React.FC<{
+  selectedDate: Date;
+  onClick: () => void;
+}> = ({ selectedDate, onClick }) => {
   return (
-    <Button type="button">
+    <Button type="button" onClick={onClick}>
       {format(selectedDate, "do MMMM Y")}
       <FaRegCalendarAlt />
     </Button>

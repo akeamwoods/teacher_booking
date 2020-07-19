@@ -5,6 +5,8 @@ import { Lesson } from "../../store/types";
 import { v4 as uuidv4 } from "uuid";
 import { useTypedSelector } from "../../store";
 import { DatePicker } from "../DatePicker";
+import { DatePickerButton } from "../DatePicker/DatePickerButton";
+import { startOfDay } from "date-fns";
 
 export const LessonForm = () => {
   const currentDate = useTypedSelector((state) => state.selectedDate);
@@ -12,6 +14,7 @@ export const LessonForm = () => {
   const start = "2020-07-19T14:45:00.000Z";
   const end = "2020-07-19T15:45:00.000Z";
   const [date, setDate] = useState(undefined as undefined | Date);
+  const [isOpen, setOpen] = useState(false);
   return (
     <div
       style={{
@@ -37,7 +40,16 @@ export const LessonForm = () => {
           );
         }}
       >
-        <DatePicker currentPageDate={new Date(currentDate)} />
+        <DatePickerButton
+          selectedDate={date ? date : new Date(currentDate)}
+          onClick={() => setOpen(!isOpen)}
+        />
+        {isOpen && (
+          <DatePicker
+            changeDate={(date) => setDate(startOfDay(date))}
+            selectedDate={startOfDay(date ? date : new Date(currentDate))}
+          />
+        )}
       </form>
     </div>
   );
