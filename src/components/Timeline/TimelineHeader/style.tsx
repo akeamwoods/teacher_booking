@@ -18,4 +18,17 @@ export const Header = styled.header`
     font-size: 0.7em;
     font-weight: 800;
   }
+  span {
+    display: flex;
+    h4 {
+      align-self: flex-end;
+    }
+    select {
+      padding: 0 15px;
+      margin: 0 10px;
+      border-color: #efedea;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+  }
 `;

@@ -1,5 +1,5 @@
 import React, { createRef } from "react";
-import { getDaysInMonth, addDays, format, getDay, startOfDay } from "date-fns";
+import { getDaysInMonth, addDays, format, startOfDay } from "date-fns";
 import {
   DayTimelineWrapper,
   DayWrapper,
@@ -31,7 +31,6 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
   const dispatch = useDispatch();
   const ref = createRef<HTMLDivElement>();
   const isCurrentDay = useTypedSelector((state) => state.selectedDate === day);
-
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     dispatch(actions.selectedDayChanged(startOfDay(new Date(day))));
     e.currentTarget.scrollIntoView({
@@ -39,23 +38,6 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
       block: "center",
       inline: "center",
     });
-  };
-
-  const getDayColour = (day: Date): string => {
-    const dayAsNumber = getDay(day);
-    if ([1, 3, 5].includes(dayAsNumber)) {
-      return "#fdf6ec"; //mon/wed/fri
-    } else if ([2, 4].includes(dayAsNumber)) {
-      return "#ffce85"; //tue/thur
-    } else {
-      return `repeating-linear-gradient(
-        135deg,
-        #f8f8f7,
-        #f8f8f7 2px,
-        #efefef 2px,
-        #efefef 4px
-      )`; //sat/sun
-    }
   };
 
   React.useLayoutEffect(() => {
@@ -70,18 +52,8 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
   }, [isCurrentDay, ref]);
 
   return (
-    <DayWrapper
-      ref={ref}
-      onClick={handleClick}
-      style={{ borderBottomColor: isCurrentDay ? "#000" : "#e1e1e1" }}
-    >
-      <DayContainer
-        style={{
-          background: isCurrentDay ? "#000" : getDayColour(new Date(day)),
-          color: isCurrentDay ? "#fff" : "#000",
-          boxShadow: isCurrentDay ? "0 4px 8px 0 rgba(0,0,0,0.2)" : "none",
-        }}
-      >
+    <DayWrapper ref={ref} onClick={handleClick} isCurrentDay={isCurrentDay}>
+      <DayContainer isCurrentDay={isCurrentDay} day={new Date(day)}>
         {format(new Date(day), "d")}
       </DayContainer>
       <DayText>{format(new Date(day), "E")}</DayText>

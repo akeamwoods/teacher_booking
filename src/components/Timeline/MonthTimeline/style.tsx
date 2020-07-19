@@ -6,7 +6,11 @@ export const MonthTimelineWrapper = styled.div`
   margin: 30px 0;
 `;
 
-export const MonthWrapper = styled.div`
+export const MonthWrapper = styled.div.attrs<{
+  isCurrentMonth: boolean;
+}>((props) => ({
+  style: { fontWeight: props.isCurrentMonth ? 800 : 400 },
+}))<{ isCurrentMonth: boolean }>`
   display: flex;
   cursor: pointer;
   :not(:last-child) {

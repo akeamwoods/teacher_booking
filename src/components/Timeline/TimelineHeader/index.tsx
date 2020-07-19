@@ -13,18 +13,9 @@ export const TimelineHeader: React.FC<{
   return (
     <Header>
       <h1>Availability</h1>
-      <span style={{ display: "flex" }}>
-        <h4 style={{ alignSelf: "flex-end" }}>
-          {format(new Date(selectedDate), "EEEE do MMM Y")}
-        </h4>
+      <span>
+        <h4>{format(new Date(selectedDate), "EEEE do MMM Y")}</h4>
         <select
-          style={{
-            padding: "0 15px",
-            margin: "0 10px",
-            borderColor: "#efedea",
-            borderRadius: "4px",
-            fontWeight: 800,
-          }}
           value={options.indexOf(mode)}
           onChange={(e) =>
             dispatch(

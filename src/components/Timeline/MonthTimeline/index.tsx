@@ -40,7 +40,7 @@ export const Month: React.FC<{
 
   return (
     <MonthWrapper
-      style={{ fontWeight: isCurrentMonth ? 800 : 400 }}
+      isCurrentMonth={isCurrentMonth}
       onClick={handleClick}
       ref={ref}
     >

@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper } from "./style";
+import { Wrapper, GridContainer } from "./style";
 import { useTypedSelector } from "../../store";
 import { scaleTime } from "d3";
 import { Axis } from "../Axis";
@@ -21,28 +21,19 @@ export const Schedule = () => {
 
   return (
     <Wrapper
-      style={{
-        padding: `${
-          scale(new Date("2020-07-19T06:00:00.000Z")) -
-          scale(new Date("2020-07-19T05:00:00.000Z"))
-        }px 0`,
-      }}
+      padding={`${
+        scale(new Date("2020-07-19T06:00:00.000Z")) -
+        scale(new Date("2020-07-19T05:00:00.000Z"))
+      }px 0`}
     >
       <Axis tickHeight={tickHeight} scale={scale} />
-      <span
-        style={{
-          position: "relative",
-          display: "flex",
-          flex: 1,
-          marginLeft: "20px",
-        }}
-      >
+      <GridContainer>
         <GridLines tickHeight={tickHeight} scale={scale} />
         {lessons &&
           lessons.map((lesson) => (
             <Lesson key={lesson.id} lesson={lesson} scale={scale} />
           ))}
-      </span>
+      </GridContainer>
     </Wrapper>
   );
 };

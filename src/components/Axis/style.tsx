@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div.attrs<{
+  height: string;
+}>((props) => ({
+  style: { height: props.height },
+}))<{ height: string }>`
   position: relative;
 `;
 
