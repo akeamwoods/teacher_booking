@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper } from "./style";
+import { Wrapper, LessonWrapper } from "./style";
 import { useTypedSelector } from "../../store";
 import { scaleTime } from "d3";
 import { Axis } from "../Axis";
@@ -21,19 +21,7 @@ export const Schedule = () => {
       <Axis tickHeight={40} scale={scale} />
       {lessons &&
         lessons.map((lesson) => (
-          <div
-            style={{
-              width: "100%",
-              height: "40px",
-              background: "rgba(0, 0, 0, 0.2)",
-              borderRadius: "4px",
-              marginLeft: "20px",
-              textAlign: "center",
-            }}
-            key={lesson.id}
-          >
-            {lesson.subject}
-          </div>
+          <LessonWrapper key={lesson.id}>{lesson.subject}</LessonWrapper>
         ))}
     </Wrapper>
   );
