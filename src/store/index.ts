@@ -40,6 +40,13 @@ const initialState = () => ({
         end: "2020-07-19T12:00:00.000Z",
         students: [],
       },
+      {
+        id: "02",
+        subject: "French",
+        start: "2020-07-19T12:30:00.000Z",
+        end: "2020-07-19T14:00:00.000Z",
+        students: [],
+      },
     ],
   } as { [key: string]: Lesson[] },
 });

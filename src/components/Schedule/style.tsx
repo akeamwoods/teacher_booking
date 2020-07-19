@@ -19,10 +19,8 @@ export const LessonWrapper = styled.rect.attrs<{
   font-weight: 800;
   align-items: center;
   padding-left: 20px;
-
   background: rgba(75, 201, 255, 0.3);
   border-radius: 4px;
-  margin-left: 20px;
   cursor: pointer;
   transition: 0.3s;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0);
