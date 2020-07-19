@@ -7,14 +7,19 @@ export const Wrapper = styled.div`
   position: relative;
 `;
 
-export const LessonWrapper = styled.div`
+export const LessonWrapper = styled.rect.attrs<{
+  transform: string;
+  height: string;
+}>((props) => ({
+  style: { transform: props.transform, height: props.height },
+}))<{ transform: string; height: string }>`
   display: flex;
   flex: 1;
   font-size: 0.85em;
   font-weight: 800;
   align-items: center;
   padding-left: 20px;
-  height: 50px;
+
   background: rgba(75, 201, 255, 0.3);
   border-radius: 4px;
   margin-left: 20px;
