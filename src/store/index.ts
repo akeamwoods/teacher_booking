@@ -43,7 +43,7 @@ const initialState = () => ({
       {
         id: "02",
         subject: "French",
-        start: "2020-07-19T12:30:00.000Z",
+        start: "2020-07-19T13:00:00.000Z",
         end: "2020-07-19T14:00:00.000Z",
         students: [],
       },

@@ -18,7 +18,9 @@ export const LessonWrapper = styled.rect.attrs<{
   font-size: 0.85em;
   font-weight: 800;
   align-items: center;
-  padding-left: 20px;
+  position: absolute;
+  width: calc(100% - 40px);
+  padding: 0 20px;
   background: rgba(75, 201, 255, 0.3);
   border-radius: 4px;
   cursor: pointer;

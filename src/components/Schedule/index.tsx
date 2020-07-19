@@ -28,20 +28,29 @@ export const Schedule = () => {
   return (
     <Wrapper>
       <Axis tickHeight={tickHeight} scale={scale} />
-      {lessons &&
-        lessons.map((lesson) => (
-          <LessonWrapper
-            height={`${
-              scale(new Date(lesson.end)) - scale(new Date(lesson.start))
-            }px`}
-            transform={`translateY(${scale(new Date(lesson.start)).toFixed(
-              0
-            )}px)`}
-            key={lesson.id}
-          >
-            {lesson.subject}
-          </LessonWrapper>
-        ))}
+      <span
+        style={{
+          position: "relative",
+          display: "flex",
+          flex: 1,
+          marginLeft: "20px",
+        }}
+      >
+        {lessons &&
+          lessons.map((lesson) => (
+            <LessonWrapper
+              height={`${
+                scale(new Date(lesson.end)) - scale(new Date(lesson.start))
+              }px`}
+              transform={`translateY(${scale(new Date(lesson.start)).toFixed(
+                0
+              )}px)`}
+              key={lesson.id}
+            >
+              {lesson.subject}
+            </LessonWrapper>
+          ))}
+      </span>
     </Wrapper>
   );
 };
