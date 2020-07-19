@@ -15,9 +15,11 @@ export const LessonWrapper = styled.rect.attrs<{
 }))<{ transform: string; height: string }>`
   display: flex;
   flex: 1;
-  font-size: 0.85em;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 0.8em;
   font-weight: 800;
-  align-items: center;
   position: absolute;
   width: calc(100% - 40px);
   padding: 0 20px;
@@ -26,6 +28,10 @@ export const LessonWrapper = styled.rect.attrs<{
   cursor: pointer;
   transition: 0.3s;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0);
+
+  p {
+    margin: 0;
+  }
   :hover {
     background: rgba(75, 201, 255, 0.7);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

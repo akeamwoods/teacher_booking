@@ -3,7 +3,7 @@ import { Wrapper, LessonWrapper } from "./style";
 import { useTypedSelector } from "../../store";
 import { scaleTime } from "d3";
 import { Axis } from "../Axis";
-import { differenceInHours, addHours } from "date-fns";
+import { differenceInHours, addHours, format } from "date-fns";
 
 export const Schedule = () => {
   const lessons = useTypedSelector(
@@ -47,7 +47,11 @@ export const Schedule = () => {
               )}px)`}
               key={lesson.id}
             >
-              {lesson.subject}
+              <p>{lesson.subject}</p>
+              <p>{`${format(new Date(lesson.start), "H:mm")} - ${format(
+                new Date(lesson.end),
+                "H:mm"
+              )}`}</p>
             </LessonWrapper>
           ))}
       </span>
