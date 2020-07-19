@@ -20,7 +20,21 @@ export const Schedule = () => {
     <Wrapper>
       <Axis tickHeight={40} scale={scale} />
       {lessons &&
-        lessons.map((lesson) => <div key={lesson.id}>{lesson.subject}</div>)}
+        lessons.map((lesson) => (
+          <div
+            style={{
+              width: "100%",
+              height: "40px",
+              background: "rgba(0, 0, 0, 0.2)",
+              borderRadius: "4px",
+              marginLeft: "20px",
+              textAlign: "center",
+            }}
+            key={lesson.id}
+          >
+            {lesson.subject}
+          </div>
+        ))}
     </Wrapper>
   );
 };
