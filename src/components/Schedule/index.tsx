@@ -1,10 +1,10 @@
 import React from "react";
-import { Wrapper, LessonWrapper } from "./style";
+import { Wrapper } from "./style";
 import { useTypedSelector } from "../../store";
 import { scaleTime } from "d3";
 import { Axis } from "../Axis";
-import { format } from "date-fns";
 import { GridLines } from "../Axis/GridLines";
+import { Lesson } from "./Lesson";
 
 export const Schedule = () => {
   const lessons = useTypedSelector(
@@ -40,21 +40,7 @@ export const Schedule = () => {
         <GridLines tickHeight={tickHeight} scale={scale} />
         {lessons &&
           lessons.map((lesson) => (
-            <LessonWrapper
-              height={`${
-                scale(new Date(lesson.end)) - scale(new Date(lesson.start))
-              }px`}
-              transform={`translateY(${scale(new Date(lesson.start)).toFixed(
-                0
-              )}px)`}
-              key={lesson.id}
-            >
-              <p>{lesson.subject}</p>
-              <p>{`${format(new Date(lesson.start), "H:mm")} - ${format(
-                new Date(lesson.end),
-                "H:mm"
-              )}`}</p>
-            </LessonWrapper>
+            <Lesson key={lesson.id} lesson={lesson} scale={scale} />
           ))}
       </span>
     </Wrapper>
