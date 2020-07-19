@@ -3,7 +3,8 @@ import { Wrapper, LessonWrapper } from "./style";
 import { useTypedSelector } from "../../store";
 import { scaleTime } from "d3";
 import { Axis } from "../Axis";
-import { differenceInHours, addHours, format } from "date-fns";
+import { format } from "date-fns";
+import { GridLines } from "../Axis/GridLines";
 
 export const Schedule = () => {
   const lessons = useTypedSelector(
@@ -36,6 +37,7 @@ export const Schedule = () => {
           marginLeft: "20px",
         }}
       >
+        <GridLines tickHeight={tickHeight} scale={scale} />
         {lessons &&
           lessons.map((lesson) => (
             <LessonWrapper

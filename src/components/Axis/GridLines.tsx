@@ -1,9 +1,8 @@
 import React from "react";
-import { format } from "date-fns";
 import { ScaleLinear, ScaleTime } from "d3";
-import { Wrapper, Tick } from "./style";
+import { Rect } from "./style";
 
-export const Axis: React.FC<{
+export const GridLines: React.FC<{
   scale: ScaleLinear<number, number> | ScaleTime<number, number>;
   tickHeight?: number;
 }> = ({ scale, tickHeight = 30 }) => {
@@ -24,16 +23,7 @@ export const Axis: React.FC<{
       return [];
     }
   };
-  return (
-    <Wrapper style={{ height: height }}>
-      {ticks(scale, height, tickHeight).map((tick: Date) => (
-        <Tick
-          key={tick.toISOString()}
-          transform={`translateY(${scale(tick).toFixed(0)}px)`}
-        >
-          {format(tick, "kk:mm")}
-        </Tick>
-      ))}
-    </Wrapper>
-  );
+  return ticks(scale, height, tickHeight).map((tick: Date) => (
+    <Rect transform={`translateY(${scale(tick).toFixed(0)}px)`} />
+  ));
 };

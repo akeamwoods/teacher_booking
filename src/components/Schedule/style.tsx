@@ -22,17 +22,16 @@ export const LessonWrapper = styled.rect.attrs<{
   position: absolute;
   width: calc(100% - 40px);
   padding: 0 20px;
-  background: rgba(75, 201, 255, 0.3);
+  background: #dbf4ff;
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0);
-
+  margin-left: 10px;
   p {
     margin: 0;
   }
   :hover {
-    background: rgba(75, 201, 255, 0.7);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
   }
 `;
