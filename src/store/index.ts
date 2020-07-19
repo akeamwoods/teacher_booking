@@ -7,26 +7,12 @@ import { getType } from "typesafe-actions";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { setMonth, getMonth, startOfDay } from "date-fns";
+import { Lesson } from "./types";
 
 const persistConfig = {
   key: "root",
   storage,
   blacklist: ["selectedDate", "lessons"],
-};
-
-export type Student = {
-  id: string;
-  firstName: string;
-  surname: string;
-};
-
-export type Lesson = {
-  id: string;
-  teacherId: string;
-  subject: string;
-  start: string;
-  end: string;
-  students?: Student[];
 };
 
 const initialState = () => ({

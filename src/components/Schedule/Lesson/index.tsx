@@ -3,7 +3,7 @@ import React, { createRef } from "react";
 import { ScaleTime } from "d3";
 import { format } from "date-fns";
 import { LessonWrapper } from "./style";
-import { Lesson as LessonType } from "../../../store";
+import { Lesson as LessonType } from "./../../../store/types";
 
 export const Lesson: React.FC<{
   lesson: LessonType;
