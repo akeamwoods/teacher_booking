@@ -3,7 +3,6 @@ import { addMonths, isSameMonth, format } from "date-fns";
 import { MonthTimelineWrapper, MonthWrapper } from "./style";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../store/actions";
-import { v4 as uuidv4 } from "uuid";
 import { useTypedSelector } from "../../../store";
 
 export const MonthTimeline: React.FC<{
@@ -15,7 +14,7 @@ export const MonthTimeline: React.FC<{
   return (
     <MonthTimelineWrapper>
       {months.map((month) => (
-        <Month key={uuidv4()} month={month} />
+        <Month key={month.toISOString()} month={month} />
       ))}
     </MonthTimelineWrapper>
   );

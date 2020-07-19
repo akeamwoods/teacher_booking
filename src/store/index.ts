@@ -68,6 +68,16 @@ export const rootReducer: Reducer<State, Actions> = (
       case getType(actions.availabilityViewChanged):
         draft.availabilityView = action.payload;
         break;
+      case getType(actions.newLessonCreated):
+        draft.lessons[
+          startOfDay(new Date(action.payload.start)).toISOString()
+        ] = [
+          ...draft.lessons[
+            startOfDay(new Date(action.payload.start)).toISOString()
+          ],
+          action.payload,
+        ];
+        break;
     }
   });
 

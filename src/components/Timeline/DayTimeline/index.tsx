@@ -8,7 +8,6 @@ import {
 } from "./style";
 import { actions } from "../../../store/actions";
 import { useDispatch } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import { useTypedSelector } from "../../../store";
 
 export const DayTimeline: React.FC<{ startOfMonth: string }> = React.memo(
@@ -20,7 +19,7 @@ export const DayTimeline: React.FC<{ startOfMonth: string }> = React.memo(
     return (
       <DayTimelineWrapper>
         {days.map((day) => (
-          <Day key={uuidv4()} day={day} />
+          <Day key={day} day={day} />
         ))}
       </DayTimelineWrapper>
     );
