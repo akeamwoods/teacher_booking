@@ -22,6 +22,6 @@ export const Rect = styled.rect.attrs<{
 }))<{ transform: string }>`
   position: absolute;
   width: 100%;
-  border-bottom: 1px dotted #abb1b6;
+  border-bottom: 1px dotted #edebe9;
   line-height: 0; /* Line up the *middle* of the number, not its baseline, with its value */
 `;
