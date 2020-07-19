@@ -26,7 +26,7 @@ export const Axis: React.FC<{
     }
   };
   return (
-    <Wrapper>
+    <Wrapper style={{ height: height }}>
       {ticks(scale, height, tickHeight).map((tick: Date) => (
         <Tick
           key={tick.toISOString()}
