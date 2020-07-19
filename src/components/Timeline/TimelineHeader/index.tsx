@@ -14,9 +14,7 @@ export const TimelineHeader: React.FC<{
   const [isVisible, setVisibility] = useState(false);
   return (
     <Header>
-      <Popup isVisible={isVisible} onClick={() => setVisibility(false)}>
-        hi
-      </Popup>
+      <Popup isVisible={isVisible} onClick={() => setVisibility(false)}></Popup>
       <h1>Availability</h1>
       <span>
         <h4>{format(new Date(selectedDate), "EEEE do MMM Y")}</h4>
