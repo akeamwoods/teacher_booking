@@ -24,6 +24,9 @@ export const GridLines: React.FC<{
     }
   };
   return ticks(scale, height, tickHeight).map((tick: Date) => (
-    <Rect transform={`translateY(${scale(tick).toFixed(0)}px)`} />
+    <Rect
+      key={tick.toISOString()}
+      transform={`translateY(${scale(tick).toFixed(0)}px)`}
+    />
   ));
 };
