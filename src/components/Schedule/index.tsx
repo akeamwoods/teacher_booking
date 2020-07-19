@@ -4,6 +4,7 @@ import { useTypedSelector } from "../../store";
 import Axis from "../Axis";
 import { startOfDay, endOfDay } from "date-fns";
 import { scaleTime, scaleLinear } from "d3";
+import { NewAxis } from "../NewAxis";
 
 export const Schedule = () => {
   const lessons = useTypedSelector(
@@ -18,7 +19,7 @@ export const Schedule = () => {
   const scale2 = scaleLinear().range([100, 0]).domain([0, 100]).nice();
   return (
     <Wrapper>
-      <Axis width={50} scale={scale1} />
+      <NewAxis scale={scale1} />
       {lessons &&
         lessons.map((lesson) => <div key={lesson.id}>{lesson.subject}</div>)}
     </Wrapper>
