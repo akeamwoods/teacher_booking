@@ -5,18 +5,20 @@ import { scaleTime } from "d3";
 import { Axis } from "../Axis";
 import { GridLines } from "../Axis/GridLines";
 import { Lesson } from "./Lesson";
+import { endOfDay, startOfDay } from "date-fns";
 
 export const Schedule = () => {
   const lessons = useTypedSelector(
     (state) => state.lessons[state.selectedDate]
   );
+  const day = useTypedSelector((state) => state.selectedDate);
   const tickHeight = 35;
 
   const scale = scaleTime()
     .range([tickHeight * 15, 0])
     .domain([
-      new Date("2020-07-20T16:00:00.000Z"),
-      new Date("2020-07-20T07:00:00.000Z"),
+      new Date(new Date(day).setHours(parseFloat("17:00"))),
+      new Date(new Date(day).setHours(parseFloat("08:00"))),
     ]);
 
   return (
