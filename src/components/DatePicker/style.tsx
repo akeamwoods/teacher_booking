@@ -10,6 +10,8 @@ export const Wrapper = styled.div`
   padding: 10px;
   background: white;
   position: absolute;
+  right: 0;
+  top: 100%;
 `;
 export const DayWrapper = styled.div`
   display: grid;

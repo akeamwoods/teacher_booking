@@ -5,7 +5,6 @@ import { scaleTime } from "d3";
 import { Axis } from "../Axis";
 import { GridLines } from "../Axis/GridLines";
 import { Lesson } from "./Lesson";
-import { endOfDay, startOfDay } from "date-fns";
 
 export const Schedule = () => {
   const lessons = useTypedSelector(
