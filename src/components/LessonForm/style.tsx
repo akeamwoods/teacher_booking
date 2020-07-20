@@ -17,6 +17,7 @@ export const Span = styled.span`
   position: relative;
   flex-direction: column;
   flex: 1;
+  z-index: 1;
 `;
 
 export const SubmitButton = styled.button`

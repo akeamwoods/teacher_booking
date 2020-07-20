@@ -17,7 +17,7 @@ export const Schedule = () => {
     .range([tickHeight * 15, 0])
     .domain([
       new Date(new Date(day).setHours(parseFloat("17:00"))),
-      new Date(new Date(day).setHours(parseFloat("08:00"))),
+      new Date(new Date(day).setHours(parseFloat("07:00"))),
     ]);
 
   return (
