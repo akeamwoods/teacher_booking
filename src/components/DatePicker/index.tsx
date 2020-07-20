@@ -19,7 +19,8 @@ import { Controls } from "./Controls";
 export const DatePicker: React.FC<{
   selectedDate: Date;
   changeDate: (date: Date) => void;
-}> = React.memo(({ selectedDate, changeDate }) => {
+  close: () => void;
+}> = React.memo(({ selectedDate, changeDate, close }) => {
   const [date, setDate] = useState(startOfDay(selectedDate));
   const dayHeadings = ["M", "T", "W", "T", "F", "S", "S"];
   const padding = getDay(startOfMonth(date));
@@ -29,9 +30,10 @@ export const DatePicker: React.FC<{
 
   const [start, setStart] = useState(date);
 
-  const handleClick = (date: Date) => {
-    setStart(date);
-    changeDate(date);
+  const handleClick = (day: Date) => {
+    setStart(day);
+    changeDate(day);
+    close();
   };
 
   const prevDays = Array(paddingDays)

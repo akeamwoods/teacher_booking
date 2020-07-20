@@ -15,15 +15,15 @@ export const Schedule = () => {
   const scale = scaleTime()
     .range([tickHeight * 15, 0])
     .domain([
-      new Date("2020-07-19T16:00:00.000Z"),
-      new Date("2020-07-19T07:00:00.000Z"),
+      new Date("2020-07-20T16:00:00.000Z"),
+      new Date("2020-07-20T07:00:00.000Z"),
     ]);
 
   return (
     <Wrapper
       padding={`${
-        scale(new Date("2020-07-19T06:00:00.000Z")) -
-        scale(new Date("2020-07-19T05:00:00.000Z"))
+        scale(new Date("2020-07-20T06:00:00.000Z")) -
+        scale(new Date("2020-07-20T05:00:00.000Z"))
       }px 0`}
     >
       <Axis tickHeight={tickHeight} scale={scale} />

@@ -19,29 +19,30 @@ const initialState = () => ({
   selectedDate: startOfDay(new Date()).toISOString(),
   availabilityView: "Day" as string,
   lessons: {
-    "2020-07-18T23:00:00.000Z": [
+    "2020-07-19T23:00:00.000Z": [
       {
         id: "01",
         teacherId: "01",
         subject: "English",
-        start: "2020-07-19T07:30:00.000Z",
-        end: "2020-07-19T08:30:00.000Z",
+        start: "2020-07-20T07:30:00.000Z",
+        end: "2020-07-20T08:30:00.000Z",
         students: [],
       },
+
       {
         id: "02",
         teacherId: "01",
         subject: "French",
-        start: "2020-07-19T10:30:00.000Z",
-        end: "2020-07-19T11:30:00.000Z",
+        start: "2020-07-20T10:30:00.000Z",
+        end: "2020-07-20T11:30:00.000Z",
         students: [],
       },
       {
         id: "03",
         teacherId: "01",
         subject: "English",
-        start: "2020-07-19T11:45:00.000Z",
-        end: "2020-07-19T13:00:00.000Z",
+        start: "2020-07-20T11:45:00.000Z",
+        end: "2020-07-20T13:00:00.000Z",
         students: [],
       },
     ],
