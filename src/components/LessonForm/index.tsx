@@ -7,13 +7,13 @@ import { useTypedSelector } from "../../store";
 import { DatePicker } from "../DatePicker";
 import { DatePickerButton } from "../DatePicker/DatePickerButton";
 import { startOfDay } from "date-fns";
-import { Form, Select, Span } from "./style";
+import { Form, Select, Span, SubmitButton } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 
 export const LessonForm = () => {
   const dispatch = useDispatch();
   const currentDate = useTypedSelector((state) => state.selectedDate);
-  const options = getTimeSlots(15, 8, 17);
+  const options = getTimeSlots(15, 8, 17.15);
   const [date, setDate] = useState(new Date(currentDate));
   const [isOpen, setOpen] = useState(false);
   const [startTime, setStartTime] = useState(undefined as undefined | string);
@@ -28,8 +28,15 @@ export const LessonForm = () => {
         flexDirection: "column",
         minWidth: "300px",
       }}
+      onClick={() => (isOpen ? setOpen(false) : void {})}
     >
-      <h3 style={{ marginTop: 0 }}>Add a New Lesson</h3>
+      <h3 style={{ margin: 0 }}>Add Lesson</h3>
+      <img
+        style={{ margin: "10px" }}
+        height="100px"
+        src={process.env.PUBLIC_URL + "calendar.svg"}
+        alt="Avatar"
+      />
       <Form
         onSubmit={(e) => {
           e.preventDefault();
@@ -56,7 +63,9 @@ export const LessonForm = () => {
         <Span>
           <DatePickerButton
             selectedDate={date ? date : new Date(currentDate)}
-            onClick={() => setOpen(!isOpen)}
+            onClick={() => {
+              setOpen(!isOpen);
+            }}
           />
           {isOpen && (
             <DatePicker
@@ -74,11 +83,13 @@ export const LessonForm = () => {
           }}
         >
           <option disabled={startTime ? true : false}>Start Time</option>
-          {options.map((option, index) => (
-            <option key={index} value={index}>
-              {option}
-            </option>
-          ))}
+          {options
+            .filter((_, index) => index < options.length - 1)
+            .map((option, index) => (
+              <option key={index} value={index}>
+                {option}
+              </option>
+            ))}
         </Select>
         <Select
           value={options.indexOf(endTime)}
@@ -94,7 +105,7 @@ export const LessonForm = () => {
             </option>
           ))}
         </Select>
-        <button
+        <SubmitButton
           disabled={
             !startTime ||
             !endTime ||
@@ -105,7 +116,7 @@ export const LessonForm = () => {
           type="submit"
         >
           Add Lesson
-        </button>
+        </SubmitButton>
       </Form>
     </div>
   );

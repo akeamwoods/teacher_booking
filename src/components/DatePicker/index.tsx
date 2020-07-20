@@ -55,7 +55,7 @@ export const DatePicker: React.FC<{
   };
 
   return (
-    <Wrapper>
+    <Wrapper onClick={(e) => e.stopPropagation()}>
       <Controls
         date={date}
         left={() => setDate(subMonths(date, 1))}

@@ -8,6 +8,7 @@ export const Form = styled.form`
 export const Select = styled.select`
   padding: 10px;
   border: 1px solid #edebe9;
+  margin-top: 10px;
 `;
 
 export const Span = styled.span`
@@ -16,4 +17,16 @@ export const Span = styled.span`
   position: relative;
   flex-direction: column;
   flex: 1;
+`;
+
+export const SubmitButton = styled.button`
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background: #4bc9ff;
+  color: #fff;
+  border-radius: 4px;
+  :disabled {
+    opacity: 0.4;
+  }
 `;

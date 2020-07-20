@@ -8,7 +8,13 @@ export const DatePickerButton: React.FC<{
   onClick: () => void;
 }> = ({ selectedDate, onClick }) => {
   return (
-    <Button type="button" onClick={onClick}>
+    <Button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+    >
       {format(selectedDate, "do MMMM Y")}
       <FaRegCalendarAlt />
     </Button>
