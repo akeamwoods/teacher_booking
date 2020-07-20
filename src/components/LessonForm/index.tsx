@@ -30,7 +30,7 @@ export const LessonForm = () => {
       }}
       onClick={() => (isOpen ? setOpen(false) : void {})}
     >
-      <h3 style={{ margin: 0 }}>Add Lesson</h3>
+      <h3 style={{ margin: 0 }}>New Lesson</h3>
       <img
         style={{ margin: "10px" }}
         height="100px"
@@ -115,7 +115,7 @@ export const LessonForm = () => {
           }
           type="submit"
         >
-          New Lesson
+          Add Lesson
         </SubmitButton>
       </Form>
     </div>
