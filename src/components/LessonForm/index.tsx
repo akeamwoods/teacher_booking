@@ -115,7 +115,7 @@ export const LessonForm = () => {
           }
           type="submit"
         >
-          Add Lesson
+          New Lesson
         </SubmitButton>
       </Form>
     </div>
