@@ -29,7 +29,7 @@ export const DayWrapper = styled.div.attrs<{
   margin: 0;
 `;
 
-export const Day = styled.div.attrs<{
+export const Day = styled.button.attrs<{
   isCurrentDay: boolean;
   day: Date;
 }>((props) => ({
@@ -41,7 +41,8 @@ export const Day = styled.div.attrs<{
 }))<{ isCurrentDay: boolean; day: Date }>`
   display: flex;
   background: #e1e1e1;
-  padding: 10px;
+  padding: 25px;
+  border: none;
   width: 30px;
   height: 30px;
   border-radius: 50%;
