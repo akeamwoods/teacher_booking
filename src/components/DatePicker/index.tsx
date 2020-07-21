@@ -66,7 +66,10 @@ export const DatePicker: React.FC<{
 
     useOutsideClick(
       ref,
-      useCallback(() => close(), [close])
+      useCallback(() => {
+        close();
+        setDate(startOfDay(selectedDate));
+      }, [close, selectedDate])
     );
     return (
       <Wrapper ref={ref}>

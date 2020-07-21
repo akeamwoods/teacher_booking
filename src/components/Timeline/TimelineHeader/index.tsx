@@ -7,7 +7,6 @@ import { FaUndo } from "react-icons/fa";
 import { DatePicker } from "../../DatePicker";
 import { actions } from "../../../store/actions";
 import { startOfDay, isSameDay } from "date-fns";
-import { useKeyboardEvent } from "../../../hooks/useKeyboardEvent";
 
 export const TimelineHeader: React.FC<{
   selectedDate: string;
@@ -16,11 +15,6 @@ export const TimelineHeader: React.FC<{
   const [isOpen, setOpen] = useState(false);
   const [isVisible, setVisibility] = useState(false);
 
-  useKeyboardEvent("Escape", () => {
-    if (!isVisible && isOpen) {
-      setOpen(false);
-    }
-  });
   return (
     <Header>
       <Popup
