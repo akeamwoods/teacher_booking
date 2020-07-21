@@ -4,16 +4,19 @@ import { getDayColour } from "../../../helpers/getDayColour";
 export const DayTimelineWrapper = styled.div`
   display: flex;
   overflow: auto;
+  min-width: 100%;
+  justify-content: space-between;
 `;
 
 export const DayWrapper = styled.div.attrs<{
   isCurrentDay: boolean;
 }>((props) => ({
-  style: { borderBottomColor: props.isCurrentDay ? "#000" : "#e1e1e1" },
+  style: { borderBottomColor: props.isCurrentDay ? "#2296f3" : "#e1e1e1" },
 }))<{ isCurrentDay: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
   text-align: center;
   cursor: pointer;
   :not(:last-child) {
@@ -31,7 +34,7 @@ export const Day = styled.div.attrs<{
   day: Date;
 }>((props) => ({
   style: {
-    background: props.isCurrentDay ? "#000" : getDayColour(props.day),
+    background: props.isCurrentDay ? "#2296f3" : getDayColour(props.day),
     color: props.isCurrentDay ? "#fff" : "#000",
     boxShadow: props.isCurrentDay ? "0 4px 8px 0 rgba(0,0,0,0.2)" : "none",
   },

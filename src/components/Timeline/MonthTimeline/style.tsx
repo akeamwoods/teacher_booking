@@ -4,6 +4,9 @@ export const MonthTimelineWrapper = styled.div`
   display: flex;
   overflow: auto;
   margin: 30px 0;
+  min-width: 100%;
+  justify-content: space-between;
+  font-size: 1.2em;
 `;
 
 export const MonthWrapper = styled.div.attrs<{
