@@ -1,18 +1,22 @@
 import { getDay } from "date-fns";
 
-export const getDayColour = (day: Date): string => {
+export const getDayColour = (day: Date, lessons: number): string => {
   const dayAsNumber = getDay(day);
-  if ([1, 3, 5].includes(dayAsNumber)) {
-    return "#fdf6ec"; //mon/wed/fri
-  } else if ([2, 4].includes(dayAsNumber)) {
-    return "#ffce85"; //tue/thur
-  } else {
+  if ([0, 6].includes(dayAsNumber)) {
     return `repeating-linear-gradient(
-        135deg,
-        #f8f8f7,
-        #f8f8f7 2px,
-        #efefef 2px,
-        #efefef 4px
-      )`; //sat/sun
+      135deg,
+      #f8f8f7,
+      #f8f8f7 2px,
+      #efefef 2px,
+      #efefef 4px
+    )`; //sat/sun
+  } else {
+    return lessons === 0
+      ? "#efefef"
+      : lessons < 3
+      ? "#81ea76"
+      : lessons < 5
+      ? "#f6ff80"
+      : "#ff7373";
   }
 };

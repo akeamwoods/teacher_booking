@@ -32,13 +32,16 @@ export const DayWrapper = styled.div.attrs<{
 export const Day = styled.button.attrs<{
   isCurrentDay: boolean;
   day: Date;
+  lessons: number;
 }>((props) => ({
   style: {
-    background: props.isCurrentDay ? "#2296f3" : getDayColour(props.day),
+    background: props.isCurrentDay
+      ? "#2296f3"
+      : getDayColour(props.day, props.lessons),
     color: props.isCurrentDay ? "#fff" : "#000",
     boxShadow: props.isCurrentDay ? "0 4px 8px 0 rgba(0,0,0,0.2)" : "none",
   },
-}))<{ isCurrentDay: boolean; day: Date }>`
+}))<{ isCurrentDay: boolean; day: Date; lessons: number }>`
   display: flex;
   background: #e1e1e1;
   padding: 25px;

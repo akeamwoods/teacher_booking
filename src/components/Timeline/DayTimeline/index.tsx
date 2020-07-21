@@ -34,6 +34,9 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
     dispatch(actions.selectedDayChanged(startOfDay(new Date(day))));
   };
 
+  const lessons = useTypedSelector(
+    (state) => state.lessons[startOfDay(new Date(day)).toISOString()]
+  );
   React.useEffect(() => {
     console.log("Day");
     setTimeout(() => {
@@ -47,7 +50,11 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
   }, [isCurrentDay, ref]);
   return (
     <DayWrapper ref={ref} onClick={handleClick} isCurrentDay={isCurrentDay}>
-      <DayContainer isCurrentDay={isCurrentDay} day={new Date(day)}>
+      <DayContainer
+        isCurrentDay={isCurrentDay}
+        day={new Date(day)}
+        lessons={lessons?.length ? lessons.length : 0}
+      >
         {format(new Date(day), "d")}
       </DayContainer>
       <DayText>{format(new Date(day), "E")}</DayText>
