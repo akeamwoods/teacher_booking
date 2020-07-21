@@ -15,7 +15,7 @@ export const SubmitButton = styled.button`
   margin-top: 10px;
   padding: 10px;
   border: none;
-  background: #4bc9ff;
+  background: #2296f3;
   color: #fff;
   border-radius: 4px;
   :disabled {

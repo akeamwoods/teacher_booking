@@ -3,7 +3,7 @@ import { Header, AddButton, ResetButton } from "./style";
 import { useDispatch } from "react-redux";
 import { Popup } from "../../Popup";
 import { LessonForm } from "../../LessonForm";
-import { FaUndo } from "react-icons/fa";
+import { FaUndo, FaPlus } from "react-icons/fa";
 import { DatePicker } from "../../DatePicker";
 import { actions } from "../../../store/actions";
 import { startOfDay, isSameDay } from "date-fns";
@@ -52,7 +52,9 @@ export const TimelineHeader: React.FC<{
         >
           <FaUndo />
         </ResetButton>
-        <AddButton onClick={() => setVisibility(true)}>+Add</AddButton>
+        <AddButton onClick={() => setVisibility(true)} title="Add lesson">
+          <FaPlus />
+        </AddButton>
       </span>
     </Header>
   );

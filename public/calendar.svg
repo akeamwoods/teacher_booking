@@ -1,1 +1,47 @@
-<svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m6.306 39.363h115.387v82.331h-115.387z" fill="#dfeef4"/><path d="m6.306 15.838h115.387v23.525h-115.387z" fill="#f45858"/><path d="m60.269 6.306h7.462v19.062h-7.462z" fill="#6d7a84"/><path d="m90.052 6.306h7.462v19.062h-7.462z" fill="#6d7a84"/><path d="m30.486 6.306h7.462v19.062h-7.462z" fill="#6d7a84"/><g fill="#3ea2e5"><circle cx="27.661" cy="57.048" r="6.283"/><circle cx="51.887" cy="57.048" r="6.283"/><circle cx="76.113" cy="57.048" r="6.283"/><circle cx="100.339" cy="57.048" r="6.283"/><circle cx="27.661" cy="80.528" r="6.283"/><circle cx="51.887" cy="80.528" r="6.283"/><circle cx="76.113" cy="80.528" r="6.283"/><circle cx="100.339" cy="80.528" r="6.283"/><circle cx="27.661" cy="104.009" r="6.283"/><circle cx="51.887" cy="104.009" r="6.283"/><circle cx="76.113" cy="104.009" r="6.283"/><circle cx="100.339" cy="104.009" r="6.283"/></g></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 549.4 564" style="enable-background:new 0 0 549.4 564;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#DFEEF4;}
+	.st1{fill:#F45858;}
+	.st2{fill:#3EA2E5;}
+	.st3{fill:#2196F3;}
+	.st4{fill:#FAFAFA;}
+	.st5{fill:#6D7A84;}
+</style>
+<g>
+	<g>
+		<path class="st0" d="M0,132.2h461.5v329.3H0L0,132.2z"/>
+		<path class="st1" d="M0,38.1h461.5v94.1H0L0,38.1z"/>
+	</g>
+	<g>
+		<circle class="st2" cx="85.4" cy="203" r="25.1"/>
+		<circle class="st2" cx="182.3" cy="203" r="25.1"/>
+		<circle class="st2" cx="279.2" cy="203" r="25.1"/>
+		<circle class="st2" cx="376.1" cy="203" r="25.1"/>
+		<circle class="st2" cx="85.4" cy="296.9" r="25.1"/>
+		<circle class="st2" cx="182.3" cy="296.9" r="25.1"/>
+		<circle class="st2" cx="279.2" cy="296.9" r="25.1"/>
+		<circle class="st2" cx="376.1" cy="296.9" r="25.1"/>
+		<circle class="st2" cx="85.4" cy="390.8" r="25.1"/>
+		<circle class="st2" cx="182.3" cy="390.8" r="25.1"/>
+		<circle class="st2" cx="279.2" cy="390.8" r="25.1"/>
+		<circle class="st2" cx="376.1" cy="390.8" r="25.1"/>
+	</g>
+</g>
+<g>
+	<g>
+		<path class="st3" d="M401.3,267.8c-81.7,0-148.1,66.4-148.1,148.1S319.6,564,401.3,564s148.1-66.4,148.1-148.1
+			S482.9,267.8,401.3,267.8z"/>
+	</g>
+	<path class="st4" d="M466.1,428.3h-52.5v52.5c0,6.8-5.5,12.3-12.3,12.3s-12.3-5.5-12.3-12.3v-52.5h-52.5c-6.8,0-12.3-5.5-12.3-12.3
+		s5.5-12.3,12.3-12.3h52.5v-52.5c0-6.8,5.5-12.3,12.3-12.3s12.3,5.5,12.3,12.3v52.5h52.5c6.8,0,12.3,5.5,12.3,12.3
+		S472.9,428.3,466.1,428.3z"/>
+</g>
+<g>
+	<path class="st5" d="M215.9,0h29.8v76.2h-29.8L215.9,0z"/>
+	<path class="st5" d="M335,0h29.8v76.2H335V0z"/>
+	<path class="st5" d="M96.7,0h29.8v76.2H96.7L96.7,0z"/>
+</g>
+</svg>

@@ -17,7 +17,6 @@ export const LessonForm = () => {
   const [isOpen, setOpen] = useState(false);
   const [startTime, setStartTime] = useState(undefined as undefined | string);
   const [endTime, setEndTime] = useState(undefined as undefined | string);
-
   return (
     <div
       style={{
@@ -30,7 +29,7 @@ export const LessonForm = () => {
     >
       <h3 style={{ margin: 0 }}>New Lesson</h3>
       <img
-        style={{ margin: "10px" }}
+        style={{ margin: "20px" }}
         height="100px"
         src={process.env.PUBLIC_URL + "calendar.svg"}
         alt="Avatar"
