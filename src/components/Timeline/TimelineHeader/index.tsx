@@ -6,7 +6,7 @@ import { LessonForm } from "../../LessonForm";
 import { FaUndo } from "react-icons/fa";
 import { DatePicker } from "../../DatePicker";
 import { actions } from "../../../store/actions";
-import { startOfDay } from "date-fns";
+import { startOfDay, isSameDay } from "date-fns";
 import { useKeyboardEvent } from "../../../hooks/useKeyboardEvent";
 
 export const TimelineHeader: React.FC<{
@@ -37,14 +37,21 @@ export const TimelineHeader: React.FC<{
       <span>
         <DatePicker
           close={() => setOpen(false)}
+          setOpen={setOpen}
+          isOpen={isOpen}
           changeDate={(date) =>
             dispatch(actions.selectedDayChanged(startOfDay(new Date(date))))
           }
-          setOpen={setOpen}
-          isOpen={isOpen}
           selectedDate={new Date(selectedDate)}
         />
-        <ResetButton onClick={() => setVisibility(true)}>
+        <ResetButton
+          onClick={() =>
+            !isSameDay(new Date(selectedDate), new Date())
+              ? dispatch(actions.selectedDayChanged(startOfDay(new Date())))
+              : void {}
+          }
+          title="Reset date to present"
+        >
           <FaUndo />
         </ResetButton>
         <AddButton onClick={() => setVisibility(true)}>+Add</AddButton>

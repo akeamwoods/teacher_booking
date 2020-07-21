@@ -35,14 +35,12 @@ export const DatePicker: React.FC<{
     singleClick = false,
   }) => {
     const [date, setDate] = useState(startOfDay(selectedDate));
-    const [start, setStart] = useState(date);
     const dayHeadings = ["M", "T", "W", "T", "F", "S", "S"];
     const padding = getDay(startOfMonth(date));
     const paddingDays = padding > 0 ? padding - 1 : padding;
     const daysInMonth = getDaysInMonth(date);
     const futureDays = 42 - paddingDays - daysInMonth;
     const handleClick = (day: Date) => {
-      setStart(day);
       changeDate(day);
       if (singleClick) close();
     };
@@ -99,7 +97,7 @@ export const DatePicker: React.FC<{
                   key={day.toISOString()}
                   date={day}
                   onClick={handleClick}
-                  isSelected={isSameDay(day, start)}
+                  isSelected={isSameDay(day, selectedDate)}
                   isSameMonth={sameMonth(day)}
                 />
               ))}
@@ -108,7 +106,7 @@ export const DatePicker: React.FC<{
                   key={day.toISOString()}
                   date={day}
                   onClick={handleClick}
-                  isSelected={isSameDay(day, start)}
+                  isSelected={isSameDay(day, selectedDate)}
                   isSameMonth={sameMonth(day)}
                 />
               ))}
@@ -117,7 +115,7 @@ export const DatePicker: React.FC<{
                   key={day.toISOString()}
                   date={day}
                   onClick={handleClick}
-                  isSelected={isSameDay(day, start)}
+                  isSelected={isSameDay(day, selectedDate)}
                   isSameMonth={sameMonth(day)}
                 />
               ))}
