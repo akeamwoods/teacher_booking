@@ -12,7 +12,6 @@ export const LessonWrapper = styled.rect.attrs<{
   justify-content: center;
   flex-direction: column;
   font-size: 0.8em;
-  font-weight: 800;
   position: absolute;
   width: calc(100% - 40px);
   padding: 0 20px;
