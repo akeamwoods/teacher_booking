@@ -6,6 +6,7 @@ import { LessonWrapper } from "./style";
 import { Lesson as LessonType } from "./../../../store/types";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../store/actions";
+import { FaEllipsisH } from "react-icons/fa";
 
 export const Lesson: React.FC<{
   lesson: LessonType;
@@ -41,12 +42,16 @@ export const Lesson: React.FC<{
       transform={`translateY(${scale(new Date(lesson.start)).toFixed(0)}px)`}
       key={lesson.id}
     >
-      <p>{lesson.subject}</p>
-      <p>{`${format(new Date(lesson.start), "H:mm")} - ${format(
-        new Date(lesson.end),
-        "H:mm"
-      )}`}</p>
-      <button onClick={deleteLesson}>delete</button>
+      <span>
+        <p>{lesson.subject}</p>
+        <p>{`${format(new Date(lesson.start), "H:mm")} - ${format(
+          new Date(lesson.end),
+          "H:mm"
+        )}`}</p>
+      </span>
+      <button onClick={deleteLesson}>
+        <FaEllipsisH />
+      </button>
     </LessonWrapper>
   );
 });

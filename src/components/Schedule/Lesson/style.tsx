@@ -13,9 +13,9 @@ export const LessonWrapper = styled.rect.attrs<{
 }))<{ transform: string; height: string; colour: string }>`
   display: flex;
   flex: 1;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
   font-size: 0.8em;
   position: absolute;
   width: calc(100% - 40px);
@@ -31,5 +31,14 @@ export const LessonWrapper = styled.rect.attrs<{
   }
   :hover {
     opacity: 1;
+  }
+  span {
+    display: flex;
+    flex-direction: column;
+  }
+  button {
+    border: none;
+    color: #fff;
+    background: none;
   }
 `;
