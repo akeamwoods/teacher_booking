@@ -3,9 +3,14 @@ import styled from "styled-components";
 export const LessonWrapper = styled.rect.attrs<{
   transform: string;
   height: string;
+  colour: string;
 }>((props) => ({
-  style: { transform: props.transform, height: props.height },
-}))<{ transform: string; height: string }>`
+  style: {
+    transform: props.transform,
+    height: props.height,
+    background: props.colour,
+  },
+}))<{ transform: string; height: string; colour: string }>`
   display: flex;
   flex: 1;
   align-items: flex-start;

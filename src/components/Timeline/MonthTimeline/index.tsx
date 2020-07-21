@@ -43,7 +43,7 @@ export const Month: React.FC<{
           block: "center",
           inline: "center",
         });
-    }, 1);
+    }, 10);
   }, [isCurrentMonth, ref]);
   return (
     <MonthWrapper

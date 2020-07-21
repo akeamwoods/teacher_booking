@@ -8,7 +8,8 @@ import { Lesson as LessonType } from "./../../../store/types";
 export const Lesson: React.FC<{
   lesson: LessonType;
   scale: ScaleTime<number, number>;
-}> = React.memo(({ lesson, scale }) => {
+  colour: string;
+}> = React.memo(({ lesson, scale, colour }) => {
   const ref = createRef<SVGRectElement>();
   const handleClick = (e: React.MouseEvent<SVGRectElement, MouseEvent>) => {
     e.currentTarget.scrollIntoView({
@@ -18,6 +19,7 @@ export const Lesson: React.FC<{
   };
   return (
     <LessonWrapper
+      colour={colour}
       ref={ref}
       onClick={handleClick}
       height={`${

@@ -7,6 +7,20 @@ import { GridLines } from "../Axis/GridLines";
 import { Lesson } from "./Lesson";
 
 export const Schedule = () => {
+  let colourScheme = [
+    "#f3225a",
+    "#8822f3",
+    "#22b7f3",
+    "#22F3D8",
+    "#f3ab22",
+    "#3eb764",
+    "#4E22F3",
+    "#8DE8F3",
+    "#F32222",
+    "#70F322",
+    "#F32293",
+  ];
+  let colours = [] as string[];
   const lessons = useTypedSelector(
     (state) => state.lessons[state.selectedDate]
   );
@@ -31,9 +45,21 @@ export const Schedule = () => {
       <GridContainer>
         <GridLines tickHeight={tickHeight} scale={scale} />
         {lessons &&
-          lessons.map((lesson) => (
-            <Lesson key={lesson.id} lesson={lesson} scale={scale} />
-          ))}
+          lessons.map((lesson, i) => {
+            const color = colourScheme.length
+              ? colourScheme[Math.floor(Math.random() * colourScheme.length)]
+              : colours[Math.floor(Math.random() * colours.length)];
+            colours = [...colours, color];
+            colourScheme = colourScheme.filter((c) => c !== color);
+            return (
+              <Lesson
+                colour={color}
+                key={lesson.id}
+                lesson={lesson}
+                scale={scale}
+              />
+            );
+          })}
       </GridContainer>
     </Wrapper>
   );
