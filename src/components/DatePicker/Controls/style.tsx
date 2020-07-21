@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
 
   h4 {
     margin: 0;
-    padding: 0 20px;
+    padding: 0;
     font-size: 0.8em;
   }
 `;
