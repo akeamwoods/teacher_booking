@@ -35,7 +35,6 @@ export const Month: React.FC<{
   };
 
   React.useEffect(() => {
-    console.log("Month");
     setTimeout(() => {
       if (isCurrentMonth && ref.current)
         ref.current.scrollIntoView({

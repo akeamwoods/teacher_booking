@@ -38,7 +38,6 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
     (state) => state.lessons[startOfDay(new Date(day)).toISOString()]
   );
   React.useEffect(() => {
-    console.log("Day");
     setTimeout(() => {
       if (isCurrentDay && ref.current)
         ref.current.scrollIntoView({
