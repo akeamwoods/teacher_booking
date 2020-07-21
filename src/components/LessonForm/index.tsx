@@ -27,7 +27,6 @@ export const LessonForm = () => {
         flexDirection: "column",
         minWidth: "300px",
       }}
-      onClick={() => (isOpen ? setOpen(false) : void {})}
     >
       <h3 style={{ margin: 0 }}>New Lesson</h3>
       <img
@@ -65,6 +64,7 @@ export const LessonForm = () => {
           isOpen={isOpen}
           changeDate={(date) => setDate(startOfDay(date))}
           selectedDate={startOfDay(date ? date : new Date(currentDate))}
+          singleClick
         />
         <Select
           value={options.indexOf(startTime)}
