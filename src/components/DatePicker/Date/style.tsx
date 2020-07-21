@@ -15,12 +15,13 @@ export const Wrapper = styled.button.attrs((props: WrapperProps) => ({}))<
   align-items: center;
   cursor: pointer;
   border: none;
-  background: ${(props) => (props.isSelected ? "#1B1B1B" : "none")};
+  background: ${(props) => (props.isSelected ? "#2296f3" : "none")};
   color: ${(props) => (props.isSelected ? "#fff" : "#000")};
+  border-radius: 4px;
   opacity: ${(props) => (props.isSelected ? 1 : undefined)};
   :hover {
     background: ${(props) =>
-      !props.isSelected && props.isDate ? "#1B1B1B" : undefined};
+      !props.isSelected && props.isDate ? "rgba(34,150,243, 0.6)" : undefined};
     color: ${(props) =>
       !props.isSelected && props.isDate ? "#fff" : undefined};
   }

@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
     margin: 0;
     padding: 0;
     font-size: 0.8em;
+    align-self: center;
   }
 `;
 

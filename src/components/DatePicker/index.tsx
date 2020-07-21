@@ -42,6 +42,7 @@ export const DatePicker: React.FC<{
     const futureDays = 42 - paddingDays - daysInMonth;
     const handleClick = (day: Date) => {
       changeDate(day);
+      setDate(startOfDay(day));
       if (singleClick) close();
     };
 

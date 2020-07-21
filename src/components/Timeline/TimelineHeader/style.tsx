@@ -13,9 +13,6 @@ export const Header = styled.header`
 
   span {
     display: flex;
-    h4 {
-      align-self: flex-end;
-    }
     select {
       padding: 0 15px;
       margin: 0 10px;
