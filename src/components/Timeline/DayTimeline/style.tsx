@@ -49,7 +49,6 @@ export const Day = styled.div.attrs<{
 
 export const DayText = styled.p`
   font-size: 0.7em;
-  font-weight: 800;
   color: #abb1b6;
   padding-bottom: 15px;
 `;

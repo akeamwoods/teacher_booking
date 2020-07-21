@@ -19,3 +19,7 @@ body {
 button {
   cursor: pointer;
 }
+
+::placeholder {
+  color: #7d7d7d;
+}

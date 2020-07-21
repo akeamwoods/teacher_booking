@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useTypedSelector } from "../../store";
 import { DatePicker } from "../DatePicker";
 import { startOfDay } from "date-fns";
-import { Form, Select, SubmitButton, Wrapper } from "./style";
+import { Form, Input, Select, SubmitButton, Wrapper } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 
 export const LessonForm = () => {
@@ -57,36 +57,41 @@ export const LessonForm = () => {
           selectedDate={startOfDay(date ? date : new Date(currentDate))}
           singleClick
         />
-        <Select
-          value={options.indexOf(startTime)}
-          onChange={(e) => {
-            if (e.target.selectedIndex > 0)
-              setStartTime(options[e.target.selectedIndex - 1]);
-          }}
-        >
-          <option disabled={startTime ? true : false}>Start Time</option>
-          {options
-            .filter((_, index) => index < options.length - 1)
-            .map((option, index) => (
+        <Input placeholder="Subject"></Input>
+        <span style={{ display: "flex" }}>
+          <Select
+            style={{ color: !startTime ? "#7d7d7d" : "#000" }}
+            value={options.indexOf(startTime)}
+            onChange={(e) => {
+              if (e.target.selectedIndex > 0)
+                setStartTime(options[e.target.selectedIndex - 1]);
+            }}
+          >
+            <option disabled={startTime ? true : false}>Start Time</option>
+            {options
+              .filter((_, index) => index < options.length - 1)
+              .map((option, index) => (
+                <option key={index} value={index}>
+                  {option}
+                </option>
+              ))}
+          </Select>
+          <Select
+            style={{ color: !endTime ? "#7d7d7d" : "#000" }}
+            value={options.indexOf(endTime)}
+            onChange={(e) => {
+              if (e.target.selectedIndex > 0)
+                setEndTime(options[e.target.selectedIndex - 1]);
+            }}
+          >
+            <option disabled={endTime ? true : false}>End Time</option>
+            {options.map((option, index) => (
               <option key={index} value={index}>
                 {option}
               </option>
             ))}
-        </Select>
-        <Select
-          value={options.indexOf(endTime)}
-          onChange={(e) => {
-            if (e.target.selectedIndex > 0)
-              setEndTime(options[e.target.selectedIndex - 1]);
-          }}
-        >
-          <option disabled={endTime ? true : false}>End Time</option>
-          {options.map((option, index) => (
-            <option key={index} value={index}>
-              {option}
-            </option>
-          ))}
-        </Select>
+          </Select>
+        </span>
         <SubmitButton
           disabled={
             !startTime ||
