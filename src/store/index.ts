@@ -80,6 +80,13 @@ export const rootReducer: Reducer<State, Actions> = (
               startOfDay(new Date(action.payload.start)).toISOString()
             ] = [action.payload]);
         break;
+      case getType(actions.lessonDeleted):
+        draft.lessons[action.payload.date] = [
+          ...draft.lessons[action.payload.date].filter(
+            (lesson) => lesson.id !== action.payload.id
+          ),
+        ];
+        break;
       case getType(actions.popupActivated):
         draft.popupActive = true;
         break;
