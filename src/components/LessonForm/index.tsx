@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useTypedSelector } from "../../store";
 import { DatePicker } from "../DatePicker";
 import { startOfDay } from "date-fns";
-import { Form, Select, SubmitButton } from "./style";
+import { Form, Select, SubmitButton, Wrapper } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 
 export const LessonForm = () => {
@@ -18,15 +18,7 @@ export const LessonForm = () => {
   const [startTime, setStartTime] = useState(undefined as undefined | string);
   const [endTime, setEndTime] = useState(undefined as undefined | string);
   return (
-    <div
-      style={{
-        padding: "20px",
-        margin: "1px",
-        display: "flex",
-        flexDirection: "column",
-        minWidth: "300px",
-      }}
-    >
+    <Wrapper>
       <h3 style={{ margin: 0 }}>New Lesson</h3>
       <img
         style={{ margin: "20px" }}
@@ -108,6 +100,6 @@ export const LessonForm = () => {
           Add Lesson
         </SubmitButton>
       </Form>
-    </div>
+    </Wrapper>
   );
 };

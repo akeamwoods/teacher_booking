@@ -16,6 +16,7 @@ export const Container = styled.div`
   width: 175px;
   font-family: Arial, Helvetica, sans-serif;
   border: 1px solid #e1e1e1;
+  border-radius: 4px;
   padding: 10px;
   background: white;
   position: absolute;
