@@ -9,7 +9,6 @@ import { Lesson } from "./Lesson";
 export const Schedule = () => {
   let colourScheme = [
     "#f3225a",
-    "#8822f3",
     "#22b7f3",
     "#22F3D8",
     "#f3ab22",
@@ -17,8 +16,8 @@ export const Schedule = () => {
     "#4E22F3",
     "#8DE8F3",
     "#F32222",
-    "#70F322",
     "#F32293",
+    "#9B22F3",
   ];
   let colours = [] as string[];
   const lessons = useTypedSelector(
