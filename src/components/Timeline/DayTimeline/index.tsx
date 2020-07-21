@@ -30,26 +30,21 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
   const dispatch = useDispatch();
   const ref = createRef<HTMLDivElement>();
   const isCurrentDay = useTypedSelector((state) => state.selectedDate === day);
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleClick = () => {
     dispatch(actions.selectedDayChanged(startOfDay(new Date(day))));
-    e.currentTarget.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-      inline: "center",
-    });
   };
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
+    console.log("Day");
     setTimeout(() => {
-      if (isCurrentDay)
-        ref.current?.scrollIntoView({
+      if (isCurrentDay && ref.current)
+        ref.current.scrollIntoView({
           behavior: "smooth",
           block: "center",
           inline: "center",
         });
-    }, 140);
+    }, 500);
   }, [isCurrentDay, ref]);
-
   return (
     <DayWrapper ref={ref} onClick={handleClick} isCurrentDay={isCurrentDay}>
       <DayContainer isCurrentDay={isCurrentDay} day={new Date(day)}>

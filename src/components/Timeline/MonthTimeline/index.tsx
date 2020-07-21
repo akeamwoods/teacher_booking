@@ -27,16 +27,24 @@ export const Month: React.FC<{
   const isCurrentMonth = useTypedSelector((state) =>
     isSameMonth(new Date(state.selectedDate), month)
   );
+
   const ref = createRef<HTMLButtonElement>();
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+  const handleClick = () => {
     dispatch(actions.selectedMonthChanged(month));
-    e.currentTarget.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-      inline: "center",
-    });
   };
 
+  React.useEffect(() => {
+    console.log("Month");
+    setTimeout(() => {
+      if (isCurrentMonth && ref.current)
+        ref.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+    }, 100);
+  }, [isCurrentMonth, ref]);
   return (
     <MonthWrapper
       isCurrentMonth={isCurrentMonth}
