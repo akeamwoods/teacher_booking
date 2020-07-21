@@ -10,11 +10,10 @@ export const Schedule = () => {
   let colourScheme = [
     "#f3225a",
     "#22b7f3",
-    "#22F3D8",
     "#f3ab22",
     "#3eb764",
     "#4E22F3",
-    "#8DE8F3",
+    "#8ddbf3",
     "#F32222",
     "#F32293",
     "#9B22F3",
