@@ -23,3 +23,11 @@ button {
 ::placeholder {
   color: #7d7d7d;
 }
+
+button svg {
+  transition: 0.3s;
+  opacity: 0.6;
+}
+button:hover svg {
+  opacity: 1;
+}

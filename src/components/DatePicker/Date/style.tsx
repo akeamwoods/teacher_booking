@@ -9,6 +9,7 @@ export const Wrapper = styled.button.attrs((props: WrapperProps) => ({}))<
   WrapperProps
 >`
   display: flex;
+  font-size: 1em;
   flex-direction: column;
   justify-content: center;
   align-items: center;

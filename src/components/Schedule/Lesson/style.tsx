@@ -15,15 +15,16 @@ export const LessonWrapper = styled.rect.attrs<{
   position: absolute;
   width: calc(100% - 40px);
   padding: 0 20px;
-  background: #dbf4ff;
+  background: #2296f3;
+  color: #fff;
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0);
+  opacity: 0.9;
   p {
     margin: 0;
   }
   :hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    opacity: 1;
   }
 `;

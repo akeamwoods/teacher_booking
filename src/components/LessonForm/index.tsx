@@ -17,6 +17,7 @@ export const LessonForm = () => {
   const [isOpen, setOpen] = useState(false);
   const [startTime, setStartTime] = useState(undefined as undefined | string);
   const [endTime, setEndTime] = useState(undefined as undefined | string);
+  const [subject, updateSubject] = useState("");
   return (
     <Wrapper>
       <h3 style={{ margin: 0 }}>New Lesson</h3>
@@ -43,7 +44,7 @@ export const LessonForm = () => {
                     parseFloat(endTime.slice(-2))
                   )
                 ).toISOString(),
-                subject: "Latin",
+                subject: subject,
                 teacherId: "01",
               } as Lesson)
             );
@@ -57,7 +58,11 @@ export const LessonForm = () => {
           selectedDate={startOfDay(date ? date : new Date(currentDate))}
           singleClick
         />
-        <Input placeholder="Subject"></Input>
+        <Input
+          placeholder="Subject"
+          value={subject}
+          onChange={(e) => updateSubject(e.target.value)}
+        ></Input>
         <span style={{ display: "flex" }}>
           <Select
             style={{ color: !startTime ? "#7d7d7d" : "#000" }}
