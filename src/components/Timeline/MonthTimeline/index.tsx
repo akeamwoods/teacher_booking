@@ -27,8 +27,8 @@ export const Month: React.FC<{
   const isCurrentMonth = useTypedSelector((state) =>
     isSameMonth(new Date(state.selectedDate), month)
   );
-  const ref = createRef<HTMLDivElement>();
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const ref = createRef<HTMLButtonElement>();
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     dispatch(actions.selectedMonthChanged(month));
     e.currentTarget.scrollIntoView({
       behavior: "smooth",
