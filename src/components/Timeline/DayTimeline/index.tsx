@@ -43,7 +43,7 @@ export const Day: React.FC<{ day: string }> = React.memo(({ day }) => {
           block: "center",
           inline: "center",
         });
-    }, 500);
+    }, 30);
   }, [isCurrentDay, ref]);
   return (
     <DayWrapper ref={ref} onClick={handleClick} isCurrentDay={isCurrentDay}>

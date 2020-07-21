@@ -39,11 +39,11 @@ export const Month: React.FC<{
     setTimeout(() => {
       if (isCurrentMonth && ref.current)
         ref.current.scrollIntoView({
-          behavior: "smooth",
+          behavior: "auto",
           block: "center",
           inline: "center",
         });
-    }, 100);
+    }, 1);
   }, [isCurrentMonth, ref]);
   return (
     <MonthWrapper
