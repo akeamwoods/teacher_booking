@@ -1,6 +1,15 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  position: relative;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex: 1;
+  z-index: 1;
+`;
+
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;

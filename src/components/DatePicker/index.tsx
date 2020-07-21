@@ -12,24 +12,25 @@ import {
   isSameMonth,
   startOfDay,
 } from "date-fns";
-import { Wrapper, DayWrapper } from "./style";
+import { Wrapper, Container, DayWrapper } from "./style";
 import { Date } from "./Date";
 import { Controls } from "./Controls";
+import { DatePickerButton } from "./DatePickerButton";
 
 export const DatePicker: React.FC<{
   selectedDate: Date;
   changeDate: (date: Date) => void;
   close: () => void;
-}> = React.memo(({ selectedDate, changeDate, close }) => {
+  setOpen: (isOpen: boolean) => void;
+  isOpen: boolean;
+}> = React.memo(({ selectedDate, changeDate, close, setOpen, isOpen }) => {
   const [date, setDate] = useState(startOfDay(selectedDate));
+  const [start, setStart] = useState(date);
   const dayHeadings = ["M", "T", "W", "T", "F", "S", "S"];
   const padding = getDay(startOfMonth(date));
   const paddingDays = padding > 0 ? padding - 1 : padding;
   const daysInMonth = getDaysInMonth(date);
   const futureDays = 42 - paddingDays - daysInMonth;
-
-  const [start, setStart] = useState(date);
-
   const handleClick = (day: Date) => {
     setStart(day);
     changeDate(day);
@@ -55,49 +56,59 @@ export const DatePicker: React.FC<{
   };
 
   return (
-    <Wrapper onClick={(e) => e.stopPropagation()}>
-      <Controls
-        date={date}
-        left={() => setDate(subMonths(date, 1))}
-        right={() => setDate(addMonths(date, 1))}
+    <Wrapper>
+      <DatePickerButton
+        selectedDate={selectedDate}
+        onClick={() => {
+          setOpen(!isOpen);
+        }}
       />
-      <DayWrapper>
-        {dayHeadings.map((day, index) => (
-          <Date
-            key={day + index}
-            heading={day}
-            isSelected={false}
-            isSameMonth={false}
+      {isOpen && (
+        <Container onClick={(e) => e.stopPropagation()}>
+          <Controls
+            date={date}
+            left={() => setDate(subMonths(date, 1))}
+            right={() => setDate(addMonths(date, 1))}
           />
-        ))}
-        {prevDays.map((day) => (
-          <Date
-            key={day.toISOString()}
-            date={day}
-            onClick={handleClick}
-            isSelected={isSameDay(day, start)}
-            isSameMonth={sameMonth(day)}
-          />
-        ))}
-        {days.map((day) => (
-          <Date
-            key={day.toISOString()}
-            date={day}
-            onClick={handleClick}
-            isSelected={isSameDay(day, start)}
-            isSameMonth={sameMonth(day)}
-          />
-        ))}
-        {nextDays.map((day) => (
-          <Date
-            key={day.toISOString()}
-            date={day}
-            onClick={handleClick}
-            isSelected={isSameDay(day, start)}
-            isSameMonth={sameMonth(day)}
-          />
-        ))}
-      </DayWrapper>
+          <DayWrapper>
+            {dayHeadings.map((day, index) => (
+              <Date
+                key={day + index}
+                heading={day}
+                isSelected={false}
+                isSameMonth={false}
+              />
+            ))}
+            {prevDays.map((day) => (
+              <Date
+                key={day.toISOString()}
+                date={day}
+                onClick={handleClick}
+                isSelected={isSameDay(day, start)}
+                isSameMonth={sameMonth(day)}
+              />
+            ))}
+            {days.map((day) => (
+              <Date
+                key={day.toISOString()}
+                date={day}
+                onClick={handleClick}
+                isSelected={isSameDay(day, start)}
+                isSameMonth={sameMonth(day)}
+              />
+            ))}
+            {nextDays.map((day) => (
+              <Date
+                key={day.toISOString()}
+                date={day}
+                onClick={handleClick}
+                isSelected={isSameDay(day, start)}
+                isSameMonth={sameMonth(day)}
+              />
+            ))}
+          </DayWrapper>
+        </Container>
+      )}
     </Wrapper>
   );
 });

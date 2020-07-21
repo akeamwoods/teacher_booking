@@ -1,45 +1,53 @@
 import React, { useState } from "react";
-import { Header } from "./style";
-import { format } from "date-fns";
+import { Header, AddButton, ResetButton } from "./style";
 import { useDispatch } from "react-redux";
-import { actions } from "../../../store/actions";
 import { Popup } from "../../Popup";
 import { LessonForm } from "../../LessonForm";
+import { FaUndo } from "react-icons/fa";
+import { DatePicker } from "../../DatePicker";
+import { actions } from "../../../store/actions";
+import { startOfDay } from "date-fns";
+import { useKeyboardEvent } from "../../../hooks/useKeyboardEvent";
 
 export const TimelineHeader: React.FC<{
   selectedDate: string;
-  mode: string;
-}> = React.memo(({ selectedDate, mode }) => {
+}> = React.memo(({ selectedDate }) => {
   const dispatch = useDispatch();
-  const options = ["Day View", "Week View", "Month View"];
+  const [isOpen, setOpen] = useState(false);
   const [isVisible, setVisibility] = useState(false);
+
+  useKeyboardEvent("Escape", () => {
+    if (!isVisible && isOpen) {
+      setOpen(false);
+    }
+  });
   return (
     <Header>
       <Popup
         isVisible={isVisible}
-        onClick={() => setVisibility(false)}
+        onClick={() => {
+          setVisibility(false);
+          dispatch(actions.popupClosed());
+        }}
         scrollLock
       >
         <LessonForm />
       </Popup>
       <h1>Availability</h1>
       <span>
-        <h4>{format(new Date(selectedDate), "EEEE do MMM Y")}</h4>
-        <select
-          value={options.indexOf(mode)}
-          onChange={(e) =>
-            dispatch(
-              actions.availabilityViewChanged(options[e.target.selectedIndex])
-            )
+        <DatePicker
+          close={() => setOpen(false)}
+          changeDate={(date) =>
+            dispatch(actions.selectedDayChanged(startOfDay(new Date(date))))
           }
-        >
-          {options.map((option, index) => (
-            <option key={index} value={index}>
-              {option}
-            </option>
-          ))}
-        </select>
-        <button onClick={() => setVisibility(true)}>+Add</button>
+          setOpen={setOpen}
+          isOpen={isOpen}
+          selectedDate={new Date(selectedDate)}
+        />
+        <ResetButton onClick={() => setVisibility(true)}>
+          <FaUndo />
+        </ResetButton>
+        <AddButton onClick={() => setVisibility(true)}>+Add</AddButton>
       </span>
     </Header>
   );

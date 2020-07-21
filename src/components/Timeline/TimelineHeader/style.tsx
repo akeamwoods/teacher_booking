@@ -10,14 +10,7 @@ export const Header = styled.header`
   h4 {
     margin: 0;
   }
-  button {
-    background: #ffce85;
-    padding: 0 30px;
-    border-radius: 4px;
-    border: none;
-    font-size: 0.7em;
-    font-weight: 800;
-  }
+
   span {
     display: flex;
     h4 {
@@ -31,4 +24,23 @@ export const Header = styled.header`
       font-weight: 800;
     }
   }
+`;
+
+const ButtonBase = styled.button`
+  padding: 0 30px;
+  border-radius: 4px;
+  border: none;
+  font-size: 0.7em;
+  font-weight: 800;
+  background: white;
+  border: 1px solid #efedea;
+  margin-left: 10px;
+`;
+
+export const ResetButton = styled(ButtonBase)`
+  /* background: #dbf4ff; */
+`;
+
+export const AddButton = styled(ButtonBase)`
+  /* background: #ffce85; */
 `;

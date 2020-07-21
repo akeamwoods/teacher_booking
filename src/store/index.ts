@@ -17,7 +17,6 @@ const persistConfig = {
 
 const initialState = () => ({
   selectedDate: startOfDay(new Date()).toISOString(),
-  availabilityView: "Day" as string,
   lessons: {
     "2020-07-19T23:00:00.000Z": [
       {
@@ -47,6 +46,7 @@ const initialState = () => ({
       },
     ],
   } as { [key: string]: Lesson[] },
+  popupActive: false,
 });
 
 export type State = Readonly<ReturnType<typeof initialState>>;
@@ -66,9 +66,6 @@ export const rootReducer: Reducer<State, Actions> = (
       case getType(actions.selectedDayChanged):
         draft.selectedDate = new Date(action.payload).toISOString();
         break;
-      case getType(actions.availabilityViewChanged):
-        draft.availabilityView = action.payload;
-        break;
       case getType(actions.newLessonCreated):
         draft.lessons[startOfDay(new Date(action.payload.start)).toISOString()]
           ? (draft.lessons[
@@ -82,6 +79,12 @@ export const rootReducer: Reducer<State, Actions> = (
           : (draft.lessons[
               startOfDay(new Date(action.payload.start)).toISOString()
             ] = [action.payload]);
+        break;
+      case getType(actions.popupActivated):
+        draft.popupActive = true;
+        break;
+      case getType(actions.popupClosed):
+        draft.popupActive = false;
         break;
     }
   });

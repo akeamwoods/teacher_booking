@@ -11,15 +11,6 @@ export const Select = styled.select`
   margin-top: 10px;
 `;
 
-export const Span = styled.span`
-  position: relative;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  flex: 1;
-  z-index: 1;
-`;
-
 export const SubmitButton = styled.button`
   margin-top: 10px;
   padding: 10px;

@@ -5,9 +5,8 @@ import { Lesson } from "../../store/types";
 import { v4 as uuidv4 } from "uuid";
 import { useTypedSelector } from "../../store";
 import { DatePicker } from "../DatePicker";
-import { DatePickerButton } from "../DatePicker/DatePickerButton";
 import { startOfDay } from "date-fns";
-import { Form, Select, Span, SubmitButton } from "./style";
+import { Form, Select, SubmitButton } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 
 export const LessonForm = () => {
@@ -60,21 +59,13 @@ export const LessonForm = () => {
             );
         }}
       >
-        <Span>
-          <DatePickerButton
-            selectedDate={date ? date : new Date(currentDate)}
-            onClick={() => {
-              setOpen(!isOpen);
-            }}
-          />
-          {isOpen && (
-            <DatePicker
-              close={() => setOpen(false)}
-              changeDate={(date) => setDate(startOfDay(date))}
-              selectedDate={startOfDay(date ? date : new Date(currentDate))}
-            />
-          )}
-        </Span>
+        <DatePicker
+          close={() => setOpen(false)}
+          setOpen={setOpen}
+          isOpen={isOpen}
+          changeDate={(date) => setDate(startOfDay(date))}
+          selectedDate={startOfDay(date ? date : new Date(currentDate))}
+        />
         <Select
           value={options.indexOf(startTime)}
           onChange={(e) => {
