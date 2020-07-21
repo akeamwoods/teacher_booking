@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import { Route, HashRouter } from "react-router-dom";
 import { AvailabilityHandler } from "./handlers/AvailabilityHandler";
 import { SideMenu } from "./components/SideMenu";
-import { UserBar } from "./components/UserBar";
 import "./style.css";
 
 const App: React.FC = () => {
@@ -13,7 +12,6 @@ const App: React.FC = () => {
     <div className="App">
       <SideMenu />
       <Route exact path="/" component={AvailabilityHandler} />
-      <UserBar />
     </div>
   );
 };

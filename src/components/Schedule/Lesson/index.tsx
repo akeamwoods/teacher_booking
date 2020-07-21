@@ -33,6 +33,7 @@ export const Lesson: React.FC<{
   );
   return (
     <LessonWrapper
+      tabIndex={0}
       colour={colour}
       ref={ref}
       onClick={handleClick}
