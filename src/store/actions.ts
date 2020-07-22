@@ -18,6 +18,7 @@ const lessonFocussed = createAction("lesson focussed")<{
 }>();
 const lessonUnfocussed = createAction("lesson unfocussed")();
 const infoPanelClosed = createAction("info panel closed")();
+const closePanelButtonPressed = createAction("close panel button pressed")();
 
 export const actions = {
   selectedMonthChanged,
@@ -28,6 +29,7 @@ export const actions = {
   lessonFocussed,
   infoPanelClosed,
   lessonUnfocussed,
+  closePanelButtonPressed,
 };
 
 export type Actions = ActionType<typeof actions>;

@@ -23,16 +23,6 @@ export const Lesson: React.FC<{
     dispatch(actions.lessonFocussed({ lesson, colour }));
   };
 
-  const deleteLesson = React.useCallback(
-    () =>
-      dispatch(
-        actions.lessonDeleted({
-          date: startOfDay(new Date(lesson.start)).toISOString(),
-          id: lesson.id,
-        })
-      ),
-    [lesson, dispatch]
-  );
   return (
     <LessonWrapper
       tabIndex={0}
@@ -53,7 +43,17 @@ export const Lesson: React.FC<{
         )}`}</p>
       </span>
 
-      <button onClick={deleteLesson}>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          dispatch(
+            actions.lessonDeleted({
+              date: startOfDay(new Date(lesson.start)).toISOString(),
+              id: lesson.id,
+            })
+          );
+        }}
+      >
         <FaTimes />
       </button>
     </LessonWrapper>

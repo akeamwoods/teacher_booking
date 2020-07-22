@@ -25,7 +25,7 @@ export const InformationBar: React.FC<{
   });
 
   useKeyboardEvent("Escape", () => {
-    dispatch(actions.infoPanelClosed());
+    dispatch(actions.closePanelButtonPressed());
   });
   const dispatch = useDispatch();
 
@@ -65,7 +65,7 @@ export const InformationBar: React.FC<{
                 <Heading>{lesson?.lesson.subject}</Heading>
 
                 <CloseButton
-                  onClick={() => dispatch(actions.infoPanelClosed())}
+                  onClick={() => dispatch(actions.closePanelButtonPressed())}
                 >
                   <FaArrowRight size="22" />
                 </CloseButton>
