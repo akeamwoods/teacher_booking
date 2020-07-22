@@ -11,14 +11,18 @@ export const Wrapper = styled(animated.div).attrs<{
   padding: 30px 20px;
   align-items: center;
   img {
-    margin-top: 20px;
     width: 80%;
   }
-  span:not(:first-child) {
+  span {
     margin-top: 20px;
   }
 `;
-export const Header = styled.span`
+
+export const ButtonBar = styled.span`
+  display: flex;
+  justify-content: center;
+`;
+export const Section = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,6 +33,7 @@ export const Heading = styled.h2`
   flex: 1;
   margin: 0;
   text-align: center;
+  font-size: 1.35em;
 `;
 
 export const SubHeading = styled.p`
@@ -40,18 +45,15 @@ export const SubHeading = styled.p`
   text-align: center;
 `;
 
-export const ButtonBase = styled.button`
+export const Button = styled.button`
   border: none;
   color: #fff;
   background: none;
   display: flex;
   align-items: center;
-  svg {
-    opacity: 1;
-  }
 `;
 
-export const CloseButton = styled(ButtonBase)`
+export const CloseButton = styled(Button)`
   position: absolute;
   top: 10px;
   right: 10px;

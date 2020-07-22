@@ -14,9 +14,9 @@ export const getDayColour = (day: Date, lessons: number): string => {
     return lessons === 0
       ? "#efefef"
       : lessons < 3
-      ? "#81ea76"
+      ? "#3eb764"
       : lessons < 5
-      ? "#f6ff80"
-      : "#ff7373";
+      ? "#f3ab22"
+      : "#f3225a";
   }
 };

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { getDayColour } from "../../../helpers/getDayColour";
+import { getDayTextColour } from "../../../helpers/getDayTextColour";
 
 export const DayTimelineWrapper = styled.div`
   display: flex;
@@ -38,7 +39,9 @@ export const Day = styled.button.attrs<{
     background: props.isCurrentDay
       ? "#2296f3"
       : getDayColour(props.day, props.lessons),
-    color: props.isCurrentDay ? "#fff" : "#000",
+    color: props.isCurrentDay
+      ? "#fff"
+      : getDayTextColour(props.day, props.lessons),
     boxShadow: props.isCurrentDay ? "0 4px 8px 0 rgba(0,0,0,0.2)" : "none",
   },
 }))<{ isCurrentDay: boolean; day: Date; lessons: number }>`

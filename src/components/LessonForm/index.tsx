@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
-import { Lesson } from "../../store/types";
+import { Lesson, Student } from "../../store/types";
 import { v4 as uuidv4 } from "uuid";
 import { DatePicker } from "../DatePicker";
 import { startOfDay } from "date-fns";
@@ -15,7 +15,16 @@ export const LessonForm: React.FC<{
   start?: string;
   end?: string;
   color?: string;
-}> = ({ initialDate, id, initialSubject, start, end, color }) => {
+  students?: Student[];
+}> = ({
+  initialDate,
+  id,
+  initialSubject,
+  start,
+  end,
+  color,
+  students = [],
+}) => {
   const dispatch = useDispatch();
   const options = getTimeSlots(15, 8, 17.15);
   const [date, setDate] = useState(new Date(initialDate));
@@ -87,6 +96,7 @@ export const LessonForm: React.FC<{
                     subject,
                     teacherId: "01",
                     color: color!,
+                    students,
                   },
                   oldKey: initialDate,
                 })
