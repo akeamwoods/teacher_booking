@@ -14,7 +14,8 @@ export const LessonForm: React.FC<{
   initialSubject?: string;
   start?: string;
   end?: string;
-}> = ({ initialDate, id, initialSubject, start, end }) => {
+  color?: string;
+}> = ({ initialDate, id, initialSubject, start, end, color }) => {
   const dispatch = useDispatch();
   const options = getTimeSlots(15, 8, 17.15);
   const [date, setDate] = useState(new Date(initialDate));
@@ -85,6 +86,7 @@ export const LessonForm: React.FC<{
                     ).toISOString(),
                     subject,
                     teacherId: "01",
+                    color: color!,
                   },
                   oldKey: initialDate,
                 })

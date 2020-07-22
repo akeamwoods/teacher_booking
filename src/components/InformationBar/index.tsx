@@ -53,6 +53,7 @@ export const InformationBar: React.FC<{
               new Date(lesson.lesson.end),
               "mm"
             )}`}
+            color={lesson.lesson.color}
           />
         </Popup>
       )}

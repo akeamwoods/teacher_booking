@@ -10,5 +10,6 @@ export type Lesson = {
   subject: string;
   start: string;
   end: string;
+  color: string;
   students?: Student[];
 };

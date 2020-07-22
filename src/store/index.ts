@@ -10,6 +10,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { setMonth, getMonth, startOfDay } from "date-fns";
 import { Lesson } from "./types";
 import { rootSaga } from "./rootSaga";
+import { getLessonColour } from "../helpers/getLessonColour";
 
 const persistConfig = {
   key: "root",
@@ -28,6 +29,7 @@ const initialState = () => ({
         start: "2020-07-20T07:30:00.000Z",
         end: "2020-07-20T08:30:00.000Z",
         students: [],
+        color: "#f3225a",
       },
 
       {
@@ -37,6 +39,7 @@ const initialState = () => ({
         start: "2020-07-20T10:30:00.000Z",
         end: "2020-07-20T11:30:00.000Z",
         students: [],
+        color: "#22b7f3",
       },
       {
         id: "850364f0-33eb-4400-a4a4-a9ebbd2650bf",
@@ -45,6 +48,7 @@ const initialState = () => ({
         start: "2020-07-20T11:45:00.000Z",
         end: "2020-07-20T13:00:00.000Z",
         students: [],
+        color: "#f3ab22",
       },
     ],
   } as { [key: string]: Lesson[] },
@@ -71,9 +75,17 @@ export const rootReducer: Reducer<State, Actions> = (
         break;
       case getType(actions.newLessonCreated): {
         const key = startOfDay(new Date(action.payload.start)).toISOString();
+        const lesson = {
+          ...action.payload,
+          color: getLessonColour(
+            draft.lessons[key]
+              ? draft.lessons[key].map((lesson) => lesson.color)
+              : []
+          ),
+        };
         draft.lessons[key]
-          ? (draft.lessons[key] = [...draft.lessons[key], action.payload])
-          : (draft.lessons[key] = [action.payload]);
+          ? (draft.lessons[key] = [...draft.lessons[key], lesson])
+          : (draft.lessons[key] = [lesson]);
         break;
       }
       case getType(actions.lessonDeleted):
