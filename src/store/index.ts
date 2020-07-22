@@ -47,7 +47,13 @@ const initialState = () => ({
         subject: "English",
         start: "2020-07-20T11:45:00.000Z",
         end: "2020-07-20T13:00:00.000Z",
-        students: [],
+        students: [
+          {
+            id: "01",
+            firstName: "John",
+            surname: "Doe",
+          },
+        ],
         color: "#f3ab22",
       },
     ],

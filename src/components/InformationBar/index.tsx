@@ -75,7 +75,12 @@ export const InformationBar: React.FC<{
                 src={process.env.PUBLIC_URL + "blackboard.svg"}
                 alt="Blackboard Icon"
               />
-              <button onClick={() => setVisibility(true)}>Edit</button>
+              <Header>
+                <SubHeading>Students</SubHeading>
+                <Heading>{lesson?.lesson.students?.length ?? 0}</Heading>
+              </Header>
+
+              {/* <button onClick={() => setVisibility(true)}>Edit</button> */}
             </Wrapper>
           )
       )}

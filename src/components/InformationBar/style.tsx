@@ -14,8 +14,11 @@ export const Wrapper = styled(animated.div).attrs<{
     margin-top: 20px;
     width: 80%;
   }
+  span:not(:first-child) {
+    margin-top: 20px;
+  }
 `;
-export const Header = styled.div`
+export const Header = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
