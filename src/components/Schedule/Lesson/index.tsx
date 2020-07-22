@@ -23,13 +23,6 @@ export const Lesson: React.FC<{
     dispatch(actions.lessonFocussed({ lesson, colour }));
   };
 
-  const handleFocus = (e: React.FocusEvent<SVGRectElement>) => {
-    e.currentTarget.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-    dispatch(actions.lessonFocussed({ lesson, colour }));
-  };
   const deleteLesson = React.useCallback(
     () =>
       dispatch(
@@ -46,7 +39,6 @@ export const Lesson: React.FC<{
       colour={colour}
       ref={ref}
       onClick={handleClick}
-      onFocus={handleFocus}
       height={`${
         scale(new Date(lesson.end)) - scale(new Date(lesson.start))
       }px`}

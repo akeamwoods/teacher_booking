@@ -9,7 +9,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
 import { LessonForm } from "../LessonForm";
 import { Popup } from "../Popup";
-import { startOfDay } from "date-fns";
+import { startOfDay, format } from "date-fns";
 
 export const InformationBar: React.FC<{
   lesson: { lesson: Lesson; colour: string } | undefined;
@@ -45,6 +45,14 @@ export const InformationBar: React.FC<{
               new Date(lesson?.lesson.start)
             ).toISOString()}
             initialSubject={lesson.lesson.subject}
+            start={`${format(new Date(lesson.lesson.start), "HH")}:${format(
+              new Date(lesson.lesson.start),
+              "mm"
+            )}`}
+            end={`${format(new Date(lesson.lesson.end), "HH")}:${format(
+              new Date(lesson.lesson.end),
+              "mm"
+            )}`}
           />
         </Popup>
       )}
