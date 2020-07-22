@@ -1,4 +1,6 @@
 export const getLessonColour = (coloursInUse: string[] | undefined): string => {
+  // this method is used to select the color for each lesson object in such a way that duplicate colours are rare.
+
   const colourScheme = [
     "#f3225a",
     "#22b7f3",
@@ -10,19 +12,26 @@ export const getLessonColour = (coloursInUse: string[] | undefined): string => {
     "#9B22F3",
   ];
 
-  //find the counts using reduce
-  var ar = coloursInUse ? [...coloursInUse, ...colourScheme] : colourScheme;
-  var cnts = ar.reduce(function (obj, val) {
-    //@ts-ignore
-    obj[val] = (obj[val] || 0) + 1;
-    return obj;
-  }, {});
-  //Use the keys of the object to get all the values of the array
-  //and sort those keys by their counts
-  var sorted = Object.keys(cnts).sort(function (a, b) {
-    //@ts-ignore
-    return cnts[b] - cnts[a];
+  //find element frequencies
+  const combinedColours = coloursInUse
+    ? [...coloursInUse, ...colourScheme]
+    : colourScheme;
+  const frequencies: { [key: string]: number } = combinedColours.reduce(
+    function (obj: { [key: string]: number }, val) {
+      obj[val] = (obj[val] || 0) + 1;
+      return obj;
+    },
+    {}
+  );
+
+  //sort keys by count
+  const sortedFrequencies = Object.keys(frequencies).sort(function (
+    a: string,
+    b: string
+  ) {
+    return frequencies[b] - frequencies[a];
   });
 
-  return sorted[sorted.length - 1];
+  // return least common colour string
+  return sortedFrequencies[sortedFrequencies.length - 1];
 };
