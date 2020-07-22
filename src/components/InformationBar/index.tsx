@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useTransition } from "react-spring";
-import { Wrapper, Heading, CloseButton } from "./style";
+import { Wrapper, Header, Heading, SubHeading, CloseButton } from "./style";
 import { Lesson } from "../../store/types";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
 import { constants } from "../../constants";
-import { FaArrowRight } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
 import { LessonForm } from "../LessonForm";
 import { Popup } from "../Popup";
@@ -61,18 +61,17 @@ export const InformationBar: React.FC<{
         ({ item, key, props }) =>
           item && (
             <Wrapper background={lesson?.colour} style={props} key={key}>
-              <div>
-                <Heading>Lesson Details</Heading>
+              <Header>
+                <SubHeading>Subject</SubHeading>
+                <Heading>{lesson?.lesson.subject}</Heading>
 
                 <CloseButton
                   onClick={() => dispatch(actions.closePanelButtonPressed())}
                 >
-                  <FaArrowRight size="22" />
+                  <FaTimes />
                 </CloseButton>
-              </div>
+              </Header>
               <img
-                style={{ marginTop: "20px" }}
-                height="100px"
                 src={process.env.PUBLIC_URL + "blackboard.svg"}
                 alt="Blackboard Icon"
               />
