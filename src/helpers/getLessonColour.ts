@@ -16,6 +16,8 @@ export const getLessonColour = (coloursInUse: string[] | undefined): string => {
   const combinedColours = coloursInUse
     ? [...coloursInUse, ...colourScheme]
     : colourScheme;
+
+  shuffleArray(combinedColours);
   const frequencies: { [key: string]: number } = combinedColours.reduce(
     function (obj: { [key: string]: number }, val) {
       obj[val] = (obj[val] || 0) + 1;
@@ -34,4 +36,11 @@ export const getLessonColour = (coloursInUse: string[] | undefined): string => {
 
   // return least common colour string
   return sortedFrequencies[sortedFrequencies.length - 1];
+};
+
+const shuffleArray = (array: any[]): void => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 };
