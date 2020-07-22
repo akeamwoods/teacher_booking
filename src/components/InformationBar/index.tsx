@@ -1,6 +1,6 @@
 import React from "react";
 import { useTransition } from "react-spring";
-import { Wrapper } from "./style";
+import { Wrapper, Heading } from "./style";
 import { Lesson } from "../../store/types";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
@@ -31,7 +31,7 @@ export const InformationBar: React.FC<{
           item && (
             <Wrapper background={lesson?.colour} style={props} key={key}>
               <div>
-                <h2>{lesson?.lesson.subject}</h2>
+                <Heading>{lesson?.lesson.subject}</Heading>
                 <button onClick={() => dispatch(actions.infoPanelClosed())}>
                   <FaArrowRight size="22" />
                 </button>

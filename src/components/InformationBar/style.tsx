@@ -18,10 +18,21 @@ export const Wrapper = styled(animated.div).attrs<{
     svg {
       opacity: 1;
     }
+    position:absolute:
+    right:20px;
   }
 
   div {
     display: flex;
     justify-content: space-between;
   }
+`;
+
+export const Heading = styled.h2`
+  color: #fff;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex: 1;
+  margin: 0;
 `;
