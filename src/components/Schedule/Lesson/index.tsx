@@ -6,8 +6,7 @@ import { LessonWrapper } from "./style";
 import { Lesson as LessonType } from "./../../../store/types";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../store/actions";
-import { FaCog, FaTrash } from "react-icons/fa";
-import { useTypedSelector } from "../../../store";
+import { FaTimes } from "react-icons/fa";
 
 export const Lesson: React.FC<{
   lesson: LessonType;
@@ -15,17 +14,13 @@ export const Lesson: React.FC<{
   colour: string;
 }> = React.memo(({ lesson, scale, colour }) => {
   const dispatch = useDispatch();
-  const isLessonFocussed = useTypedSelector((state) =>
-    state.focussedLesson ? true : false
-  );
-
   const ref = createRef<SVGRectElement>();
   const handleClick = (e: React.MouseEvent<SVGRectElement, MouseEvent>) => {
     e.currentTarget.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
-    if (isLessonFocussed) dispatch(actions.lessonFocussed({ lesson, colour }));
+    dispatch(actions.lessonFocussed({ lesson, colour }));
   };
 
   const handleFocus = (e: React.FocusEvent<SVGRectElement>) => {
@@ -33,7 +28,7 @@ export const Lesson: React.FC<{
       behavior: "smooth",
       block: "start",
     });
-    if (isLessonFocussed) dispatch(actions.lessonFocussed({ lesson, colour }));
+    dispatch(actions.lessonFocussed({ lesson, colour }));
   };
   const deleteLesson = React.useCallback(
     () =>
@@ -65,16 +60,10 @@ export const Lesson: React.FC<{
           "H:mm"
         )}`}</p>
       </span>
-      <div>
-        <button onClick={deleteLesson}>
-          <FaTrash />
-        </button>
-        <button
-          onClick={() => dispatch(actions.lessonFocussed({ lesson, colour }))}
-        >
-          <FaCog />
-        </button>
-      </div>
+
+      <button onClick={deleteLesson}>
+        <FaTimes />
+      </button>
     </LessonWrapper>
   );
 });

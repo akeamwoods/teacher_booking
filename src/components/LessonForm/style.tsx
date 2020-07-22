@@ -25,6 +25,7 @@ export const Input = styled.input`
 `;
 
 export const Select = styled.select`
+  background: #fff;
   padding: 10px;
   border: 1px solid #edebe9;
   border-radius: 4px;
