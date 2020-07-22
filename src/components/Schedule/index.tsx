@@ -25,7 +25,7 @@ export const Schedule = () => {
       padding={`${
         scale(new Date("2020-07-20T06:00:00.000Z")) -
         scale(new Date("2020-07-20T05:00:00.000Z"))
-      }px 0`}
+      }px 20px`}
     >
       <Axis tickHeight={tickHeight} scale={scale} />
       <GridContainer>
