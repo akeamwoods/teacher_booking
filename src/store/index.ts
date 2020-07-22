@@ -22,7 +22,7 @@ const initialState = () => ({
   lessons: {
     "2020-07-19T23:00:00.000Z": [
       {
-        id: "01",
+        id: "f949d4f0-b121-4137-bbab-8e8e2cd2b312",
         teacherId: "01",
         subject: "English",
         start: "2020-07-20T07:30:00.000Z",
@@ -31,7 +31,7 @@ const initialState = () => ({
       },
 
       {
-        id: "02",
+        id: "114fc19c-d081-4ec6-91e3-8628d074939a",
         teacherId: "01",
         subject: "French",
         start: "2020-07-20T10:30:00.000Z",
@@ -39,7 +39,7 @@ const initialState = () => ({
         students: [],
       },
       {
-        id: "03",
+        id: "850364f0-33eb-4400-a4a4-a9ebbd2650bf",
         teacherId: "01",
         subject: "English",
         start: "2020-07-20T11:45:00.000Z",
@@ -69,20 +69,13 @@ export const rootReducer: Reducer<State, Actions> = (
       case getType(actions.selectedDayChanged):
         draft.selectedDate = new Date(action.payload).toISOString();
         break;
-      case getType(actions.newLessonCreated):
-        draft.lessons[startOfDay(new Date(action.payload.start)).toISOString()]
-          ? (draft.lessons[
-              startOfDay(new Date(action.payload.start)).toISOString()
-            ] = [
-              ...draft.lessons[
-                startOfDay(new Date(action.payload.start)).toISOString()
-              ],
-              action.payload,
-            ])
-          : (draft.lessons[
-              startOfDay(new Date(action.payload.start)).toISOString()
-            ] = [action.payload]);
+      case getType(actions.newLessonCreated): {
+        const key = startOfDay(new Date(action.payload.start)).toISOString();
+        draft.lessons[key]
+          ? (draft.lessons[key] = [...draft.lessons[key], action.payload])
+          : (draft.lessons[key] = [action.payload]);
         break;
+      }
       case getType(actions.lessonDeleted):
         draft.lessons[action.payload.date] = [
           ...draft.lessons[action.payload.date].filter(
@@ -100,6 +93,30 @@ export const rootReducer: Reducer<State, Actions> = (
       case getType(actions.infoPanelClosed):
         draft.infoPanelOpen = false;
         break;
+      case getType(actions.lessonEdited): {
+        const oldKey = action.payload.oldKey;
+        const newKey = startOfDay(
+          new Date(action.payload.lesson.start)
+        ).toISOString();
+        //remove old lesson
+        draft.lessons[oldKey] = [
+          ...draft.lessons[oldKey].filter(
+            (lesson) => lesson.id !== action.payload.lesson.id
+          ),
+        ];
+
+        draft.lessons[newKey]
+          ? (draft.lessons[newKey] = [
+              ...draft.lessons[newKey],
+              action.payload.lesson,
+            ])
+          : (draft.lessons[newKey] = [action.payload.lesson]);
+
+        if (draft.focussedLesson?.lesson.id === action.payload.lesson.id) {
+          draft.focussedLesson.lesson = action.payload.lesson;
+        }
+        break;
+      }
     }
   });
 

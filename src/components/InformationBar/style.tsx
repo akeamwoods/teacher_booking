@@ -11,17 +11,6 @@ export const Wrapper = styled(animated.div).attrs<{
   padding: 30px 20px;
   min-width: 300px;
 
-  button {
-    border: none;
-    background: transparent;
-    color: #fff;
-    svg {
-      opacity: 1;
-    }
-    position:absolute:
-    right:20px;
-  }
-
   div {
     display: flex;
     justify-content: space-between;
@@ -35,4 +24,27 @@ export const Heading = styled.h2`
   justify-content: center;
   flex: 1;
   margin: 0;
+`;
+
+export const ButtonBase = styled.button`
+  border: none;
+  color: #fff;
+  background: none;
+  display: flex;
+  align-items: center;
+  svg {
+    opacity: 1;
+  }
+`;
+
+export const Button = styled(ButtonBase)`
+  font-size: 1em;
+  svg {
+    margin-left: 10px;
+  }
+`;
+
+export const CloseButton = styled(ButtonBase)`
+  position: absolute;
+  right: 20px;
 `;

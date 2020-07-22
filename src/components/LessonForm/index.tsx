@@ -3,21 +3,31 @@ import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
 import { Lesson } from "../../store/types";
 import { v4 as uuidv4 } from "uuid";
-import { useTypedSelector } from "../../store";
 import { DatePicker } from "../DatePicker";
 import { startOfDay } from "date-fns";
 import { Form, Input, Select, SubmitButton, Wrapper } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 
-export const LessonForm = () => {
+export const LessonForm: React.FC<{
+  initialDate: string;
+  id?: string;
+  initialSubject?: string;
+  start?: string;
+  end?: string;
+}> = ({ initialDate, id, initialSubject, start, end }) => {
   const dispatch = useDispatch();
-  const currentDate = useTypedSelector((state) => state.selectedDate);
   const options = getTimeSlots(15, 8, 17.15);
-  const [date, setDate] = useState(new Date(currentDate));
+  const [date, setDate] = useState(new Date(initialDate));
   const [isOpen, setOpen] = useState(false);
-  const [startTime, setStartTime] = useState(undefined as undefined | string);
-  const [endTime, setEndTime] = useState(undefined as undefined | string);
-  const [subject, updateSubject] = useState("");
+  const [startTime, setStartTime] = useState(
+    start ? start : (undefined as undefined | string)
+  );
+  const [endTime, setEndTime] = useState(
+    end ? end : (undefined as undefined | string)
+  );
+  const [subject, updateSubject] = useState(
+    initialSubject ? initialSubject : ""
+  );
   return (
     <Wrapper>
       <h3 style={{ margin: 0 }}>New Lesson</h3>
@@ -30,24 +40,48 @@ export const LessonForm = () => {
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          if (startTime && endTime)
-            dispatch(
-              actions.newLessonCreated({
-                id: uuidv4(),
-                start: new Date(
-                  new Date(date.setHours(parseFloat(startTime))).setMinutes(
-                    parseFloat(startTime.slice(-2))
-                  )
-                ).toISOString(),
-                end: new Date(
-                  new Date(date.setHours(parseFloat(endTime))).setMinutes(
-                    parseFloat(endTime.slice(-2))
-                  )
-                ).toISOString(),
-                subject: subject,
-                teacherId: "01",
-              } as Lesson)
-            );
+          if (startTime && endTime) {
+            if (!id) {
+              dispatch(
+                actions.newLessonCreated({
+                  id: uuidv4(),
+                  start: new Date(
+                    new Date(date.setHours(parseFloat(startTime))).setMinutes(
+                      parseFloat(startTime.slice(-2))
+                    )
+                  ).toISOString(),
+                  end: new Date(
+                    new Date(date.setHours(parseFloat(endTime))).setMinutes(
+                      parseFloat(endTime.slice(-2))
+                    )
+                  ).toISOString(),
+                  subject,
+                  teacherId: "01",
+                } as Lesson)
+              );
+            } else {
+              dispatch(
+                actions.lessonEdited({
+                  lesson: {
+                    id,
+                    start: new Date(
+                      new Date(date.setHours(parseFloat(startTime))).setMinutes(
+                        parseFloat(startTime.slice(-2))
+                      )
+                    ).toISOString(),
+                    end: new Date(
+                      new Date(date.setHours(parseFloat(endTime))).setMinutes(
+                        parseFloat(endTime.slice(-2))
+                      )
+                    ).toISOString(),
+                    subject,
+                    teacherId: "01",
+                  },
+                  oldKey: initialDate,
+                })
+              );
+            }
+          }
         }}
       >
         <DatePicker
@@ -55,7 +89,7 @@ export const LessonForm = () => {
           setOpen={setOpen}
           isOpen={isOpen}
           changeDate={(date) => setDate(startOfDay(date))}
-          selectedDate={startOfDay(date ? date : new Date(currentDate))}
+          selectedDate={startOfDay(date ? date : new Date(initialDate))}
           singleClick
         />
         <Input

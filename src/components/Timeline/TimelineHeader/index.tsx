@@ -8,6 +8,7 @@ import { DatePicker } from "../../DatePicker";
 import { actions } from "../../../store/actions";
 import { startOfDay, isSameDay } from "date-fns";
 import { useKeyboardEvent } from "../../../hooks/useKeyboardEvent";
+import { useTypedSelector } from "../../../store";
 
 export const TimelineHeader: React.FC<{
   selectedDate: string;
@@ -15,7 +16,7 @@ export const TimelineHeader: React.FC<{
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
   const [isVisible, setVisibility] = useState(false);
-
+  const initialDate = useTypedSelector((state) => state.selectedDate);
   useKeyboardEvent("Escape", () => {
     setOpen(false);
   });
@@ -28,7 +29,7 @@ export const TimelineHeader: React.FC<{
         }}
         scrollLock
       >
-        <LessonForm />
+        <LessonForm initialDate={initialDate} />
       </Popup>
       <h1>Availability</h1>
       <span>

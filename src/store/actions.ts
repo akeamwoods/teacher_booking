@@ -4,6 +4,10 @@ import { Lesson } from "./types";
 const selectedMonthChanged = createAction("selected month changed")<Date>();
 const selectedDayChanged = createAction("selected day changed")<Date>();
 const newLessonCreated = createAction("new lesson created")<Lesson>();
+const lessonEdited = createAction("lesson edited")<{
+  lesson: Lesson;
+  oldKey: string;
+}>();
 const lessonDeleted = createAction("lesson deleted")<{
   date: string;
   id: string;
@@ -19,6 +23,7 @@ export const actions = {
   selectedMonthChanged,
   selectedDayChanged,
   newLessonCreated,
+  lessonEdited,
   lessonDeleted,
   lessonFocussed,
   infoPanelClosed,

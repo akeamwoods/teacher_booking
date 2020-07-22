@@ -26,6 +26,7 @@ export const LessonWrapper = styled.rect.attrs<{
   cursor: pointer;
   transition: 0.3s;
   opacity: 0.9;
+  overflow: hidden;
   p {
     margin: 0;
   }
