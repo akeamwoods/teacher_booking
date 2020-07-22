@@ -6,12 +6,6 @@ export const DayTimelineWrapper = styled.div`
   overflow: auto;
   min-width: 100%;
   justify-content: space-between;
-  /* div:first-child {
-    margin-left: 50px;
-  }
-  div:last-child {
-    margin-right: 50px;
-  } */
 `;
 
 export const DayWrapper = styled.div.attrs<{
