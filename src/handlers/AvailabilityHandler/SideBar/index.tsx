@@ -9,8 +9,8 @@ export const SideBar = () => {
 
   return (
     <>
-      {!isOpen && <UserBar />}
-      <InformationBar lesson={focussedLesson} />
+      {!focussedLesson && <UserBar />}
+      <InformationBar isOpen={isOpen} lesson={focussedLesson} />
     </>
   );
 };

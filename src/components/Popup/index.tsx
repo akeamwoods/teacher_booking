@@ -5,6 +5,7 @@ import { FaTimes } from "react-icons/fa";
 import { Wrapper, Container, Header, CloseButton } from "./style";
 import { useScrollLock } from "../../hooks/useScrollLock";
 import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
+import { constants } from "../../constants";
 
 export const Popup: React.FC<{
   isVisible: boolean;
@@ -20,7 +21,7 @@ export const Popup: React.FC<{
     enter: { opacity: 1 },
     leave: { opacity: 0 },
     unique: true,
-    config: { duration: 200 },
+    config: { duration: constants.animationDuration },
   });
 
   const transitions2 = useTransition(isVisible, null, {
@@ -28,7 +29,7 @@ export const Popup: React.FC<{
     enter: { transform: "scale(1)" },
     leave: { transform: "scale(0)" },
     unique: true,
-    config: { duration: 200 },
+    config: { duration: constants.animationDuration },
   });
 
   return ReactDOM.createPortal(

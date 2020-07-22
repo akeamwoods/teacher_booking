@@ -4,18 +4,25 @@ import { Wrapper } from "./style";
 import { Lesson } from "../../store/types";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
+import { constants } from "../../constants";
+import { FaArrowRight } from "react-icons/fa";
+import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
 
 export const InformationBar: React.FC<{
   lesson: { lesson: Lesson; colour: string } | undefined;
-}> = ({ lesson }) => {
-  const transitions = useTransition(lesson ? true : false, null, {
+  isOpen: boolean;
+}> = React.memo(({ lesson, isOpen }) => {
+  const transitions = useTransition(isOpen, null, {
     from: { transform: "translate(100%)", opacity: 0 },
     enter: { transform: "translate(0)", opacity: 1 },
     leave: { transform: "translate(100%)", opacity: 0 },
     unique: true,
-    config: { duration: 200, friction: 100 },
+    config: { duration: constants.animationDuration },
   });
 
+  useKeyboardEvent("Escape", () => {
+    dispatch(actions.infoPanelClosed());
+  });
   const dispatch = useDispatch();
   return (
     <>
@@ -23,13 +30,15 @@ export const InformationBar: React.FC<{
         ({ item, key, props }) =>
           item && (
             <Wrapper background={lesson?.colour} style={props} key={key}>
-              {lesson?.lesson.subject}
-              <button onClick={() => dispatch(actions.lessonUnfocussed())}>
-                x
-              </button>
+              <div>
+                <h2>{lesson?.lesson.subject}</h2>
+                <button onClick={() => dispatch(actions.infoPanelClosed())}>
+                  <FaArrowRight size="22" />
+                </button>
+              </div>
             </Wrapper>
           )
       )}
     </>
   );
-};
+});

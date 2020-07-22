@@ -10,4 +10,18 @@ export const Wrapper = styled(animated.div).attrs<{
   flex-direction: column;
   padding: 30px 20px;
   min-width: 300px;
+
+  button {
+    border: none;
+    background: transparent;
+    color: #fff;
+    svg {
+      opacity: 1;
+    }
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
 `;

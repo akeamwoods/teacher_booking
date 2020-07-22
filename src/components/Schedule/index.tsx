@@ -13,7 +13,6 @@ export const Schedule = () => {
     "#f3ab22",
     "#3eb764",
     "#4E22F3",
-    "#8ddbf3",
     "#F32222",
     "#F32293",
     "#9B22F3",
