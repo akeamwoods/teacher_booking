@@ -1,7 +1,14 @@
 import React from "react";
 import { DayTimeline } from "./DayTimeline";
 import { MonthTimeline } from "./MonthTimeline";
-import { Wrapper, Span, Fade, RightFade } from "./style";
+import {
+  Wrapper,
+  Span,
+  Fade,
+  RightFade,
+  BottomFade,
+  BottomRightFade,
+} from "./style";
 import { startOfYear, startOfMonth } from "date-fns";
 import { TimelineHeader } from "./TimelineHeader";
 import { useTypedSelector } from "../../store";
@@ -21,11 +28,11 @@ export const Timeline = () => {
         <RightFade />
       </Span>
       <Span>
-        <Fade />
+        <BottomFade />
         <Wrapper>
           <DayTimeline startOfMonth={monthStart} />
         </Wrapper>
-        <RightFade />
+        <BottomRightFade />
       </Span>
     </>
   );

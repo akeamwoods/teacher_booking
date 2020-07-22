@@ -17,7 +17,7 @@ export const Span = styled.div`
 
 export const Fade = styled.div`
   position: absolute;
-  width: 20%;
+  width: 10%;
   height: 100%;
   background: linear-gradient(
     90deg,
@@ -33,4 +33,14 @@ export const RightFade = styled(Fade)`
     rgba(255, 255, 255, 0),
     rgba(255, 255, 255, 1)
   );
+`;
+
+export const BottomFade = styled(Fade)`
+  bottom: 0;
+  border-bottom: 2px solid #e1e1e1;
+`;
+
+export const BottomRightFade = styled(RightFade)`
+  bottom: 0;
+  border-bottom: 2px solid #e1e1e1;
 `;
