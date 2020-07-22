@@ -62,7 +62,7 @@ export const InformationBar: React.FC<{
           item && (
             <Wrapper background={lesson?.colour} style={props} key={key}>
               <div>
-                <Heading>{lesson?.lesson.subject}</Heading>
+                <Heading>Lesson Details</Heading>
 
                 <CloseButton
                   onClick={() => dispatch(actions.closePanelButtonPressed())}
@@ -70,6 +70,12 @@ export const InformationBar: React.FC<{
                   <FaArrowRight size="22" />
                 </CloseButton>
               </div>
+              <img
+                style={{ marginTop: "20px" }}
+                height="100px"
+                src={process.env.PUBLIC_URL + "blackboard.svg"}
+                alt="Blackboard Icon"
+              />
               <button onClick={() => setVisibility(true)}>Edit</button>
             </Wrapper>
           )

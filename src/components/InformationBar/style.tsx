@@ -9,8 +9,6 @@ export const Wrapper = styled(animated.div).attrs<{
   display: flex;
   flex-direction: column;
   padding: 30px 20px;
-  min-width: 300px;
-
   div {
     display: flex;
     justify-content: space-between;
@@ -20,8 +18,6 @@ export const Wrapper = styled(animated.div).attrs<{
 export const Heading = styled.h2`
   color: #fff;
   display: flex;
-  text-align: center;
-  justify-content: center;
   flex: 1;
   margin: 0;
 `;
@@ -37,14 +33,6 @@ export const ButtonBase = styled.button`
   }
 `;
 
-export const Button = styled(ButtonBase)`
-  font-size: 1em;
-  svg {
-    margin-left: 10px;
-  }
-`;
-
 export const CloseButton = styled(ButtonBase)`
-  position: absolute;
-  right: 20px;
+  margin-left: 20px;
 `;
