@@ -13,6 +13,7 @@ const lessonFocussed = createAction("lesson focussed")<{
   colour: string;
 }>();
 const lessonUnfocussed = createAction("lesson unfocussed")();
+const infoPanelClosed = createAction("info panel closed")();
 
 export const actions = {
   selectedMonthChanged,
@@ -20,6 +21,7 @@ export const actions = {
   newLessonCreated,
   lessonDeleted,
   lessonFocussed,
+  infoPanelClosed,
   lessonUnfocussed,
 };
 

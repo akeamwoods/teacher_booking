@@ -1,18 +1,20 @@
 import { Actions, actions } from "./actions";
-import { Reducer, createStore } from "redux";
+import { Reducer, createStore, applyMiddleware } from "redux";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import createSagaMiddleware from "redux-saga";
 import produce from "immer";
 import { getType } from "typesafe-actions";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { setMonth, getMonth, startOfDay } from "date-fns";
 import { Lesson } from "./types";
+import { rootSaga } from "./rootSaga";
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["selectedDate", "lessons", "focussedLesson"],
+  blacklist: ["selectedDate", "lessons", "focussedLesson", "infoPanelOpen"],
 };
 
 const initialState = () => ({
@@ -47,6 +49,7 @@ const initialState = () => ({
     ],
   } as { [key: string]: Lesson[] },
   focussedLesson: undefined as undefined | { lesson: Lesson; colour: string },
+  infoPanelOpen: false,
 });
 
 export type State = Readonly<ReturnType<typeof initialState>>;
@@ -89,15 +92,26 @@ export const rootReducer: Reducer<State, Actions> = (
         break;
       case getType(actions.lessonFocussed):
         draft.focussedLesson = action.payload;
+        draft.infoPanelOpen = true;
         break;
       case getType(actions.lessonUnfocussed):
         draft.focussedLesson = undefined;
         break;
+      case getType(actions.infoPanelClosed):
+        draft.infoPanelOpen = false;
+        break;
     }
   });
 
+const sagaMiddleware = createSagaMiddleware();
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(persistedReducer, composeWithDevTools());
+export const store = createStore(
+  persistedReducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
+);
+sagaMiddleware.run(rootSaga);
 export const persistor = persistStore(store);
+
 export const useTypedSelector: TypedUseSelectorHook<State> = useSelector;
