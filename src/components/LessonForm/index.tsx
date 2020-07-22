@@ -30,13 +30,22 @@ export const LessonForm: React.FC<{
   );
   return (
     <Wrapper>
-      <h3 style={{ margin: 0 }}>New Lesson</h3>
-      <img
-        style={{ margin: "20px" }}
-        height="100px"
-        src={process.env.PUBLIC_URL + "calendar.svg"}
-        alt="Avatar"
-      />
+      <h3 style={{ margin: 0 }}>{id ? "Update Lesson" : "New Lesson"}</h3>
+      {!id ? (
+        <img
+          style={{ margin: "20px" }}
+          height="100px"
+          src={process.env.PUBLIC_URL + "calendar.svg"}
+          alt="New Lesson Icon"
+        />
+      ) : (
+        <img
+          style={{ margin: "20px" }}
+          height="100px"
+          src={process.env.PUBLIC_URL + "edit_calendar.svg"}
+          alt="Update Lesson Icon"
+        />
+      )}
       <Form
         onSubmit={(e) => {
           e.preventDefault();
@@ -141,7 +150,7 @@ export const LessonForm: React.FC<{
           }
           type="submit"
         >
-          Add Lesson
+          {id ? "Update" : "Create"}
         </SubmitButton>
       </Form>
     </Wrapper>
