@@ -9,6 +9,7 @@ export const Wrapper = styled.nav`
 
   ul {
     padding: 0;
+    margin: 0;
     list-style: none;
     flex: 1;
     display: flex;

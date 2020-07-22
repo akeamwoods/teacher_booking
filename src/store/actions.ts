@@ -8,16 +8,19 @@ const lessonDeleted = createAction("lesson deleted")<{
   date: string;
   id: string;
 }>();
-const popupActivated = createAction("popup activated")();
-const popupClosed = createAction("popup closed")();
+const lessonFocussed = createAction("lesson focussed")<{
+  lesson: Lesson;
+  colour: string;
+}>();
+const lessonUnfocussed = createAction("lesson unfocussed")();
 
 export const actions = {
   selectedMonthChanged,
   selectedDayChanged,
   newLessonCreated,
   lessonDeleted,
-  popupActivated,
-  popupClosed,
+  lessonFocussed,
+  lessonUnfocussed,
 };
 
 export type Actions = ActionType<typeof actions>;

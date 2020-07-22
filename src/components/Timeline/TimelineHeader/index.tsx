@@ -25,7 +25,6 @@ export const TimelineHeader: React.FC<{
         isVisible={isVisible}
         onClick={() => {
           setVisibility(false);
-          dispatch(actions.popupClosed());
         }}
         scrollLock
       >

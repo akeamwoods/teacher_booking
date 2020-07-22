@@ -2,7 +2,7 @@ import React from "react";
 import { Wrapper } from "./style";
 import { Timeline } from "../../components/Timeline";
 import { Schedule } from "../../components/Schedule";
-import { UserBar } from "../../components/UserBar";
+import { SideBar } from "./SideBar";
 
 export const AvailabilityHandler = () => {
   return (
@@ -11,7 +11,7 @@ export const AvailabilityHandler = () => {
         <Timeline />
         <Schedule />
       </Wrapper>
-      <UserBar />
+      <SideBar />
     </>
   );
 };

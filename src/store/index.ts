@@ -12,7 +12,7 @@ import { Lesson } from "./types";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["selectedDate", "lessons"],
+  blacklist: ["selectedDate", "lessons", "focussedLesson"],
 };
 
 const initialState = () => ({
@@ -46,7 +46,7 @@ const initialState = () => ({
       },
     ],
   } as { [key: string]: Lesson[] },
-  popupActive: false,
+  focussedLesson: undefined as undefined | { lesson: Lesson; colour: string },
 });
 
 export type State = Readonly<ReturnType<typeof initialState>>;
@@ -87,11 +87,11 @@ export const rootReducer: Reducer<State, Actions> = (
           ),
         ];
         break;
-      case getType(actions.popupActivated):
-        draft.popupActive = true;
+      case getType(actions.lessonFocussed):
+        draft.focussedLesson = action.payload;
         break;
-      case getType(actions.popupClosed):
-        draft.popupActive = false;
+      case getType(actions.lessonUnfocussed):
+        draft.focussedLesson = undefined;
         break;
     }
   });

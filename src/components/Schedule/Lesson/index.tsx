@@ -20,6 +20,7 @@ export const Lesson: React.FC<{
       behavior: "smooth",
       block: "start",
     });
+    dispatch(actions.lessonFocussed({ lesson, colour }));
   };
   const deleteLesson = React.useCallback(
     () =>
