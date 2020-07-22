@@ -21,7 +21,7 @@ export const Fade = styled.div`
   height: 100%;
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255),
+    rgba(255, 255, 255, 1),
     rgba(255, 255, 255, 0)
   );
 `;

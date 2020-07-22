@@ -20,20 +20,20 @@ export const Timeline = () => {
   return (
     <>
       <TimelineHeader selectedDate={selectedDate} />
-      <Span>
-        <Fade />
-        <Wrapper>
-          <MonthTimeline startOfYear={yearStart} />
-        </Wrapper>
-        <RightFade />
+      {/* <Span>
+        <Fade /> */}
+      <Wrapper>
+        <MonthTimeline startOfYear={yearStart} />
+      </Wrapper>
+      {/* <RightFade />
       </Span>
       <Span>
-        <BottomFade />
-        <Wrapper>
-          <DayTimeline startOfMonth={monthStart} />
-        </Wrapper>
-        <BottomRightFade />
-      </Span>
+        <BottomFade /> */}
+      <Wrapper>
+        <DayTimeline startOfMonth={monthStart} />
+      </Wrapper>
+      {/* <BottomRightFade />
+      </Span> */}
     </>
   );
 };
