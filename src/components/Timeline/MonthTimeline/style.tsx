@@ -7,6 +7,12 @@ export const MonthTimelineWrapper = styled.div`
   min-width: 100%;
   justify-content: space-between;
   font-size: 1.2em;
+  /* button:first-child {
+    margin-left: 50px;
+  }
+  button:last-child {
+    margin-right: 50px;
+  } */
 `;
 
 export const MonthWrapper = styled.button.attrs<{

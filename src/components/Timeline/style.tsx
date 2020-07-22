@@ -17,7 +17,7 @@ export const Span = styled.div`
 
 export const Fade = styled.div`
   position: absolute;
-  width: 10%;
+  width: 50%;
   height: 100%;
   background: linear-gradient(
     90deg,
