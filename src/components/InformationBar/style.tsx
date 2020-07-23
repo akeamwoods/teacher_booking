@@ -52,6 +52,19 @@ export const Button = styled.button`
   align-items: center;
 `;
 
+export const LinkedButton = styled(Button).attrs<{
+  isLinked: string;
+}>((props) => ({}))<{ isLinked: boolean }>`
+  svg {
+    color: ${(props) => (props.isLinked ? "gold" : "white")};
+    opacity: ${(props) => (props.isLinked ? "0.9" : "0.6")};
+  }
+
+  :hover svg {
+    opacity: 1;
+  }
+`;
+
 export const CloseButton = styled(Button)`
   position: absolute;
   top: 10px;

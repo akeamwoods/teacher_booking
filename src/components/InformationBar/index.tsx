@@ -7,6 +7,7 @@ import {
   Heading,
   SubHeading,
   CloseButton,
+  LinkedButton,
   Button,
   ClassSpan,
 } from "./style";
@@ -20,6 +21,7 @@ import {
   FaTrash,
   FaPlusCircle,
   FaQuestionCircle,
+  FaLink,
 } from "react-icons/fa";
 import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
 import { LessonForm } from "../LessonForm";
@@ -79,7 +81,9 @@ export const InformationBar: React.FC<{
                     <Button onClick={() => setVisibility(true)}>
                       <FaEdit size="22" />
                     </Button>
-
+                    <LinkedButton isLinked={lesson.seriesId ? true : false}>
+                      <FaLink size="22" />
+                    </LinkedButton>
                     <Button
                       onClick={() =>
                         dispatch(

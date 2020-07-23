@@ -113,6 +113,7 @@ export const LessonForm: React.FC<{
                       ).toISOString(),
                       subject,
                       teacherId: "01",
+                      seriesId: uuidv4(),
                     },
                     series: {
                       start: seriesStart,

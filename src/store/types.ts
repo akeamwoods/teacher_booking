@@ -19,4 +19,5 @@ export type Lesson = {
   end: string;
   color: string;
   class?: Class;
+  seriesId?: string;
 };
