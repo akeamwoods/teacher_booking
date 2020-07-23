@@ -4,9 +4,11 @@ import { Select } from "./style";
 import React from "react";
 
 export const ClassAndSeriesControls: React.FC<{
+  series: boolean;
+  setSeries: React.Dispatch<React.SetStateAction<boolean>>;
   classGroup: Class | undefined;
   setClassGroup: React.Dispatch<React.SetStateAction<Class | undefined>>;
-}> = ({ classGroup, setClassGroup }) => {
+}> = ({ series, setSeries, classGroup, setClassGroup }) => {
   const classOptions = useTypedSelector((state) => state.classes);
   return (
     <div style={{ display: "flex", marginTop: "10px", alignItems: "center" }}>
@@ -34,7 +36,11 @@ export const ClassAndSeriesControls: React.FC<{
         }}
       >
         <label>Series</label>
-        <input type="checkbox" checked={false} onChange={() => void {}} />
+        <input
+          type="checkbox"
+          checked={series}
+          onChange={() => setSeries(!series)}
+        />
       </span>
     </div>
   );

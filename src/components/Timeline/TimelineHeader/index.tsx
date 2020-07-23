@@ -20,7 +20,6 @@ export const TimelineHeader: React.FC<{
   useKeyboardEvent("Escape", () => {
     setOpen(false);
   });
-  const formView = "New";
   return (
     <Header>
       <Popup
@@ -30,11 +29,7 @@ export const TimelineHeader: React.FC<{
         }}
         scrollLock
       >
-        {formView === "New" ? (
-          <NewLessonForm initialDate={initialDate} />
-        ) : (
-          <h1>hi</h1>
-        )}
+        <NewLessonForm initialDate={initialDate} />
       </Popup>
       <h1>Availability</h1>
       <span>

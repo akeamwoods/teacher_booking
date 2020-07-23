@@ -23,10 +23,10 @@ import {
   FaLink,
 } from "react-icons/fa";
 import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
-import { LessonForm } from "../LessonForm";
 import { Popup } from "../Popup";
 import { startOfDay, format } from "date-fns";
 import { useTypedSelector } from "../../store";
+import { EditLessonForm } from "../LessonForm/EditLessonForm";
 
 export const InformationBar: React.FC<{
   lesson: Lesson | undefined;
@@ -59,7 +59,7 @@ export const InformationBar: React.FC<{
           }}
           scrollLock
         >
-          <LessonForm
+          <EditLessonForm
             initialDate={startOfDay(new Date(lesson.start)).toISOString()}
             lesson={lesson}
           />

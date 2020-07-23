@@ -22,6 +22,24 @@ const lessonEdited = createAction("lesson edited")<{
   lesson: Lesson;
   oldKey: string;
 }>();
+const lessonEditedSeriesAdded = createAction(
+  "lesson edited with series added"
+)<{
+  lesson: Lesson;
+  oldKey: string;
+  series: {
+    start: Date;
+    end: Date;
+    days: {
+      monday: boolean;
+      tuesday: boolean;
+      wednesday: boolean;
+      thursday: boolean;
+      friday: boolean;
+    };
+  };
+}>();
+
 const lessonDeleted = createAction("lesson deleted")<{
   date: string;
   id: string;
@@ -42,6 +60,7 @@ export const actions = {
   infoPanelClosed,
   lessonUnfocussed,
   closePanelButtonPressed,
+  lessonEditedSeriesAdded,
 };
 
 export type Actions = ActionType<typeof actions>;

@@ -11,6 +11,16 @@ export const Wrapper = styled.div`
     min-width: 200px;
   }
 `;
+export const SeriesContainer = styled.span`
+  display: flex;
+  z-index: 1;
+  div:first-child {
+    margin-right: 5px;
+  }
+  div:last-child {
+    margin-left: 5px;
+  }
+`;
 
 export const Form = styled.form`
   display: flex;
@@ -48,16 +58,5 @@ export const SubmitButton = styled.button`
   border-radius: 4px;
   :disabled {
     opacity: 0.4;
-  }
-`;
-
-export const SeriesContainer = styled.span`
-  display: flex;
-  z-index: 1;
-  div:first-child {
-    margin-right: 5px;
-  }
-  div:last-child {
-    margin-left: 5px;
   }
 `;

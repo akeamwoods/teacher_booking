@@ -162,6 +162,73 @@ export const rootReducer: Reducer<State, Actions> = (
 
         break;
       }
+      case getType(actions.lessonEditedSeriesAdded): {
+        const seriesId = uuidv4();
+        const days = action.payload.series.days;
+        const start = action.payload.series.start;
+        const end = action.payload.series.end;
+        const startDayNumber = getDay(start);
+        const startTime = `${format(
+          new Date(action.payload.lesson.start),
+          "HH"
+        )}:${format(new Date(action.payload.lesson.start), "mm")}`;
+        const endTime = `${format(
+          new Date(action.payload.lesson.end),
+          "HH"
+        )}:${format(new Date(action.payload.lesson.end), "mm")}`;
+        let daysToAdd: Date[] = [];
+
+        draft.lessons[action.payload.oldKey] = [
+          ...draft.lessons[action.payload.oldKey].filter(
+            (lesson) => lesson.id !== action.payload.lesson.id
+          ),
+        ];
+
+        Object.entries(days).forEach((entry) => {
+          if (entry[1]) {
+            const dayOfWeek = getDayAsNumber(entry[0]);
+            const x = (dayOfWeek - startDayNumber + 7) % 7;
+            let nextDay = addDays(start, x);
+            while (isBefore(nextDay, end) || isSameDay(nextDay, end)) {
+              daysToAdd.push(nextDay);
+              nextDay = addDays(nextDay, 7);
+            }
+          }
+        });
+
+        daysToAdd.forEach((day) => {
+          const key = startOfDay(day).toISOString();
+
+          const lesson = {
+            ...action.payload.lesson,
+            seriesId: action.payload.lesson.seriesId
+              ? action.payload.lesson.seriesId
+              : seriesId,
+            id: uuidv4(),
+            start: new Date(
+              new Date(day.setHours(parseFloat(startTime))).setMinutes(
+                parseFloat(startTime.slice(-2))
+              )
+            ).toISOString(),
+            end: new Date(
+              new Date(day.setHours(parseFloat(endTime))).setMinutes(
+                parseFloat(endTime.slice(-2))
+              )
+            ).toISOString(),
+            color: getLessonColour(
+              draft.lessons[key]
+                ? draft.lessons[key].map((lesson) => lesson.color)
+                : []
+            ),
+          };
+
+          draft.lessons[key]
+            ? (draft.lessons[key] = [...draft.lessons[key], lesson])
+            : (draft.lessons[key] = [lesson]);
+        });
+
+        break;
+      }
       case getType(actions.lessonDeleted):
         draft.lessons[action.payload.date] = [
           ...draft.lessons[action.payload.date].filter(
