@@ -8,12 +8,19 @@ import {
   SubHeading,
   CloseButton,
   Button,
+  ClassSpan,
 } from "./style";
 import { Lesson } from "../../store/types";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
 import { constants } from "../../constants";
-import { FaTimes, FaEdit, FaTrash, FaPlusCircle } from "react-icons/fa";
+import {
+  FaTimes,
+  FaEdit,
+  FaTrash,
+  FaPlusCircle,
+  FaQuestionCircle,
+} from "react-icons/fa";
 import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
 import { LessonForm } from "../LessonForm";
 import { Popup } from "../Popup";
@@ -116,18 +123,28 @@ export const InformationBar: React.FC<{
                     </Section>
                     <Section>
                       <SubHeading>Class</SubHeading>
-                      <span style={{ display: "flex" }}>
+                      <ClassSpan>
                         <Heading>{lesson.class?.group ?? "None"}</Heading>
                         {!lesson.class && (
                           <Button>
                             <FaPlusCircle />
                           </Button>
                         )}
-                      </span>
+                      </ClassSpan>
                     </Section>
                     <Section>
                       <SubHeading>Students</SubHeading>
-                      <Heading>{lesson.class?.students.length ?? "0"}</Heading>
+
+                      <ClassSpan>
+                        <Heading>
+                          {lesson.class?.students.length ?? "0"}
+                        </Heading>
+                        {lesson.class && (
+                          <Button>
+                            <FaQuestionCircle />
+                          </Button>
+                        )}
+                      </ClassSpan>
                     </Section>
                   </>
                 </div>
