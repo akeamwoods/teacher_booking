@@ -56,10 +56,8 @@ export const LinkedButton = styled(Button).attrs<{
   isLinked: string;
 }>((props) => ({}))<{ isLinked: boolean }>`
   svg {
-    color: ${(props) => (props.isLinked ? "gold" : "white")};
-    opacity: ${(props) => (props.isLinked ? "0.9" : "0.6")};
+    opacity: ${(props) => (props.isLinked ? "1" : "0.6")};
   }
-
   :hover svg {
     opacity: 1;
   }
