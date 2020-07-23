@@ -15,7 +15,7 @@ export function* closeInfoBarSaga() {
 
 export function* deleteLessonSaga({ payload }: any) {
   const focussedLesson = yield select(getfocussedLesson);
-  if (focussedLesson && focussedLesson.lesson.id === payload.id) {
+  if (focussedLesson && focussedLesson.id === payload.id) {
     yield call(closeInfoBarSaga);
   }
   try {

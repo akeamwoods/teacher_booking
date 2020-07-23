@@ -10,11 +10,21 @@ export const Controls: React.FC<{
 }> = React.memo(({ date, left, right }) => {
   return (
     <Wrapper>
-      <TransparentButton onClick={left}>
+      <TransparentButton
+        onClick={(e) => {
+          e.preventDefault();
+          left();
+        }}
+      >
         <FaCaretLeft />
       </TransparentButton>
       <h4>{format(date, "MMMM yyyy")}</h4>
-      <TransparentButton onClick={right}>
+      <TransparentButton
+        onClick={(e) => {
+          e.preventDefault();
+          right();
+        }}
+      >
         <FaCaretRight />
       </TransparentButton>
     </Wrapper>
