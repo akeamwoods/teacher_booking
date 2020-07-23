@@ -29,7 +29,6 @@ export const Select = styled.select`
   padding: 10px;
   border: 1px solid #edebe9;
   border-radius: 4px;
-  margin-top: 10px;
   display: flex;
   flex: 1;
   :first-child {

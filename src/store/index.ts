@@ -17,7 +17,7 @@ import {
   isSameDay,
   format,
 } from "date-fns";
-import { Lesson } from "./types";
+import { Lesson, Class } from "./types";
 import { rootSaga } from "./rootSaga";
 import { getLessonColour } from "../helpers/getLessonColour";
 import { getDayAsNumber } from "../helpers/getDayAsNumber";
@@ -26,7 +26,13 @@ import { v4 as uuidv4 } from "uuid";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["selectedDate", "lessons", "focussedLesson", "infoPanelOpen"],
+  blacklist: [
+    "selectedDate",
+    "lessons",
+    "classes",
+    "focussedLesson",
+    "infoPanelOpen",
+  ],
 };
 
 const initialState = () => ({
@@ -73,6 +79,7 @@ const initialState = () => ({
     //     },
     //   ],
   } as { [key: string]: Lesson[] },
+  classes: [{ id: "01", year: 7, group: "A", students: [] }] as Class[],
   focussedLesson: undefined as undefined | Lesson,
   infoPanelOpen: false,
 });

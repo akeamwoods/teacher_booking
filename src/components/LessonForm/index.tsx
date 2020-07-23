@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
-import { Lesson } from "../../store/types";
+import { Lesson, Class } from "../../store/types";
 import { v4 as uuidv4 } from "uuid";
 import { DatePicker } from "../DatePicker";
 import { startOfDay, format, addWeeks } from "date-fns";
@@ -15,6 +15,7 @@ import {
   CheckBoxContainer,
 } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
+import { useTypedSelector } from "../../store";
 
 export const LessonForm: React.FC<{
   initialDate: string;
@@ -22,10 +23,12 @@ export const LessonForm: React.FC<{
 }> = ({ initialDate, lesson }) => {
   const dispatch = useDispatch();
   const options = getTimeSlots(15, 8, 17.15);
+  const classOptions = useTypedSelector((state) => state.classes);
   const [date, setDate] = useState(new Date(initialDate));
   const [isOpen, setOpen] = useState(false);
   const [seriesStartOpen, setSeriesStartOpen] = useState(false);
   const [seriesEndOpen, setSeriesEndOpen] = useState(false);
+  const [classGroup, setClassGroup] = useState(undefined as undefined | Class);
 
   const [startTime, setStartTime] = useState(
     lesson
@@ -96,6 +99,7 @@ export const LessonForm: React.FC<{
                     ).toISOString(),
                     subject,
                     teacherId: "01",
+                    class: classGroup,
                   } as Lesson)
                 );
               } else {
@@ -115,6 +119,7 @@ export const LessonForm: React.FC<{
                       subject,
                       teacherId: "01",
                       seriesId: uuidv4(),
+                      class: classGroup,
                     },
                     series: {
                       start: seriesStart,
@@ -151,14 +156,6 @@ export const LessonForm: React.FC<{
           }
         }}
       >
-        <span style={{ marginBottom: "10px" }}>
-          <label>Series</label>
-          <input
-            type="checkbox"
-            checked={series}
-            onChange={() => setSeries(!series)}
-          />
-        </span>
         {series ? (
           <SeriesContainer>
             <DatePicker
@@ -193,7 +190,7 @@ export const LessonForm: React.FC<{
           value={subject}
           onChange={(e) => updateSubject(e.target.value)}
         ></Input>
-        <span style={{ display: "flex" }}>
+        <div style={{ display: "flex", marginTop: "10px" }}>
           <Select
             style={{ color: !startTime ? "#7d7d7d" : "#000" }}
             value={options.indexOf(startTime)}
@@ -226,8 +223,33 @@ export const LessonForm: React.FC<{
               </option>
             ))}
           </Select>
-        </span>
+        </div>
 
+        <div style={{ display: "flex", marginTop: "10px" }}>
+          <Select
+            style={{ color: !classGroup ? "#7d7d7d" : "#000" }}
+            value={classGroup && classOptions.indexOf(classGroup)}
+            onChange={(e) => {
+              if (e.target.selectedIndex > 0)
+                setClassGroup(classOptions[e.target.selectedIndex - 1]);
+            }}
+          >
+            <option disabled={classGroup ? true : false}>Class</option>
+            {classOptions.map((option, index) => (
+              <option key={index} value={index}>
+                {option.year + option.group}
+              </option>
+            ))}
+          </Select>
+          <span>
+            <label>Series</label>
+            <input
+              type="checkbox"
+              checked={series}
+              onChange={() => setSeries(!series)}
+            />
+          </span>
+        </div>
         {series && (
           <CheckBoxContainer>
             <label>Mon</label>
@@ -301,9 +323,10 @@ export const LessonForm: React.FC<{
           disabled={
             !startTime ||
             !endTime ||
+            !subject ||
+            !classGroup ||
             !options.includes(startTime) ||
             !options.includes(endTime) ||
-            !subject ||
             (series && !Object.values(checkboxState).includes(true))
             // || parseFloat(startTime) >= parseFloat(endTime)
           }
