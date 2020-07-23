@@ -1,47 +1,42 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
-import { Lesson, Student } from "../../store/types";
+import { Lesson } from "../../store/types";
 import { v4 as uuidv4 } from "uuid";
 import { DatePicker } from "../DatePicker";
-import { startOfDay } from "date-fns";
+import { startOfDay, format } from "date-fns";
 import { Form, Input, Select, SubmitButton, Wrapper } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 
 export const LessonForm: React.FC<{
   initialDate: string;
-  id?: string;
-  initialSubject?: string;
-  start?: string;
-  end?: string;
-  color?: string;
-  students?: Student[];
-}> = ({
-  initialDate,
-  id,
-  initialSubject,
-  start,
-  end,
-  color,
-  students = [],
-}) => {
+  lesson?: Lesson;
+}> = ({ initialDate, lesson }) => {
   const dispatch = useDispatch();
   const options = getTimeSlots(15, 8, 17.15);
   const [date, setDate] = useState(new Date(initialDate));
   const [isOpen, setOpen] = useState(false);
   const [startTime, setStartTime] = useState(
-    start ? start : (undefined as undefined | string)
+    lesson
+      ? `${format(new Date(lesson.start), "HH")}:${format(
+          new Date(lesson.start),
+          "mm"
+        )}`
+      : (undefined as undefined | string)
   );
   const [endTime, setEndTime] = useState(
-    end ? end : (undefined as undefined | string)
+    lesson
+      ? `${format(new Date(lesson.end), "HH")}:${format(
+          new Date(lesson.end),
+          "mm"
+        )}`
+      : (undefined as undefined | string)
   );
-  const [subject, updateSubject] = useState(
-    initialSubject ? initialSubject : ""
-  );
+  const [subject, updateSubject] = useState(lesson ? lesson.subject : "");
   return (
     <Wrapper>
-      <h3 style={{ margin: 0 }}>{id ? "Update Lesson" : "New Lesson"}</h3>
-      {!id ? (
+      <h3 style={{ margin: 0 }}>{lesson ? "Update Lesson" : "New Lesson"}</h3>
+      {!lesson ? (
         <img
           style={{ margin: "20px" }}
           height="100px"
@@ -60,7 +55,7 @@ export const LessonForm: React.FC<{
         onSubmit={(e) => {
           e.preventDefault();
           if (startTime && endTime) {
-            if (!id) {
+            if (!lesson) {
               dispatch(
                 actions.newLessonCreated({
                   id: uuidv4(),
@@ -82,7 +77,7 @@ export const LessonForm: React.FC<{
               dispatch(
                 actions.lessonEdited({
                   lesson: {
-                    id,
+                    id: lesson.id,
                     start: new Date(
                       new Date(date.setHours(parseFloat(startTime))).setMinutes(
                         parseFloat(startTime.slice(-2))
@@ -95,8 +90,8 @@ export const LessonForm: React.FC<{
                     ).toISOString(),
                     subject,
                     teacherId: "01",
-                    color: color!,
-                    students,
+                    color: lesson.color,
+                    class: lesson.class,
                   },
                   oldKey: initialDate,
                 })
@@ -162,7 +157,7 @@ export const LessonForm: React.FC<{
           }
           type="submit"
         >
-          {id ? "Update" : "Create"}
+          {lesson ? "Update" : "Create"}
         </SubmitButton>
       </Form>
     </Wrapper>

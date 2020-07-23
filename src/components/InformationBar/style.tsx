@@ -13,9 +13,6 @@ export const Wrapper = styled(animated.div).attrs<{
   img {
     width: 80%;
   }
-  span {
-    margin-top: 20px;
-  }
 `;
 
 export const ButtonBar = styled.span`
@@ -26,6 +23,7 @@ export const Section = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
 `;
 export const Heading = styled.h2`
   color: #fff;

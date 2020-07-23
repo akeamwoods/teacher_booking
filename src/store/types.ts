@@ -1,3 +1,10 @@
+export type Class = {
+  id: string;
+  year: number;
+  group: string;
+  students: Student[];
+};
+
 export type Student = {
   id: string;
   firstName: string;
@@ -11,5 +18,5 @@ export type Lesson = {
   start: string;
   end: string;
   color: string;
-  students?: Student[];
+  class?: Class;
 };

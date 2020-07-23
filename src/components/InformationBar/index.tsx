@@ -13,7 +13,7 @@ import { Lesson } from "../../store/types";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
 import { constants } from "../../constants";
-import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
+import { FaTimes, FaEdit, FaTrash, FaPlusCircle } from "react-icons/fa";
 import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
 import { LessonForm } from "../LessonForm";
 import { Popup } from "../Popup";
@@ -48,21 +48,10 @@ export const InformationBar: React.FC<{
           scrollLock
         >
           <LessonForm
-            id={lesson.lesson.id}
             initialDate={startOfDay(
               new Date(lesson?.lesson.start)
             ).toISOString()}
-            initialSubject={lesson.lesson.subject}
-            start={`${format(new Date(lesson.lesson.start), "HH")}:${format(
-              new Date(lesson.lesson.start),
-              "mm"
-            )}`}
-            end={`${format(new Date(lesson.lesson.end), "HH")}:${format(
-              new Date(lesson.lesson.end),
-              "mm"
-            )}`}
-            color={lesson.lesson.color}
-            students={lesson.lesson.students}
+            lesson={lesson.lesson}
           />
         </Popup>
       )}
@@ -101,12 +90,10 @@ export const InformationBar: React.FC<{
                       <FaTrash size="22" />
                     </Button>
                   </ButtonBar>
-
                   <Section>
                     <SubHeading>Subject</SubHeading>
                     <Heading>{lesson?.lesson.subject}</Heading>
                   </Section>
-
                   <Section>
                     <SubHeading>Date</SubHeading>
                     <Heading>
@@ -115,7 +102,6 @@ export const InformationBar: React.FC<{
                         : "N/A"}
                     </Heading>
                   </Section>
-
                   <Section>
                     <SubHeading>Time</SubHeading>
                     <Heading>
@@ -125,11 +111,31 @@ export const InformationBar: React.FC<{
                       )} - ${format(new Date(lesson?.lesson.end), "HH:mm")}`}
                     </Heading>
                   </Section>
-
-                  <Section>
-                    <SubHeading>Students</SubHeading>
-                    <Heading>{lesson?.lesson.students?.length}</Heading>
-                  </Section>
+                  <>
+                    <Section>
+                      <SubHeading>Year</SubHeading>
+                      <Heading>{lesson?.lesson.class?.year ?? "N/A"}</Heading>
+                    </Section>
+                    <Section>
+                      <SubHeading>Class</SubHeading>
+                      <span style={{ display: "flex" }}>
+                        <Heading>
+                          {lesson.lesson.class?.group ?? "None"}
+                        </Heading>
+                        {!lesson.lesson.class && (
+                          <Button>
+                            <FaPlusCircle />
+                          </Button>
+                        )}
+                      </span>
+                    </Section>
+                    <Section>
+                      <SubHeading>Students</SubHeading>
+                      <Heading>
+                        {lesson?.lesson.class?.students.length ?? "0"}
+                      </Heading>
+                    </Section>
+                  </>
                 </div>
               )}
             </Wrapper>
