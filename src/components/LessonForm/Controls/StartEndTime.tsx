@@ -1,6 +1,6 @@
 import React from "react";
 import { getTimeSlots } from "../../../helpers/getTimeSlots";
-import { Select } from "../style";
+import { Select } from "./style";
 
 export const StartEndTime: React.FC<{
   startTime: string | undefined;

@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Header, AddButton, ResetButton } from "./style";
 import { useDispatch } from "react-redux";
 import { Popup } from "../../Popup";
-import { LessonForm } from "../../LessonForm";
 import { FaUndo, FaPlus } from "react-icons/fa";
 import { DatePicker } from "../../DatePicker";
 import { actions } from "../../../store/actions";
 import { startOfDay, isSameDay } from "date-fns";
 import { useKeyboardEvent } from "../../../hooks/useKeyboardEvent";
 import { useTypedSelector } from "../../../store";
+import { NewLessonForm } from "../../LessonForm/NewLessonForm";
 
 export const TimelineHeader: React.FC<{
   selectedDate: string;
@@ -20,6 +20,7 @@ export const TimelineHeader: React.FC<{
   useKeyboardEvent("Escape", () => {
     setOpen(false);
   });
+  const formView = "New";
   return (
     <Header>
       <Popup
@@ -29,7 +30,11 @@ export const TimelineHeader: React.FC<{
         }}
         scrollLock
       >
-        <LessonForm initialDate={initialDate} />
+        {formView === "New" ? (
+          <NewLessonForm initialDate={initialDate} />
+        ) : (
+          <h1>hi</h1>
+        )}
       </Popup>
       <h1>Availability</h1>
       <span>

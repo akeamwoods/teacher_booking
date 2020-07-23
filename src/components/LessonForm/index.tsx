@@ -15,7 +15,7 @@ import {
 } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 import { useTypedSelector } from "../../store";
-import { MultiCheckbox } from "./MultiCheckbox";
+import { MultiCheckbox } from "./Controls/MultiCheckbox";
 
 export const LessonForm: React.FC<{
   initialDate: string;
