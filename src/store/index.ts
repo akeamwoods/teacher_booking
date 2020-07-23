@@ -45,7 +45,7 @@ const initialState = () => ({
         subject: "English",
         start: "2020-07-20T07:30:00.000Z",
         end: "2020-07-20T08:30:00.000Z",
-
+        class: "01",
         color: "#f3225a",
       },
       {
@@ -54,7 +54,7 @@ const initialState = () => ({
         subject: "French",
         start: "2020-07-20T10:30:00.000Z",
         end: "2020-07-20T11:30:00.000Z",
-
+        class: "01",
         color: "#22b7f3",
       },
       {
