@@ -179,7 +179,7 @@ export const EditLessonForm: React.FC<{
           }
           type="submit"
         >
-          Create
+          Update
         </SubmitButton>
       </Form>
     </Wrapper>
