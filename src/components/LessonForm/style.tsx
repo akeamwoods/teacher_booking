@@ -68,7 +68,10 @@ export const CheckBoxContainer = styled.span`
   justify-content: center;
   align-items: center;
   font: 400 13.3333px Arial;
-  input {
-    margin-right: 5px;
+  input:not(:last-child) {
+    margin-right: 10px;
+  }
+  input:last-child {
+    margin-right: 0;
   }
 `;

@@ -225,7 +225,9 @@ export const LessonForm: React.FC<{
           </Select>
         </div>
 
-        <div style={{ display: "flex", marginTop: "10px" }}>
+        <div
+          style={{ display: "flex", marginTop: "10px", alignItems: "center" }}
+        >
           <Select
             style={{ color: !classGroup ? "#7d7d7d" : "#000" }}
             value={classGroup && classOptions.indexOf(classGroup)}
@@ -241,7 +243,14 @@ export const LessonForm: React.FC<{
               </option>
             ))}
           </Select>
-          <span>
+          <span
+            style={{
+              flex: 1,
+              marginLeft: "5px",
+              padding: "10px",
+              border: "1px solid transparent",
+            }}
+          >
             <label>Series</label>
             <input
               type="checkbox"
@@ -328,7 +337,6 @@ export const LessonForm: React.FC<{
             !options.includes(startTime) ||
             !options.includes(endTime) ||
             (series && !Object.values(checkboxState).includes(true))
-            // || parseFloat(startTime) >= parseFloat(endTime)
           }
           type="submit"
         >
