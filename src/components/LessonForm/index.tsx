@@ -99,7 +99,7 @@ export const LessonForm: React.FC<{
                     ).toISOString(),
                     subject,
                     teacherId: "01",
-                    class: classGroup,
+                    class: classGroup?.id,
                   } as Lesson)
                 );
               } else {
@@ -119,7 +119,7 @@ export const LessonForm: React.FC<{
                       subject,
                       teacherId: "01",
                       seriesId: uuidv4(),
-                      class: classGroup,
+                      class: classGroup?.id,
                     },
                     series: {
                       start: seriesStart,
@@ -336,7 +336,7 @@ export const LessonForm: React.FC<{
             !classGroup ||
             !options.includes(startTime) ||
             !options.includes(endTime) ||
-            (series && !Object.values(checkboxState).includes(true))
+            (series && !lesson && !Object.values(checkboxState).includes(true))
           }
           type="submit"
         >

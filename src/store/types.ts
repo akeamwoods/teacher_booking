@@ -2,7 +2,7 @@ export type Class = {
   id: string;
   year: number;
   group: string;
-  students: Student[];
+  students: string[];
 };
 
 export type Student = {
@@ -18,6 +18,6 @@ export type Lesson = {
   start: string;
   end: string;
   color: string;
-  class?: Class;
+  class?: string;
   seriesId?: string;
 };

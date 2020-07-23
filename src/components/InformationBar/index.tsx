@@ -27,6 +27,7 @@ import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
 import { LessonForm } from "../LessonForm";
 import { Popup } from "../Popup";
 import { startOfDay, format } from "date-fns";
+import { useTypedSelector } from "../../store";
 
 export const InformationBar: React.FC<{
   lesson: Lesson | undefined;
@@ -45,6 +46,9 @@ export const InformationBar: React.FC<{
     dispatch(actions.closePanelButtonPressed());
   });
   const dispatch = useDispatch();
+  const yearGroup = useTypedSelector((state) =>
+    state.classes.find((c) => c.id === lesson?.class)
+  );
 
   return (
     <>
@@ -123,12 +127,12 @@ export const InformationBar: React.FC<{
                   <>
                     <Section>
                       <SubHeading>Year</SubHeading>
-                      <Heading>{lesson.class?.year ?? "N/A"}</Heading>
+                      <Heading>{yearGroup?.year ?? "N/A"}</Heading>
                     </Section>
                     <Section>
                       <SubHeading>Class</SubHeading>
                       <ClassSpan>
-                        <Heading>{lesson.class?.group ?? "None"}</Heading>
+                        <Heading>{yearGroup?.group ?? "None"}</Heading>
                         {!lesson.class && (
                           <Button>
                             <FaPlusCircle />
@@ -140,9 +144,7 @@ export const InformationBar: React.FC<{
                       <SubHeading>Students</SubHeading>
 
                       <ClassSpan>
-                        <Heading>
-                          {lesson.class?.students.length ?? "0"}
-                        </Heading>
+                        <Heading>{yearGroup?.students.length ?? "0"}</Heading>
                         {lesson.class && (
                           <Button>
                             <FaQuestionCircle />
