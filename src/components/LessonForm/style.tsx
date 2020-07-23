@@ -55,11 +55,21 @@ export const SubmitButton = styled.button`
 export const SeriesContainer = styled.span`
   display: flex;
   z-index: 1;
-  margin-top: 10px;
   div:first-child {
     margin-right: 5px;
   }
   div:last-child {
     margin-left: 5px;
+  }
+`;
+
+export const CheckBoxContainer = styled.span`
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: 400 13.3333px Arial;
+  input {
+    margin-right: 5px;
   }
 `;

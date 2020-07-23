@@ -12,6 +12,7 @@ import {
   SubmitButton,
   Wrapper,
   SeriesContainer,
+  CheckBoxContainer,
 } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 
@@ -150,14 +151,43 @@ export const LessonForm: React.FC<{
           }
         }}
       >
-        <DatePicker
-          close={() => setOpen(false)}
-          setOpen={setOpen}
-          isOpen={isOpen}
-          changeDate={(date) => setDate(startOfDay(date))}
-          selectedDate={startOfDay(date ? date : new Date(initialDate))}
-          singleClick
-        />
+        <span style={{ marginBottom: "10px" }}>
+          <label>Series</label>
+          <input
+            type="checkbox"
+            checked={series}
+            onChange={() => setSeries(!series)}
+          />
+        </span>
+        {series ? (
+          <SeriesContainer>
+            <DatePicker
+              close={() => setSeriesStartOpen(false)}
+              setOpen={setSeriesStartOpen}
+              isOpen={seriesStartOpen}
+              changeDate={(date) => setSeriesStart(startOfDay(date))}
+              selectedDate={startOfDay(seriesStart)}
+              singleClick
+            />
+            <DatePicker
+              close={() => setSeriesEndOpen(false)}
+              setOpen={setSeriesEndOpen}
+              isOpen={seriesEndOpen}
+              changeDate={(date) => setSeriesEnd(startOfDay(date))}
+              selectedDate={startOfDay(seriesEnd)}
+              singleClick
+            />
+          </SeriesContainer>
+        ) : (
+          <DatePicker
+            close={() => setOpen(false)}
+            setOpen={setOpen}
+            isOpen={isOpen}
+            changeDate={(date) => setDate(startOfDay(date))}
+            selectedDate={startOfDay(date ? date : new Date(initialDate))}
+            singleClick
+          />
+        )}
         <Input
           placeholder="Subject"
           value={subject}
@@ -197,99 +227,84 @@ export const LessonForm: React.FC<{
             ))}
           </Select>
         </span>
-        <SeriesContainer>
-          <DatePicker
-            close={() => setSeriesStartOpen(false)}
-            setOpen={setSeriesStartOpen}
-            isOpen={seriesStartOpen}
-            changeDate={(date) => setSeriesStart(startOfDay(date))}
-            selectedDate={startOfDay(seriesStart)}
-            singleClick
-          />
-          <DatePicker
-            close={() => setSeriesEndOpen(false)}
-            setOpen={setSeriesEndOpen}
-            isOpen={seriesEndOpen}
-            changeDate={(date) => setSeriesEnd(startOfDay(date))}
-            selectedDate={startOfDay(seriesEnd)}
-            singleClick
-          />
-        </SeriesContainer>
-        <label>Series?</label>
-        <input
-          type="checkbox"
-          checked={series}
-          onChange={() => setSeries(!series)}
-        />
-        <div>
-          <label>Mo</label>
-          <input
-            disabled={!series}
-            type="checkbox"
-            checked={checkboxState.monday}
-            onChange={() =>
-              setCheckbox((checkboxState) => ({
-                ...checkboxState,
-                monday: !checkboxState.monday,
-              }))
-            }
-          />
-          <label>Tu</label>
-          <input
-            type="checkbox"
-            disabled={!series}
-            checked={checkboxState.tuesday}
-            onChange={() =>
-              setCheckbox((checkboxState) => ({
-                ...checkboxState,
-                tuesday: !checkboxState.tuesday,
-              }))
-            }
-          />
-          <label>We</label>
-          <input
-            type="checkbox"
-            disabled={!series}
-            checked={checkboxState.wednesday}
-            onChange={() =>
-              setCheckbox((checkboxState) => ({
-                ...checkboxState,
-                wednesday: !checkboxState.wednesday,
-              }))
-            }
-          />
-          <label>Th</label>
-          <input
-            type="checkbox"
-            disabled={!series}
-            checked={checkboxState.thursday}
-            onChange={() =>
-              setCheckbox((checkboxState) => ({
-                ...checkboxState,
-                thursday: !checkboxState.thursday,
-              }))
-            }
-          />
-          <label>Fr</label>
-          <input
-            type="checkbox"
-            disabled={!series}
-            checked={checkboxState.friday}
-            onChange={() =>
-              setCheckbox((checkboxState) => ({
-                ...checkboxState,
-                friday: !checkboxState.friday,
-              }))
-            }
-          />
-        </div>
+
+        {series && (
+          <CheckBoxContainer>
+            <label>Mon</label>
+            <input
+              disabled={!series}
+              type="checkbox"
+              checked={checkboxState.monday}
+              onChange={() =>
+                setCheckbox((checkboxState) => ({
+                  ...checkboxState,
+                  monday: !checkboxState.monday,
+                }))
+              }
+            />
+
+            <label>Tue</label>
+            <input
+              type="checkbox"
+              disabled={!series}
+              checked={checkboxState.tuesday}
+              onChange={() =>
+                setCheckbox((checkboxState) => ({
+                  ...checkboxState,
+                  tuesday: !checkboxState.tuesday,
+                }))
+              }
+            />
+
+            <label>Wed</label>
+            <input
+              type="checkbox"
+              disabled={!series}
+              checked={checkboxState.wednesday}
+              onChange={() =>
+                setCheckbox((checkboxState) => ({
+                  ...checkboxState,
+                  wednesday: !checkboxState.wednesday,
+                }))
+              }
+            />
+
+            <label>Thu</label>
+            <input
+              type="checkbox"
+              disabled={!series}
+              checked={checkboxState.thursday}
+              onChange={() =>
+                setCheckbox((checkboxState) => ({
+                  ...checkboxState,
+                  thursday: !checkboxState.thursday,
+                }))
+              }
+            />
+
+            <label>Fri</label>
+            <input
+              type="checkbox"
+              disabled={!series}
+              checked={checkboxState.friday}
+              onChange={() =>
+                setCheckbox((checkboxState) => ({
+                  ...checkboxState,
+                  friday: !checkboxState.friday,
+                }))
+              }
+            />
+          </CheckBoxContainer>
+        )}
 
         <SubmitButton
           disabled={
             !startTime ||
             !endTime ||
             !options.includes(startTime) ||
-            !options.includes(endTime)
+            !options.includes(endTime) ||
+            !subject ||
+            (series && !Object.values(checkboxState).includes(true))
             // || parseFloat(startTime) >= parseFloat(endTime)
           }
           type="submit"
