@@ -63,7 +63,7 @@ const initialState = () => ({
       },
     ],
   } as { [key: string]: Lesson[] },
-  focussedLesson: undefined as undefined | { lesson: Lesson; colour: string },
+  focussedLesson: undefined as undefined | Lesson,
   infoPanelOpen: false,
 });
 
@@ -135,8 +135,8 @@ export const rootReducer: Reducer<State, Actions> = (
             ])
           : (draft.lessons[newKey] = [action.payload.lesson]);
 
-        if (draft.focussedLesson?.lesson.id === action.payload.lesson.id) {
-          draft.focussedLesson.lesson = action.payload.lesson;
+        if (draft.focussedLesson?.id === action.payload.lesson.id) {
+          draft.focussedLesson = action.payload.lesson;
         }
         break;
       }

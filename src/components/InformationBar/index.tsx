@@ -20,7 +20,7 @@ import { Popup } from "../Popup";
 import { startOfDay, format } from "date-fns";
 
 export const InformationBar: React.FC<{
-  lesson: { lesson: Lesson; colour: string } | undefined;
+  lesson: Lesson | undefined;
   isOpen: boolean;
 }> = React.memo(({ lesson, isOpen }) => {
   const [isVisible, setVisibility] = useState(false);
@@ -48,17 +48,15 @@ export const InformationBar: React.FC<{
           scrollLock
         >
           <LessonForm
-            initialDate={startOfDay(
-              new Date(lesson?.lesson.start)
-            ).toISOString()}
-            lesson={lesson.lesson}
+            initialDate={startOfDay(new Date(lesson.start)).toISOString()}
+            lesson={lesson}
           />
         </Popup>
       )}
       {transitions.map(
         ({ item, key, props }) =>
           item && (
-            <Wrapper background={lesson?.colour} style={props} key={key}>
+            <Wrapper background={lesson?.color} style={props} key={key}>
               <CloseButton
                 onClick={() => dispatch(actions.closePanelButtonPressed())}
               >
@@ -80,9 +78,9 @@ export const InformationBar: React.FC<{
                         dispatch(
                           actions.lessonDeleted({
                             date: startOfDay(
-                              new Date(lesson.lesson.start)
+                              new Date(lesson.start)
                             ).toISOString(),
-                            id: lesson.lesson.id,
+                            id: lesson.id,
                           })
                         )
                       }
@@ -92,37 +90,35 @@ export const InformationBar: React.FC<{
                   </ButtonBar>
                   <Section>
                     <SubHeading>Subject</SubHeading>
-                    <Heading>{lesson?.lesson.subject}</Heading>
+                    <Heading>{lesson.subject}</Heading>
                   </Section>
                   <Section>
                     <SubHeading>Date</SubHeading>
                     <Heading>
-                      {lesson?.lesson.start
-                        ? format(new Date(lesson?.lesson.start), "do MMMM Y")
+                      {lesson.start
+                        ? format(new Date(lesson.start), "do MMMM Y")
                         : "N/A"}
                     </Heading>
                   </Section>
                   <Section>
                     <SubHeading>Time</SubHeading>
                     <Heading>
-                      {`${format(
-                        new Date(lesson?.lesson.start!),
+                      {`${format(new Date(lesson.start!), "HH:mm")} - ${format(
+                        new Date(lesson.end),
                         "HH:mm"
-                      )} - ${format(new Date(lesson?.lesson.end), "HH:mm")}`}
+                      )}`}
                     </Heading>
                   </Section>
                   <>
                     <Section>
                       <SubHeading>Year</SubHeading>
-                      <Heading>{lesson?.lesson.class?.year ?? "N/A"}</Heading>
+                      <Heading>{lesson.class?.year ?? "N/A"}</Heading>
                     </Section>
                     <Section>
                       <SubHeading>Class</SubHeading>
                       <span style={{ display: "flex" }}>
-                        <Heading>
-                          {lesson.lesson.class?.group ?? "None"}
-                        </Heading>
-                        {!lesson.lesson.class && (
+                        <Heading>{lesson.class?.group ?? "None"}</Heading>
+                        {!lesson.class && (
                           <Button>
                             <FaPlusCircle />
                           </Button>
@@ -131,9 +127,7 @@ export const InformationBar: React.FC<{
                     </Section>
                     <Section>
                       <SubHeading>Students</SubHeading>
-                      <Heading>
-                        {lesson?.lesson.class?.students.length ?? "0"}
-                      </Heading>
+                      <Heading>{lesson.class?.students.length ?? "0"}</Heading>
                     </Section>
                   </>
                 </div>

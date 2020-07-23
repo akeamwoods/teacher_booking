@@ -18,6 +18,7 @@ export const Wrapper = styled(animated.div).attrs<{
 export const ButtonBar = styled.span`
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 `;
 export const Section = styled.span`
   display: flex;

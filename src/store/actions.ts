@@ -12,10 +12,7 @@ const lessonDeleted = createAction("lesson deleted")<{
   date: string;
   id: string;
 }>();
-const lessonFocussed = createAction("lesson focussed")<{
-  lesson: Lesson;
-  colour: string;
-}>();
+const lessonFocussed = createAction("lesson focussed")<Lesson>();
 const lessonUnfocussed = createAction("lesson unfocussed")();
 const infoPanelClosed = createAction("info panel closed")();
 const closePanelButtonPressed = createAction("close panel button pressed")();
