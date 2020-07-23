@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   position: relative;
   flex-direction: column;
   flex: 1;
-  z-index: 1;
+  z-index: 3;
 `;
 
 export const Container = styled.div`

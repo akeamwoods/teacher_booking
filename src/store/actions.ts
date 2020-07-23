@@ -4,6 +4,20 @@ import { Lesson } from "./types";
 const selectedMonthChanged = createAction("selected month changed")<Date>();
 const selectedDayChanged = createAction("selected day changed")<Date>();
 const newLessonCreated = createAction("new lesson created")<Lesson>();
+const newSeriesCreated = createAction("new series created")<{
+  lesson: Omit<Lesson, "color" | "id">;
+  series: {
+    start: Date;
+    end: Date;
+    days: {
+      monday: boolean;
+      tuesday: boolean;
+      wednesday: boolean;
+      thursday: boolean;
+      friday: boolean;
+    };
+  };
+}>();
 const lessonEdited = createAction("lesson edited")<{
   lesson: Lesson;
   oldKey: string;
@@ -21,6 +35,7 @@ export const actions = {
   selectedMonthChanged,
   selectedDayChanged,
   newLessonCreated,
+  newSeriesCreated,
   lessonEdited,
   lessonDeleted,
   lessonFocussed,

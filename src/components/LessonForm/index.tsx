@@ -4,8 +4,15 @@ import { actions } from "../../store/actions";
 import { Lesson } from "../../store/types";
 import { v4 as uuidv4 } from "uuid";
 import { DatePicker } from "../DatePicker";
-import { startOfDay, format } from "date-fns";
-import { Form, Input, Select, SubmitButton, Wrapper } from "./style";
+import { startOfDay, format, addWeeks } from "date-fns";
+import {
+  Form,
+  Input,
+  Select,
+  SubmitButton,
+  Wrapper,
+  SeriesContainer,
+} from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 
 export const LessonForm: React.FC<{
@@ -16,6 +23,9 @@ export const LessonForm: React.FC<{
   const options = getTimeSlots(15, 8, 17.15);
   const [date, setDate] = useState(new Date(initialDate));
   const [isOpen, setOpen] = useState(false);
+  const [seriesStartOpen, setSeriesStartOpen] = useState(false);
+  const [seriesEndOpen, setSeriesEndOpen] = useState(false);
+
   const [startTime, setStartTime] = useState(
     lesson
       ? `${format(new Date(lesson.start), "HH")}:${format(
@@ -33,6 +43,19 @@ export const LessonForm: React.FC<{
       : (undefined as undefined | string)
   );
   const [subject, updateSubject] = useState(lesson ? lesson.subject : "");
+
+  const [series, setSeries] = useState(false);
+  const [seriesStart, setSeriesStart] = useState(date);
+  const [seriesEnd, setSeriesEnd] = useState(addWeeks(date, 1));
+
+  const [checkboxState, setCheckbox] = useState({
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+  });
+
   return (
     <Wrapper>
       <h3 style={{ margin: 0 }}>{lesson ? "Update Lesson" : "New Lesson"}</h3>
@@ -56,23 +79,49 @@ export const LessonForm: React.FC<{
           e.preventDefault();
           if (startTime && endTime) {
             if (!lesson) {
-              dispatch(
-                actions.newLessonCreated({
-                  id: uuidv4(),
-                  start: new Date(
-                    new Date(date.setHours(parseFloat(startTime))).setMinutes(
-                      parseFloat(startTime.slice(-2))
-                    )
-                  ).toISOString(),
-                  end: new Date(
-                    new Date(date.setHours(parseFloat(endTime))).setMinutes(
-                      parseFloat(endTime.slice(-2))
-                    )
-                  ).toISOString(),
-                  subject,
-                  teacherId: "01",
-                } as Lesson)
-              );
+              if (!series) {
+                dispatch(
+                  actions.newLessonCreated({
+                    id: uuidv4(),
+                    start: new Date(
+                      new Date(date.setHours(parseFloat(startTime))).setMinutes(
+                        parseFloat(startTime.slice(-2))
+                      )
+                    ).toISOString(),
+                    end: new Date(
+                      new Date(date.setHours(parseFloat(endTime))).setMinutes(
+                        parseFloat(endTime.slice(-2))
+                      )
+                    ).toISOString(),
+                    subject,
+                    teacherId: "01",
+                  } as Lesson)
+                );
+              } else {
+                dispatch(
+                  actions.newSeriesCreated({
+                    lesson: {
+                      start: new Date(
+                        new Date(
+                          date.setHours(parseFloat(startTime))
+                        ).setMinutes(parseFloat(startTime.slice(-2)))
+                      ).toISOString(),
+                      end: new Date(
+                        new Date(date.setHours(parseFloat(endTime))).setMinutes(
+                          parseFloat(endTime.slice(-2))
+                        )
+                      ).toISOString(),
+                      subject,
+                      teacherId: "01",
+                    },
+                    series: {
+                      start: seriesStart,
+                      end: seriesEnd,
+                      days: checkboxState,
+                    },
+                  })
+                );
+              }
             } else {
               dispatch(
                 actions.lessonEdited({
@@ -147,6 +196,93 @@ export const LessonForm: React.FC<{
             ))}
           </Select>
         </span>
+        <SeriesContainer>
+          <DatePicker
+            close={() => setSeriesStartOpen(false)}
+            setOpen={setSeriesStartOpen}
+            isOpen={seriesStartOpen}
+            changeDate={(date) => setSeriesStart(startOfDay(date))}
+            selectedDate={startOfDay(seriesStart)}
+            singleClick
+          />
+          <DatePicker
+            close={() => setSeriesEndOpen(false)}
+            setOpen={setSeriesEndOpen}
+            isOpen={seriesEndOpen}
+            changeDate={(date) => setSeriesEnd(startOfDay(date))}
+            selectedDate={startOfDay(seriesEnd)}
+            singleClick
+          />
+        </SeriesContainer>
+        <label>Series?</label>
+        <input
+          type="checkbox"
+          checked={series}
+          onChange={() => setSeries(!series)}
+        />
+        <div>
+          <label>Mo</label>
+          <input
+            disabled={!series}
+            type="checkbox"
+            checked={checkboxState.monday}
+            onChange={() =>
+              setCheckbox((checkboxState) => ({
+                ...checkboxState,
+                monday: !checkboxState.monday,
+              }))
+            }
+          />
+          <label>Tu</label>
+          <input
+            type="checkbox"
+            disabled={!series}
+            checked={checkboxState.tuesday}
+            onChange={() =>
+              setCheckbox((checkboxState) => ({
+                ...checkboxState,
+                tuesday: !checkboxState.tuesday,
+              }))
+            }
+          />
+          <label>We</label>
+          <input
+            type="checkbox"
+            disabled={!series}
+            checked={checkboxState.wednesday}
+            onChange={() =>
+              setCheckbox((checkboxState) => ({
+                ...checkboxState,
+                wednesday: !checkboxState.wednesday,
+              }))
+            }
+          />
+          <label>Th</label>
+          <input
+            type="checkbox"
+            disabled={!series}
+            checked={checkboxState.thursday}
+            onChange={() =>
+              setCheckbox((checkboxState) => ({
+                ...checkboxState,
+                thursday: !checkboxState.thursday,
+              }))
+            }
+          />
+          <label>Fr</label>
+          <input
+            type="checkbox"
+            disabled={!series}
+            checked={checkboxState.friday}
+            onChange={() =>
+              setCheckbox((checkboxState) => ({
+                ...checkboxState,
+                friday: !checkboxState.friday,
+              }))
+            }
+          />
+        </div>
+
         <SubmitButton
           disabled={
             !startTime ||

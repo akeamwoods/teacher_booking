@@ -7,10 +7,21 @@ import produce from "immer";
 import { getType } from "typesafe-actions";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { setMonth, getMonth, startOfDay } from "date-fns";
+import {
+  setMonth,
+  getMonth,
+  startOfDay,
+  getDay,
+  addDays,
+  isBefore,
+  isSameDay,
+  format,
+} from "date-fns";
 import { Lesson } from "./types";
 import { rootSaga } from "./rootSaga";
 import { getLessonColour } from "../helpers/getLessonColour";
+import { getDayAsNumber } from "../helpers/getDayAsNumber";
+import { v4 as uuidv4 } from "uuid";
 
 const persistConfig = {
   key: "root",
@@ -97,6 +108,63 @@ export const rootReducer: Reducer<State, Actions> = (
         draft.lessons[key]
           ? (draft.lessons[key] = [...draft.lessons[key], lesson])
           : (draft.lessons[key] = [lesson]);
+        break;
+      }
+      case getType(actions.newSeriesCreated): {
+        const days = action.payload.series.days;
+        const start = action.payload.series.start;
+        const end = action.payload.series.end;
+        const startDayNumber = getDay(start);
+        const startTime = `${format(
+          new Date(action.payload.lesson.start),
+          "HH"
+        )}:${format(new Date(start), "mm")}`;
+        const endTime = `${format(
+          new Date(action.payload.lesson.end),
+          "HH"
+        )}:${format(new Date(action.payload.lesson.end), "mm")}`;
+        let daysToAdd: Date[] = [];
+
+        Object.entries(days).forEach((entry) => {
+          if (entry[1]) {
+            const dayOfWeek = getDayAsNumber(entry[0]);
+            const x = (dayOfWeek - startDayNumber + 7) % 7;
+            let nextDay = addDays(start, x);
+            while (isBefore(nextDay, end) || isSameDay(nextDay, end)) {
+              daysToAdd.push(nextDay);
+              nextDay = addDays(nextDay, 7);
+            }
+          }
+        });
+
+        daysToAdd.forEach((day) => {
+          const key = startOfDay(day).toISOString();
+
+          const lesson = {
+            ...action.payload.lesson,
+            id: uuidv4(),
+            start: new Date(
+              new Date(day.setHours(parseFloat(startTime))).setMinutes(
+                parseFloat(startTime.slice(-2))
+              )
+            ).toISOString(),
+            end: new Date(
+              new Date(day.setHours(parseFloat(endTime))).setMinutes(
+                parseFloat(endTime.slice(-2))
+              )
+            ).toISOString(),
+            color: getLessonColour(
+              draft.lessons[key]
+                ? draft.lessons[key].map((lesson) => lesson.color)
+                : []
+            ),
+          };
+
+          draft.lessons[key]
+            ? (draft.lessons[key] = [...draft.lessons[key], lesson])
+            : (draft.lessons[key] = [lesson]);
+        });
+
         break;
       }
       case getType(actions.lessonDeleted):

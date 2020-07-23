@@ -51,3 +51,15 @@ export const SubmitButton = styled.button`
     opacity: 0.4;
   }
 `;
+
+export const SeriesContainer = styled.span`
+  display: flex;
+  z-index: 1;
+  margin-top: 10px;
+  div:first-child {
+    margin-right: 5px;
+  }
+  div:last-child {
+    margin-left: 5px;
+  }
+`;
