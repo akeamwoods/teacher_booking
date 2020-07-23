@@ -27,12 +27,14 @@ import { Popup } from "../Popup";
 import { startOfDay, format } from "date-fns";
 import { useTypedSelector } from "../../store";
 import { EditLessonForm } from "../LessonForm/EditLessonForm";
+import { SeriesForm } from "../LessonForm/SeriesForm";
 
 export const InformationBar: React.FC<{
   lesson: Lesson | undefined;
   isOpen: boolean;
 }> = React.memo(({ lesson, isOpen }) => {
-  const [isVisible, setVisibility] = useState(false);
+  type Mode = "edit" | "series";
+  const [isVisible, setVisibility] = useState(undefined as undefined | Mode);
   const transitions = useTransition(isOpen, null, {
     from: { transform: "translate(100%)", opacity: 0 },
     enter: { transform: "translate(0)", opacity: 1 },
@@ -53,16 +55,20 @@ export const InformationBar: React.FC<{
     <>
       {lesson && (
         <Popup
-          isVisible={isVisible}
+          isVisible={isVisible ? true : false}
           onClick={() => {
-            setVisibility(false);
+            setVisibility(undefined);
           }}
           scrollLock
         >
-          <EditLessonForm
-            initialDate={startOfDay(new Date(lesson.start)).toISOString()}
-            lesson={lesson}
-          />
+          {isVisible === "edit" && (
+            <EditLessonForm
+              initialDate={startOfDay(new Date(lesson.start)).toISOString()}
+              lesson={lesson}
+            />
+          )}
+
+          {isVisible === "series" && <SeriesForm lesson={lesson} />}
         </Popup>
       )}
       {transitions.map(
@@ -81,10 +87,13 @@ export const InformationBar: React.FC<{
               {lesson && (
                 <div>
                   <ButtonBar>
-                    <Button onClick={() => setVisibility(true)}>
+                    <Button onClick={() => setVisibility("edit")}>
                       <FaEdit size="22" />
                     </Button>
-                    <LinkedButton isLinked={lesson.seriesId ? true : false}>
+                    <LinkedButton
+                      isLinked={lesson.seriesId ? true : false}
+                      onClick={() => setVisibility("series")}
+                    >
                       <FaLink size="22" />
                     </LinkedButton>
                     <Button
