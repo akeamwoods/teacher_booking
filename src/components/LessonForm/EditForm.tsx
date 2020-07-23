@@ -11,7 +11,6 @@ import {
   SubmitButton,
   Wrapper,
   SeriesContainer,
-  CheckBoxContainer,
 } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 import { useTypedSelector } from "../../store";
@@ -47,14 +46,6 @@ export const LessonForm: React.FC<{
   const [series, setSeries] = useState(false);
   const [seriesStart, setSeriesStart] = useState(date);
   const [seriesEnd, setSeriesEnd] = useState(addWeeks(date, 1));
-
-  const [checkboxState, setCheckbox] = useState({
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-  });
 
   return (
     <Wrapper>
@@ -154,7 +145,7 @@ export const LessonForm: React.FC<{
                 setEndTime(options[e.target.selectedIndex - 1]);
             }}
           >
-            <option disabled={endTime ? true : false}>End Time</option>
+            <option disabled={!endTime}>End Time</option>
             {options.map((option, index) => (
               <option key={index} value={index}>
                 {option}
@@ -174,7 +165,7 @@ export const LessonForm: React.FC<{
                 setClassGroup(classOptions[e.target.selectedIndex - 1]);
             }}
           >
-            <option disabled={classGroup ? true : false}>Class</option>
+            <option disabled={!classGroup}>Class</option>
             {classOptions.map((option, index) => (
               <option key={index} value={index}>
                 {option.year + option.group}
@@ -197,74 +188,6 @@ export const LessonForm: React.FC<{
             />
           </span>
         </div>
-        {series && (
-          <CheckBoxContainer>
-            <label>Mon</label>
-            <input
-              disabled={!series}
-              type="checkbox"
-              checked={checkboxState.monday}
-              onChange={() =>
-                setCheckbox((checkboxState) => ({
-                  ...checkboxState,
-                  monday: !checkboxState.monday,
-                }))
-              }
-            />
-
-            <label>Tue</label>
-            <input
-              type="checkbox"
-              disabled={!series}
-              checked={checkboxState.tuesday}
-              onChange={() =>
-                setCheckbox((checkboxState) => ({
-                  ...checkboxState,
-                  tuesday: !checkboxState.tuesday,
-                }))
-              }
-            />
-
-            <label>Wed</label>
-            <input
-              type="checkbox"
-              disabled={!series}
-              checked={checkboxState.wednesday}
-              onChange={() =>
-                setCheckbox((checkboxState) => ({
-                  ...checkboxState,
-                  wednesday: !checkboxState.wednesday,
-                }))
-              }
-            />
-
-            <label>Thu</label>
-            <input
-              type="checkbox"
-              disabled={!series}
-              checked={checkboxState.thursday}
-              onChange={() =>
-                setCheckbox((checkboxState) => ({
-                  ...checkboxState,
-                  thursday: !checkboxState.thursday,
-                }))
-              }
-            />
-
-            <label>Fri</label>
-            <input
-              type="checkbox"
-              disabled={!series}
-              checked={checkboxState.friday}
-              onChange={() =>
-                setCheckbox((checkboxState) => ({
-                  ...checkboxState,
-                  friday: !checkboxState.friday,
-                }))
-              }
-            />
-          </CheckBoxContainer>
-        )}
 
         <SubmitButton
           disabled={

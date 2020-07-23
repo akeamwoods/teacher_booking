@@ -1,17 +1,5 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  padding: 20px;
-  margin: 1px;
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
-
-  @media only screen and (max-width: 430px) {
-    min-width: 200px;
-  }
-`;
-
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -48,16 +36,5 @@ export const SubmitButton = styled.button`
   border-radius: 4px;
   :disabled {
     opacity: 0.4;
-  }
-`;
-
-export const SeriesContainer = styled.span`
-  display: flex;
-  z-index: 1;
-  div:first-child {
-    margin-right: 5px;
-  }
-  div:last-child {
-    margin-left: 5px;
   }
 `;

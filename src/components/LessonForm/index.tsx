@@ -12,10 +12,10 @@ import {
   SubmitButton,
   Wrapper,
   SeriesContainer,
-  CheckBoxContainer,
 } from "./style";
 import { getTimeSlots } from "../../helpers/getTimeSlots";
 import { useTypedSelector } from "../../store";
+import { MultiCheckbox } from "./MultiCheckbox";
 
 export const LessonForm: React.FC<{
   initialDate: string;
@@ -264,74 +264,11 @@ export const LessonForm: React.FC<{
           </span>
         </div>
         {series && (
-          <CheckBoxContainer>
-            <label>Mon</label>
-            <input
-              disabled={!series}
-              type="checkbox"
-              checked={checkboxState.monday}
-              onChange={() =>
-                setCheckbox((checkboxState) => ({
-                  ...checkboxState,
-                  monday: !checkboxState.monday,
-                }))
-              }
-            />
-
-            <label>Tue</label>
-            <input
-              type="checkbox"
-              disabled={!series}
-              checked={checkboxState.tuesday}
-              onChange={() =>
-                setCheckbox((checkboxState) => ({
-                  ...checkboxState,
-                  tuesday: !checkboxState.tuesday,
-                }))
-              }
-            />
-
-            <label>Wed</label>
-            <input
-              type="checkbox"
-              disabled={!series}
-              checked={checkboxState.wednesday}
-              onChange={() =>
-                setCheckbox((checkboxState) => ({
-                  ...checkboxState,
-                  wednesday: !checkboxState.wednesday,
-                }))
-              }
-            />
-
-            <label>Thu</label>
-            <input
-              type="checkbox"
-              disabled={!series}
-              checked={checkboxState.thursday}
-              onChange={() =>
-                setCheckbox((checkboxState) => ({
-                  ...checkboxState,
-                  thursday: !checkboxState.thursday,
-                }))
-              }
-            />
-
-            <label>Fri</label>
-            <input
-              type="checkbox"
-              disabled={!series}
-              checked={checkboxState.friday}
-              onChange={() =>
-                setCheckbox((checkboxState) => ({
-                  ...checkboxState,
-                  friday: !checkboxState.friday,
-                }))
-              }
-            />
-          </CheckBoxContainer>
+          <MultiCheckbox
+            checkboxState={checkboxState}
+            setCheckbox={setCheckbox}
+          />
         )}
-
         <SubmitButton
           disabled={
             !startTime ||
