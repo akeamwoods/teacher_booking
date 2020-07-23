@@ -69,6 +69,10 @@ export const CloseButton = styled(Button)`
   right: 10px;
 `;
 
-export const ClassSpan = styled.span`
+export const ButtonSpan = styled.span`
   display: flex;
+  button,
+  h2 {
+    padding: 0 5px;
+  }
 `;

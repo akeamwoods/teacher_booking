@@ -18,6 +18,6 @@ export type Lesson = {
   start: string;
   end: string;
   color: string;
-  class?: string;
+  class: string;
   seriesId?: string;
 };

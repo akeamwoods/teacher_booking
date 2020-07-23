@@ -38,46 +38,35 @@ const persistConfig = {
 const initialState = () => ({
   selectedDate: startOfDay(new Date()).toISOString(),
   lessons: {
-    //   "2020-07-19T23:00:00.000Z": [
-    //     {
-    //       id: "f949d4f0-b121-4137-bbab-8e8e2cd2b312",
-    //       teacherId: "01",
-    //       subject: "English",
-    //       start: "2020-07-20T07:30:00.000Z",
-    //       end: "2020-07-20T08:30:00.000Z",
-    //       students: [],
-    //       color: "#f3225a",
-    //     },
-    //     {
-    //       id: "114fc19c-d081-4ec6-91e3-8628d074939a",
-    //       teacherId: "01",
-    //       subject: "French",
-    //       start: "2020-07-20T10:30:00.000Z",
-    //       end: "2020-07-20T11:30:00.000Z",
-    //       students: [],
-    //       color: "#22b7f3",
-    //     },
-    //     {
-    //       id: "850364f0-33eb-4400-a4a4-a9ebbd2650bf",
-    //       teacherId: "01",
-    //       subject: "English",
-    //       start: "2020-07-20T11:45:00.000Z",
-    //       end: "2020-07-20T13:00:00.000Z",
-    //       class: {
-    //         id: "01",
-    //         group: "A",
-    //         year: 12,
-    //         students: [
-    //           {
-    //             id: "01",
-    //             firstName: "John",
-    //             surname: "Doe",
-    //           },
-    //         ],
-    //       },
-    //       color: "#f3ab22",
-    //     },
-    //   ],
+    "2020-07-19T23:00:00.000Z": [
+      {
+        id: "f949d4f0-b121-4137-bbab-8e8e2cd2b312",
+        teacherId: "01",
+        subject: "English",
+        start: "2020-07-20T07:30:00.000Z",
+        end: "2020-07-20T08:30:00.000Z",
+
+        color: "#f3225a",
+      },
+      {
+        id: "114fc19c-d081-4ec6-91e3-8628d074939a",
+        teacherId: "01",
+        subject: "French",
+        start: "2020-07-20T10:30:00.000Z",
+        end: "2020-07-20T11:30:00.000Z",
+
+        color: "#22b7f3",
+      },
+      {
+        id: "850364f0-33eb-4400-a4a4-a9ebbd2650bf",
+        teacherId: "01",
+        subject: "English",
+        start: "2020-07-20T11:45:00.000Z",
+        end: "2020-07-20T13:00:00.000Z",
+        class: "01",
+        color: "#f3ab22",
+      },
+    ],
   } as { [key: string]: Lesson[] },
   classes: [{ id: "01", year: 7, group: "A", students: [] }] as Class[],
   focussedLesson: undefined as undefined | Lesson,

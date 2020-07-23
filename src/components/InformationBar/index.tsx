@@ -9,7 +9,7 @@ import {
   CloseButton,
   LinkedButton,
   Button,
-  ClassSpan,
+  ButtonSpan,
 } from "./style";
 import { Lesson } from "../../store/types";
 import { useDispatch } from "react-redux";
@@ -19,7 +19,6 @@ import {
   FaTimes,
   FaEdit,
   FaTrash,
-  FaPlusCircle,
   FaQuestionCircle,
   FaLink,
 } from "react-icons/fa";
@@ -131,26 +130,20 @@ export const InformationBar: React.FC<{
                     </Section>
                     <Section>
                       <SubHeading>Class</SubHeading>
-                      <ClassSpan>
+                      <ButtonSpan>
                         <Heading>{yearGroup?.group ?? "None"}</Heading>
-                        {!lesson.class && (
-                          <Button>
-                            <FaPlusCircle />
-                          </Button>
-                        )}
-                      </ClassSpan>
+                      </ButtonSpan>
                     </Section>
                     <Section>
                       <SubHeading>Students</SubHeading>
-
-                      <ClassSpan>
+                      <ButtonSpan>
                         <Heading>{yearGroup?.students.length ?? "0"}</Heading>
                         {lesson.class && (
                           <Button>
                             <FaQuestionCircle />
                           </Button>
                         )}
-                      </ClassSpan>
+                      </ButtonSpan>
                     </Section>
                   </>
                 </div>

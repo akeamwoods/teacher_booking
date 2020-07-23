@@ -28,7 +28,11 @@ export const LessonForm: React.FC<{
   const [isOpen, setOpen] = useState(false);
   const [seriesStartOpen, setSeriesStartOpen] = useState(false);
   const [seriesEndOpen, setSeriesEndOpen] = useState(false);
-  const [classGroup, setClassGroup] = useState(undefined as undefined | Class);
+  const [classGroup, setClassGroup] = useState(
+    lesson
+      ? classOptions.find((c) => c.id === lesson.class)
+      : (undefined as undefined | Class)
+  );
 
   const [startTime, setStartTime] = useState(
     lesson
@@ -81,7 +85,7 @@ export const LessonForm: React.FC<{
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          if (startTime && endTime) {
+          if (startTime && endTime && classGroup) {
             if (!lesson) {
               if (!series) {
                 dispatch(
@@ -147,7 +151,7 @@ export const LessonForm: React.FC<{
                     subject,
                     teacherId: "01",
                     color: lesson.color,
-                    class: lesson.class,
+                    class: classGroup.id,
                   },
                   oldKey: initialDate,
                 })
