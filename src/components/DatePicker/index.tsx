@@ -37,7 +37,7 @@ export const DatePicker: React.FC<{
     const [date, setDate] = useState(startOfDay(selectedDate));
     const dayHeadings = ["M", "T", "W", "T", "F", "S", "S"];
     const padding = getDay(startOfMonth(date));
-    const paddingDays = padding > 0 ? padding - 1 : padding;
+    const paddingDays = padding === 0 ? 6 : padding - 1;
     const daysInMonth = getDaysInMonth(date);
     const futureDays = 42 - paddingDays - daysInMonth;
     const handleClick = (day: Date) => {
@@ -72,6 +72,8 @@ export const DatePicker: React.FC<{
         setDate(startOfDay(selectedDate));
       }, [close, selectedDate])
     );
+
+    console.log(padding);
     return (
       <Wrapper ref={ref}>
         <DatePickerButton
