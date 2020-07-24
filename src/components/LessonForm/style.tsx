@@ -60,3 +60,17 @@ export const SubmitButton = styled.button`
     opacity: 0.4;
   }
 `;
+
+export const ListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  max-height: 150px;
+  border: 1px solid #eaeaea;
+
+  ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+  }
+`;
