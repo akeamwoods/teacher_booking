@@ -235,6 +235,10 @@ export const rootReducer: Reducer<State, Actions> = (
             (lesson) => lesson.id !== action.payload.id
           ),
         ];
+        // remove key is no values
+        if (!draft.lessons[action.payload.date].length) {
+          delete draft.lessons[action.payload.date];
+        }
         break;
       case getType(actions.lessonFocussed):
         draft.focussedLesson = action.payload;
