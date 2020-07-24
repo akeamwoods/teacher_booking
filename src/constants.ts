@@ -1,3 +1,3 @@
 export const constants = {
-  animationDuration: 200,
+  animationDuration: 150,
 };

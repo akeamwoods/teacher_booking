@@ -31,14 +31,14 @@ import { SeriesForm } from "../LessonForm/SeriesForm";
 
 export const InformationBar: React.FC<{
   lesson: Lesson | undefined;
-  isOpen: boolean;
-}> = React.memo(({ lesson, isOpen }) => {
+}> = React.memo(({ lesson }) => {
   type Mode = "edit" | "series";
+  const isOpen = useTypedSelector((state) => state.infoPanelOpen);
   const [isVisible, setVisibility] = useState(undefined as undefined | Mode);
   const transitions = useTransition(isOpen, null, {
-    from: { transform: "translate(100%)", opacity: 0 },
-    enter: { transform: "translate(0)", opacity: 1 },
-    leave: { transform: "translate(100%)", opacity: 0 },
+    from: { transform: "translate(100%)" },
+    enter: { transform: "translate(0)" },
+    leave: { transform: "translate(100%)" },
     unique: true,
     config: { duration: constants.animationDuration },
   });

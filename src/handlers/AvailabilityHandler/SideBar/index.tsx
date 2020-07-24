@@ -5,12 +5,13 @@ import { useTypedSelector } from "../../../store";
 
 export const SideBar = () => {
   const focussedLesson = useTypedSelector((state) => state.focussedLesson);
-  const isOpen = useTypedSelector((state) => state.infoPanelOpen);
 
   return (
     <>
-      {!focussedLesson && <UserBar />}
-      <InformationBar isOpen={isOpen} lesson={focussedLesson} />
+      <span style={{ position: "relative" }}>
+        <UserBar />
+        <InformationBar lesson={focussedLesson} />
+      </span>
     </>
   );
 };

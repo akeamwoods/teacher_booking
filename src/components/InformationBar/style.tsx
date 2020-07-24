@@ -10,6 +10,11 @@ export const Wrapper = styled(animated.div).attrs<{
   flex-direction: column;
   padding: 30px 20px;
   align-items: center;
+  position: absolute;
+  flex: 1;
+  top: 0;
+  height: calc(100% - 60px);
+  width: calc(100% - 40px);
   img {
     width: 80%;
   }
