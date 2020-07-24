@@ -74,3 +74,20 @@ export const ListWrapper = styled.div`
     padding: 0;
   }
 `;
+
+export const SeriesSpan = styled.span`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  p,
+  h3 {
+    margin: 0;
+  }
+  p {
+    font-size: 0.9em;
+  }
+
+  :not(:first-child) {
+    margin-top: 10px;
+  }
+`;

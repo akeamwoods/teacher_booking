@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Wrapper, Form, SubmitButton, ListWrapper } from "./style";
+import { Wrapper, Form, SubmitButton, ListWrapper, SeriesSpan } from "./style";
 import { Lesson } from "../../store/types";
 
 import { useTypedSelector } from "../../store";
@@ -12,6 +12,7 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
     Array.prototype.concat
       .apply([], Object.values(state.lessons))
       .filter((l: Lesson) => l.seriesId)
+      .filter((l) => l.seriesId === lesson.seriesId)
       .sort(function compare(a: Lesson, b: Lesson) {
         const dateA = new Date(a.start);
         const dateB = new Date(b.start);
@@ -19,19 +20,66 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
       })
   );
 
-  const seriesIds = [...new Set(series.map((lesson) => lesson.seriesId))];
-  console.log(seriesIds);
+  const first: Lesson = series.find(
+    (l: Lesson) => l.seriesId === lesson.seriesId
+  );
+  const last: Lesson = series
+    .reverse()
+    .find((l: Lesson) => l.seriesId == lesson.seriesId);
+
+  const size = series.length;
+  //   const series = useTypedSelector((state) =>
+  //     Array.prototype.concat
+  //       .apply([], Object.values(state.lessons))
+  //       .filter((l: Lesson) => l.seriesId)
+  //       .sort(function compare(a: Lesson, b: Lesson) {
+  //         const dateA = new Date(a.start);
+  //         const dateB = new Date(b.start);
+  //         return dateA.getTime() - dateB.getTime();
+  //       })
+  //   );
+
+  //   const seriesIds = [...new Set(series.map((lesson) => lesson.seriesId))];
+  //   console.log(seriesIds);
 
   return (
     <Wrapper>
-      <h3 style={{ margin: 0 }}>New Lesson</h3>
+      <h3 style={{ margin: 0 }}>Series Details</h3>
       <img
         style={{ margin: "20px" }}
         height="100px"
-        src={process.env.PUBLIC_URL + "calendar.svg"}
+        src={process.env.PUBLIC_URL + "link_calendar.svg"}
         alt="New Lesson Icon"
       />
       <Form>
+        {last && first && (
+          <>
+            <SeriesSpan>
+              <p>Subject</p>
+              <h3>{lesson.subject}</h3>
+            </SeriesSpan>
+            <SeriesSpan>
+              <p>Series Duration</p>
+              <h3>{`${format(new Date(first.start), "do MMMM Y")} - ${format(
+                new Date(last.start),
+                "do MMM Y"
+              )}`}</h3>
+            </SeriesSpan>
+            <SeriesSpan>
+              <p>Time</p>
+              <h3>
+                {`${format(new Date(lesson.start!), "HH:mm")} - ${format(
+                  new Date(lesson.end),
+                  "HH:mm"
+                )}`}
+              </h3>
+            </SeriesSpan>
+            <SeriesSpan style={{ marginBottom: "10px" }}>
+              <p>Lessons</p>
+              <h3>{size}</h3>
+            </SeriesSpan>
+          </>
+        )}
         {/* {series.length ? (
           <ListWrapper>
             <ul>
@@ -46,7 +94,7 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
               ))}
             </ul>
           </ListWrapper> */}
-        {series.length && seriesIds.length ? (
+        {/* {series.length && seriesIds.length ? (
           <ListWrapper>
             <ul>
               {seriesIds.map((id: string) => {
@@ -76,8 +124,8 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
           </ListWrapper>
         ) : (
           <h3>No Series Found</h3>
-        )}
-        <SubmitButton type="submit">Create</SubmitButton>
+        )} */}
+        <SubmitButton type="submit">View Lessons</SubmitButton>
       </Form>
     </Wrapper>
   );
