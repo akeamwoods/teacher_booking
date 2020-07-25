@@ -6,7 +6,7 @@ import { Button } from "./style";
 export const DatePickerButton: React.FC<{
   selectedDate: Date;
   onClick: () => void;
-}> = ({ selectedDate, onClick }) => {
+}> = React.memo(({ selectedDate, onClick }) => {
   return (
     <Button
       type="button"
@@ -19,4 +19,4 @@ export const DatePickerButton: React.FC<{
       <FaRegCalendarAlt />
     </Button>
   );
-};
+});

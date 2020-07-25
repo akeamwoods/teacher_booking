@@ -74,6 +74,9 @@ export const DatePicker: React.FC<{
         }
       }, [selectedDate, isOpen, close])
     );
+
+    if (!isOpen && !isSameDay(selectedDate, date))
+      setDate(startOfDay(selectedDate)); // temp fix
     return (
       <Wrapper ref={ref}>
         <DatePickerButton
