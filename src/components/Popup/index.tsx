@@ -11,10 +11,10 @@ export const Popup: React.FC<{
   isVisible: boolean;
   onClick: () => void;
   scrollLock?: boolean;
-}> = ({ isVisible, onClick, children, scrollLock = false }) => {
+}> = React.memo(({ isVisible, onClick, children, scrollLock = false }) => {
   useScrollLock(isVisible && scrollLock ? true : false);
   useKeyboardEvent("Escape", () => {
-    onClick();
+    if (isVisible) onClick();
   });
   const transitions = useTransition(isVisible, null, {
     from: { opacity: 0 },
@@ -61,4 +61,4 @@ export const Popup: React.FC<{
     </>,
     document.body
   );
-};
+});

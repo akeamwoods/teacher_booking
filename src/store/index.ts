@@ -32,6 +32,7 @@ const persistConfig = {
     "classes",
     "focussedLesson",
     "infoPanelOpen",
+    "popupOpen",
   ],
 };
 
@@ -71,6 +72,7 @@ const initialState = () => ({
   classes: [{ id: "01", year: 7, group: "A", students: [] }] as Class[],
   focussedLesson: undefined as undefined | Lesson,
   infoPanelOpen: false,
+  popupOpen: false,
 });
 
 export type State = Readonly<ReturnType<typeof initialState>>;
@@ -274,6 +276,12 @@ export const rootReducer: Reducer<State, Actions> = (
         }
         break;
       }
+      case getType(actions.popupOpened):
+        draft.popupOpen = true;
+        break;
+      case getType(actions.popupClosed):
+        draft.popupOpen = false;
+        break;
     }
   });
 

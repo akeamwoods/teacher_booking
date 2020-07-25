@@ -26,6 +26,7 @@ export const TimelineHeader: React.FC<{
         isVisible={isVisible}
         onClick={() => {
           setVisibility(false);
+          dispatch(actions.popupClosed());
         }}
         scrollLock
       >
@@ -52,7 +53,13 @@ export const TimelineHeader: React.FC<{
         >
           <FaUndo />
         </ResetButton>
-        <AddButton onClick={() => setVisibility(true)} title="Add lesson">
+        <AddButton
+          onClick={() => {
+            setVisibility(true);
+            dispatch(actions.popupOpened());
+          }}
+          title="Add lesson"
+        >
           <FaPlus />
         </AddButton>
       </span>

@@ -42,15 +42,15 @@ export const InformationBar: React.FC<{
     unique: true,
     config: { duration: constants.animationDuration },
   });
+  const isPopupOpen = useTypedSelector((state) => state.popupOpen);
 
   useKeyboardEvent("Escape", () => {
-    dispatch(actions.closePanelButtonPressed());
+    if (!isPopupOpen) dispatch(actions.closePanelButtonPressed());
   });
   const dispatch = useDispatch();
   const yearGroup = useTypedSelector((state) =>
     state.classes.find((c) => c.id === lesson?.class)
   );
-
   return (
     <>
       {lesson && (
@@ -58,6 +58,7 @@ export const InformationBar: React.FC<{
           isVisible={isVisible ? true : false}
           onClick={() => {
             setVisibility(undefined);
+            dispatch(actions.popupClosed());
           }}
           scrollLock
         >
@@ -87,12 +88,20 @@ export const InformationBar: React.FC<{
               {lesson && (
                 <div>
                   <ButtonBar>
-                    <Button onClick={() => setVisibility("edit")}>
+                    <Button
+                      onClick={() => {
+                        setVisibility("edit");
+                        dispatch(actions.popupOpened());
+                      }}
+                    >
                       <FaEdit size="22" />
                     </Button>
                     <LinkedButton
                       isLinked={lesson.seriesId ? true : false}
-                      onClick={() => setVisibility("series")}
+                      onClick={() => {
+                        setVisibility("series");
+                        dispatch(actions.popupOpened());
+                      }}
                     >
                       <FaLink size="22" />
                     </LinkedButton>

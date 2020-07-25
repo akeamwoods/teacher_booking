@@ -25,7 +25,7 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
   );
   const last: Lesson = series
     .reverse()
-    .find((l: Lesson) => l.seriesId == lesson.seriesId);
+    .find((l: Lesson) => l.seriesId === lesson.seriesId);
 
   const size = series.length;
   //   const series = useTypedSelector((state) =>
