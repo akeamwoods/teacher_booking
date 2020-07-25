@@ -25,13 +25,13 @@ export const LessonWrapper = styled.rect.attrs<{
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s;
-  opacity: 0.9;
+  opacity: 0.8;
   overflow: hidden;
   p {
     margin: 0;
   }
   :hover {
-    opacity: 1;
+    opacity: 0.9;
   }
   span {
     display: flex;

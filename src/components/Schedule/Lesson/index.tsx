@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React, { createRef, useState } from "react";
 
 import { ScaleTime } from "d3";
 import { format, startOfDay } from "date-fns";
@@ -23,6 +23,7 @@ export const Lesson: React.FC<{
     dispatch(actions.lessonFocussed(lesson));
   };
 
+  const [zIndex, setZIndex] = useState(1);
   return (
     <LessonWrapper
       tabIndex={0}
@@ -32,8 +33,11 @@ export const Lesson: React.FC<{
       height={`${
         scale(new Date(lesson.end)) - scale(new Date(lesson.start))
       }px`}
+      style={{ zIndex: zIndex }}
       transform={`translateY(${scale(new Date(lesson.start)).toFixed(0)}px)`}
       key={lesson.id}
+      onMouseEnter={() => setZIndex(10)}
+      onMouseLeave={() => setZIndex(1)}
     >
       <span>
         <p>{lesson.subject}</p>
