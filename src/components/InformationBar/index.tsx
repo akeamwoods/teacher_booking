@@ -32,9 +32,9 @@ import { SeriesForm } from "../LessonForm/SeriesForm";
 export const InformationBar: React.FC<{
   lesson: Lesson | undefined;
 }> = React.memo(({ lesson }) => {
-  type Mode = "edit" | "series";
   const isOpen = useTypedSelector((state) => state.infoPanelOpen);
-  const [isVisible, setVisibility] = useState(undefined as undefined | Mode);
+  const [isVisible, setVisibility] = useState(false);
+  const [mode, setMode] = useState("edit" as "edit" | "series");
   const transitions = useTransition(isOpen, null, {
     from: { transform: "translate(100%)" },
     enter: { transform: "translate(0)" },
@@ -53,25 +53,24 @@ export const InformationBar: React.FC<{
   );
   return (
     <>
-      {lesson && (
-        <Popup
-          isVisible={isVisible ? true : false}
-          onClick={() => {
-            setVisibility(undefined);
-            dispatch(actions.popupClosed());
-          }}
-          scrollLock
-        >
-          {isVisible === "edit" && (
-            <EditLessonForm
-              initialDate={startOfDay(new Date(lesson.start)).toISOString()}
-              lesson={lesson}
-            />
-          )}
+      <Popup
+        isVisible={isVisible}
+        onClick={() => {
+          setVisibility(false);
+          dispatch(actions.popupClosed());
+        }}
+        scrollLock
+      >
+        {lesson && mode === "edit" ? (
+          <EditLessonForm
+            initialDate={startOfDay(new Date(lesson.start)).toISOString()}
+            lesson={lesson}
+          />
+        ) : lesson && mode === "series" ? (
+          <SeriesForm lesson={lesson} />
+        ) : null}
+      </Popup>
 
-          {isVisible === "series" && <SeriesForm lesson={lesson} />}
-        </Popup>
-      )}
       {transitions.map(
         ({ item, key, props }) =>
           item && (
@@ -90,7 +89,8 @@ export const InformationBar: React.FC<{
                   <ButtonBar>
                     <Button
                       onClick={() => {
-                        setVisibility("edit");
+                        setVisibility(true);
+                        setMode("edit");
                         dispatch(actions.popupOpened());
                       }}
                     >
@@ -99,7 +99,8 @@ export const InformationBar: React.FC<{
                     <LinkedButton
                       isLinked={lesson.seriesId ? true : false}
                       onClick={() => {
-                        setVisibility("series");
+                        setVisibility(true);
+                        setMode("series");
                         dispatch(actions.popupOpened());
                       }}
                     >
