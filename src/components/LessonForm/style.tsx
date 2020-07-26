@@ -64,15 +64,8 @@ export const SubmitButton = styled.button`
 export const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  overflow: auto;
-  max-height: 150px;
+  height: 200px;
   border: 1px solid #eaeaea;
-
-  ul {
-    margin: 0;
-    list-style: none;
-    padding: 0;
-  }
 `;
 
 export const SeriesSpan = styled.span`

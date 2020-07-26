@@ -1,14 +1,17 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { Wrapper, Form, SubmitButton, ListWrapper, SeriesSpan } from "./style";
 import { Lesson } from "../../store/types";
-
 import { useTypedSelector } from "../../store";
+import {
+  List,
+  AutoSizer,
+  CellMeasurer,
+  CellMeasurerCache,
+} from "react-virtualized";
 import { format } from "date-fns";
 
 export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
-  const dispatch = useDispatch();
-  const series = useTypedSelector((state) =>
+  const lessons = useTypedSelector((state) =>
     Array.prototype.concat
       .apply([], Object.values(state.lessons))
       .filter((l: Lesson) => l.seriesId)
@@ -20,27 +23,47 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
       })
   );
 
-  const first: Lesson = series.find(
-    (l: Lesson) => l.seriesId === lesson.seriesId
-  );
-  const last: Lesson = series
+  const last: Lesson = lessons
     .reverse()
     .find((l: Lesson) => l.seriesId === lesson.seriesId);
 
-  const size = series.length;
-  //   const series = useTypedSelector((state) =>
-  //     Array.prototype.concat
-  //       .apply([], Object.values(state.lessons))
-  //       .filter((l: Lesson) => l.seriesId)
-  //       .sort(function compare(a: Lesson, b: Lesson) {
-  //         const dateA = new Date(a.start);
-  //         const dateB = new Date(b.start);
-  //         return dateA.getTime() - dateB.getTime();
-  //       })
-  //   );
+  const first: Lesson = lessons
+    .reverse()
+    .find((l: Lesson) => l.seriesId === lesson.seriesId);
 
-  //   const seriesIds = [...new Set(series.map((lesson) => lesson.seriesId))];
-  //   console.log(seriesIds);
+  const size = lessons.length;
+
+  const [series, setSeries] = useState(undefined as undefined | Lesson[]);
+
+  const [cache, setCache] = useState(
+    new CellMeasurerCache({
+      fixedWidth: true,
+      defaultHeight: 100,
+    })
+  );
+
+  const rowCount = series?.length ?? 0;
+
+  //@ts-ignore
+  const renderRow = ({ index, key, style, parent }) => {
+    return (
+      <>
+        {series && (
+          <CellMeasurer
+            key={key}
+            cache={cache}
+            parent={parent}
+            columnIndex={0}
+            rowIndex={index}
+          >
+            <div style={style} tabIndex={0}>
+              {format(new Date(series[index].start), "E do MMM Y")}
+            </div>
+          </CellMeasurer>
+        )}
+      </>
+    );
+  };
 
   return (
     <Wrapper>
@@ -51,8 +74,8 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
         src={process.env.PUBLIC_URL + "link_calendar.svg"}
         alt="New Lesson Icon"
       />
-      <Form>
-        {last && first && (
+      <Form onSubmit={(e) => e.preventDefault()}>
+        {last && first && !series && (
           <>
             <SeriesSpan>
               <p>Subject</p>
@@ -80,52 +103,40 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
             </SeriesSpan>
           </>
         )}
-        {/* {series.length ? (
+        {series && (
           <ListWrapper>
-            <ul>
-              {series.map((l: Lesson) => (
-                <li
-                  style={{
-                    color: l.seriesId === lesson.seriesId ? "red" : "black",
-                  }}
-                >
-                  {l.start}
-                </li>
-              ))}
-            </ul>
-          </ListWrapper> */}
-        {/* {series.length && seriesIds.length ? (
-          <ListWrapper>
-            <ul>
-              {seriesIds.map((id: string) => {
-                const first: Lesson = series.find(
-                  (l: Lesson) => l.seriesId === id
-                );
-                const last: Lesson = series
-                  .reverse()
-                  .find((l: Lesson) => l.seriesId === id);
-
-                const size: number = series.filter(
-                  (l: Lesson) => l.seriesId === id
-                ).length;
+            <AutoSizer>
+              {({ width, height }) => {
                 return (
-                  <li>
-                    <span style={{ display: "flex" }}>{`${format(
-                      new Date(first.start),
-                      "do MMMM Y"
-                    )} - ${format(new Date(last.start), "do MMMM Y")}`}</span>
-                    <span
-                      style={{ display: "flex" }}
-                    >{`${size} lessons in series`}</span>
-                  </li>
+                  <List
+                    style={{ padding: 0, margin: 0 }}
+                    tabIndex={0}
+                    containerStyle={{ padding: 0, margin: 0 }}
+                    deferredMeasurementCache={cache}
+                    width={width}
+                    height={height}
+                    rowHeight={cache.rowHeight}
+                    rowRenderer={renderRow}
+                    rowCount={rowCount}
+                    overscanRowCount={20}
+                  />
                 );
-              })}
-            </ul>
+              }}
+            </AutoSizer>
           </ListWrapper>
+        )}
+        {!series ? (
+          <SubmitButton
+            type="button"
+            onClick={() => (lessons ? setSeries(lessons) : void {})}
+          >
+            View Lessons
+          </SubmitButton>
         ) : (
-          <h3>No Series Found</h3>
-        )} */}
-        <SubmitButton type="submit">View Lessons</SubmitButton>
+          <SubmitButton type="button" onClick={() => setSeries(undefined)}>
+            View Series
+          </SubmitButton>
+        )}
       </Form>
     </Wrapper>
   );
