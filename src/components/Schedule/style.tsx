@@ -51,19 +51,24 @@ export const LessonWrapper = styled.rect.attrs<{
   transform: string;
   height: string;
   colour: string;
+  smallHeight: boolean;
 }>((props) => ({
   style: {
     transform: props.transform,
     height: props.height,
     background: props.colour,
   },
-}))<{ transform: string; height: string; colour: string }>`
+}))<{
+  transform: string;
+  height: string;
+  colour: string;
+  smallHeight: boolean;
+}>`
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  font-size: 0.8em;
   position: absolute;
   width: calc(100% - 40px);
   padding: 0 20px;
@@ -74,19 +79,34 @@ export const LessonWrapper = styled.rect.attrs<{
   transition: 0.3s;
   opacity: 0.8;
   overflow: hidden;
-  p {
-    margin: 0;
-  }
+
   :hover {
     opacity: 0.9;
   }
+
   span {
     display: flex;
-    flex-direction: column;
+    flex-direction: ${({ smallHeight }) => (smallHeight ? "row" : "column")};
+    line-height: 1em;
+
+    h4 {
+      margin-right: ${({ smallHeight }) => (smallHeight ? "5px" : "0")};
+    }
   }
   button {
     border: none;
     color: #fff;
     background: none;
   }
+`;
+
+export const SubjectText = styled.h4`
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.8em;
+`;
+
+export const TimeText = styled.p`
+  margin: 0;
+  font-size: 0.7em;
 `;

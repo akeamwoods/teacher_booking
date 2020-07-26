@@ -1,8 +1,8 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 import { ScaleTime } from "d3";
-import { format, startOfDay } from "date-fns";
-import { LessonWrapper } from "./style";
+import { format, startOfDay, differenceInHours } from "date-fns";
+import { LessonWrapper, SubjectText, TimeText } from "./style";
 import { Lesson as LessonType } from "../../store/types";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
@@ -28,25 +28,27 @@ export const Lesson: React.FC<{
       opacity: monitor.isDragging() ? 0.8 : 1,
     }),
   });
+
+  const start = new Date(lesson.start);
+  const end = new Date(lesson.end);
   return (
     <LessonWrapper
       tabIndex={0}
       colour={colour}
       ref={drag}
       onClick={handleClick}
-      height={`${
-        scale(new Date(lesson.end)) - scale(new Date(lesson.start))
-      }px`}
       style={{ zIndex: 1 }}
-      transform={`translateY(${scale(new Date(lesson.start)).toFixed(0)}px)`}
+      height={`${scale(end) - scale(start)}px`}
+      transform={`translateY(${scale(start).toFixed(0)}px)`}
+      smallHeight={differenceInHours(end, start) < 1}
       key={lesson.id}
     >
       <span>
-        <p>{lesson.subject}</p>
-        <p>{`${format(new Date(lesson.start), "H:mm")} - ${format(
-          new Date(lesson.end),
+        <SubjectText>{lesson.subject}</SubjectText>
+        <TimeText>{`${format(start, "H:mm")} - ${format(
+          end,
           "H:mm"
-        )}`}</p>
+        )}`}</TimeText>
       </span>
 
       <button
@@ -54,7 +56,7 @@ export const Lesson: React.FC<{
           e.stopPropagation();
           dispatch(
             actions.lessonDeleted({
-              date: startOfDay(new Date(lesson.start)).toISOString(),
+              date: startOfDay(start).toISOString(),
               id: lesson.id,
             })
           );
