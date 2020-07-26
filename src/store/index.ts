@@ -292,6 +292,9 @@ export const rootReducer: Reducer<State, Actions> = (
           ];
         const lesson = lessons.find((l) => l.id === action.payload.id);
         if (lesson) {
+          if (lesson.seriesId) {
+            lesson.seriesId = undefined;
+          }
           const difference = differenceInMinutes(
             new Date(lesson.end),
             new Date(lesson.start)
@@ -301,7 +304,11 @@ export const rootReducer: Reducer<State, Actions> = (
             new Date(action.payload.time),
             difference
           ).toISOString();
+          if (draft.focussedLesson && draft.focussedLesson.id === lesson.id) {
+            draft.focussedLesson = lesson;
+          }
         }
+
         break;
       }
     }
