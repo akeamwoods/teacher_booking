@@ -1,7 +1,7 @@
 import React from "react";
 import { format } from "date-fns";
 import { ScaleLinear, ScaleTime } from "d3";
-import { Wrapper, Tick } from "./style";
+import { AxisWrapper, Tick } from "./style";
 
 export const Axis: React.FC<{
   scale: ScaleLinear<number, number> | ScaleTime<number, number>;
@@ -25,7 +25,7 @@ export const Axis: React.FC<{
     }
   };
   return (
-    <Wrapper height={`${height}px`}>
+    <AxisWrapper height={`${height}px`}>
       {ticks(scale, height, tickHeight).map((tick: Date) => (
         <Tick
           key={tick.toISOString()}
@@ -34,6 +34,6 @@ export const Axis: React.FC<{
           {format(tick, "kk:mm")}
         </Tick>
       ))}
-    </Wrapper>
+    </AxisWrapper>
   );
 };

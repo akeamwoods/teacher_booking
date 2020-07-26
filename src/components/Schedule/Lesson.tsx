@@ -3,9 +3,9 @@ import { useDrag, useDrop } from "react-dnd";
 import { ScaleTime } from "d3";
 import { format, startOfDay } from "date-fns";
 import { LessonWrapper } from "./style";
-import { Lesson as LessonType } from "./../../../store/types";
+import { Lesson as LessonType } from "../../store/types";
 import { useDispatch } from "react-redux";
-import { actions } from "../../../store/actions";
+import { actions } from "../../store/actions";
 import { FaTimes } from "react-icons/fa";
 
 export const Lesson: React.FC<{

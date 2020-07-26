@@ -2,10 +2,11 @@ import React from "react";
 import { Wrapper, GridContainer } from "./style";
 import { useTypedSelector } from "../../store";
 import { scaleTime } from "d3";
-import { Axis } from "../Axis";
-import { GridLines } from "../Axis/GridLines";
+import { Axis } from "./Axis";
+
 import { Lesson } from "./Lesson";
-import { DropContainers } from "../Axis/DropContainers";
+import { GridLines } from "./GridLines";
+import { DropContainers } from "./DropContainers";
 
 export const Schedule = () => {
   const lessons = useTypedSelector(

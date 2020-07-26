@@ -62,10 +62,10 @@ const DropContainer: React.FC<{
     }),
   });
 
-  let backgroundColor = "rgba(34,150,243, 0)";
+  let borderTop = "none";
 
-  if (isOver && backgroundColor === "rgba(34,150,243, 0)") {
-    backgroundColor = "rgba(34,150,243, .5)";
+  if (isOver && borderTop === "none") {
+    borderTop = "2px solid rgba(34,150,243, 1)";
   }
 
   return (
@@ -78,7 +78,7 @@ const DropContainer: React.FC<{
         height: height,
         zIndex: 1,
         width: "100%",
-        background: backgroundColor,
+        borderTop: borderTop,
       }}
     />
   );
