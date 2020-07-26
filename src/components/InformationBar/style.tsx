@@ -37,7 +37,8 @@ export const Heading = styled.h2`
   flex: 1;
   margin: 0;
   text-align: center;
-  font-size: 1.35em;
+  font-size: 1.3em;
+  font-weight: 600;
 `;
 
 export const SubHeading = styled.p`

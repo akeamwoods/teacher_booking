@@ -87,3 +87,31 @@ export const SeriesSpan = styled.span`
     margin-top: 10px;
   }
 `;
+
+export const SeriesRow = styled.div.attrs((props: { color: string }) => ({}))<{
+  color: string;
+}>`
+  font-size: 0.9em;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  p {
+    margin: 0;
+  }
+  div {
+    display: flex;
+  }
+  span {
+    background: ${({ color }) => color};
+    width: 5px;
+    height: 100%;
+    margin-right: 5px;
+  }
+`;
+
+export const Button = styled.button`
+  border: none;
+  background: transparent;
+  padding: 5px;
+`;

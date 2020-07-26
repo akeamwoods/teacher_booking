@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Wrapper, Form, SubmitButton, ListWrapper, SeriesSpan } from "./style";
-import { Lesson } from "../../store/types";
-import { useTypedSelector } from "../../store";
 import {
   List,
   AutoSizer,
@@ -9,6 +6,18 @@ import {
   CellMeasurerCache,
 } from "react-virtualized";
 import { format } from "date-fns";
+import { FaUnlink, FaTimes } from "react-icons/fa";
+import { Lesson } from "../../store/types";
+import { useTypedSelector } from "../../store";
+import {
+  Wrapper,
+  Form,
+  SubmitButton,
+  ListWrapper,
+  SeriesSpan,
+  SeriesRow,
+  Button,
+} from "./style";
 
 export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
   const lessons = useTypedSelector((state) =>
@@ -56,9 +65,21 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
             columnIndex={0}
             rowIndex={index}
           >
-            <div style={style} tabIndex={0}>
-              {format(new Date(series[index].start), "E do MMM Y")}
-            </div>
+            <SeriesRow style={style} tabIndex={0} color={series[index].color}>
+              <div>
+                <span />
+                <p>{index < 9 ? "0" + (index + 1) : index + 1}</p>
+              </div>
+              <p>{format(new Date(series[index].start), "EEEE do MMMM Y")}</p>
+              <div>
+                <Button>
+                  <FaUnlink />
+                </Button>
+                <Button>
+                  <FaTimes />
+                </Button>
+              </div>
+            </SeriesRow>
           </CellMeasurer>
         )}
       </>
@@ -109,7 +130,6 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
               {({ width, height }) => {
                 return (
                   <List
-                    style={{ padding: 0, margin: 0 }}
                     tabIndex={0}
                     containerStyle={{ padding: 0, margin: 0 }}
                     deferredMeasurementCache={cache}
