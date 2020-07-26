@@ -1,5 +1,5 @@
 import React from "react";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrag } from "react-dnd";
 import { ScaleTime } from "d3";
 import { format, startOfDay } from "date-fns";
 import { LessonWrapper } from "./style";
@@ -21,17 +21,6 @@ export const Lesson: React.FC<{
     });
     dispatch(actions.lessonFocussed(lesson));
   };
-
-  const [{ isOver, isOverCurrent }] = useDrop({
-    accept: "*",
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      isOverCurrent: monitor.isOver({ shallow: true }),
-    }),
-  });
-
-  let zIndex = 1;
-  if ((isOverCurrent || isOver) && zIndex !== 0) zIndex = 0;
 
   const [_, drag] = useDrag({
     item: { type: "*", id: lesson.id },

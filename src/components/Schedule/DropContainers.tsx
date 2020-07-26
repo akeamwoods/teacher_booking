@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScaleLinear, ScaleTime } from "d3";
 import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
@@ -45,6 +45,7 @@ const DropContainer: React.FC<{
   height: string;
 }> = ({ id, tick, height }) => {
   const dispatch = useDispatch();
+  const [borderTop, setBorderTop] = useState("none");
 
   const [{ canDrop, isOver }, drop] = useDrop({
     drop: (item, monitor) => {
@@ -62,12 +63,10 @@ const DropContainer: React.FC<{
     }),
   });
 
-  let borderTop = "none";
+  if (isOver && borderTop === "none")
+    setBorderTop("2px solid rgba(34,150,243, 1)");
 
-  if (isOver && borderTop === "none") {
-    borderTop = "2px solid rgba(34,150,243, 1)";
-  }
-
+  if (!isOver && borderTop !== "none") setBorderTop("none");
   return (
     <div
       key={id}
@@ -78,7 +77,7 @@ const DropContainer: React.FC<{
         height: height,
         zIndex: 1,
         width: "100%",
-        borderTop: borderTop,
+        borderTop,
       }}
     />
   );
