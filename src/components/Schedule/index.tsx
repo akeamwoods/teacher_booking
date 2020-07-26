@@ -5,6 +5,7 @@ import { scaleTime } from "d3";
 import { Axis } from "../Axis";
 import { GridLines } from "../Axis/GridLines";
 import { Lesson } from "./Lesson";
+import { DropContainers } from "../Axis/DropContainers";
 
 export const Schedule = () => {
   const lessons = useTypedSelector(
@@ -30,6 +31,7 @@ export const Schedule = () => {
       <Axis tickHeight={tickHeight} scale={scale} />
       <GridContainer>
         <GridLines tickHeight={tickHeight} scale={scale} />
+        <DropContainers tickHeight={tickHeight / 4} scale={scale} />
         {lessons &&
           lessons.map((lesson, i) => (
             <Lesson

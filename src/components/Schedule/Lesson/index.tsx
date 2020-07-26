@@ -1,4 +1,4 @@
-import React, { createRef, useState } from "react";
+import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { ScaleTime } from "d3";
 import { format, startOfDay } from "date-fns";
@@ -14,7 +14,6 @@ export const Lesson: React.FC<{
   colour: string;
 }> = React.memo(({ lesson, scale, colour }) => {
   const dispatch = useDispatch();
-  const ref = createRef<SVGRectElement>();
   const handleClick = (e: React.MouseEvent<SVGRectElement, MouseEvent>) => {
     e.currentTarget.scrollIntoView({
       behavior: "smooth",
@@ -23,7 +22,7 @@ export const Lesson: React.FC<{
     dispatch(actions.lessonFocussed(lesson));
   };
 
-  const [{ isOver, isOverCurrent }, drop] = useDrop({
+  const [{ isOver, isOverCurrent }] = useDrop({
     accept: "*",
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -34,7 +33,7 @@ export const Lesson: React.FC<{
   let zIndex = 1;
   if ((isOverCurrent || isOver) && zIndex !== 0) zIndex = 0;
 
-  const [{ opacity }, drag] = useDrag({
+  const [_, drag] = useDrag({
     item: { type: "*", id: lesson.id },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.8 : 1,
