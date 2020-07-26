@@ -8,7 +8,7 @@ import { actions } from "../../../store/actions";
 import { startOfDay, isSameDay } from "date-fns";
 import { useKeyboardEvent } from "../../../hooks/useKeyboardEvent";
 import { useTypedSelector } from "../../../store";
-import { NewLessonForm } from "../../LessonForm/NewLessonForm";
+import { NewLessonForm } from "../../Forms/NewLessonForm";
 
 export const TimelineHeader: React.FC<{
   selectedDate: string;

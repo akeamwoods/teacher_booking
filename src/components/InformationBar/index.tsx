@@ -26,8 +26,8 @@ import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
 import { Popup } from "../Popup";
 import { startOfDay, format } from "date-fns";
 import { useTypedSelector } from "../../store";
-import { EditLessonForm } from "../LessonForm/EditLessonForm";
-import { SeriesForm } from "../LessonForm/SeriesForm";
+import { EditLessonForm } from "../Forms/EditLessonForm";
+import { SeriesForm } from "../Forms/SeriesForm";
 
 export const InformationBar: React.FC<{
   lesson: Lesson | undefined;
