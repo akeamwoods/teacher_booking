@@ -51,6 +51,10 @@ const closePanelButtonPressed = createAction("close panel button pressed")();
 const popupOpened = createAction("popup opened")();
 const popupClosed = createAction("popup closed")();
 
+const updateStartTime = createAction("lesson start time updated")<{
+  id: string;
+  time: string;
+}>();
 export const actions = {
   selectedMonthChanged,
   selectedDayChanged,
@@ -65,6 +69,7 @@ export const actions = {
   lessonEditedSeriesAdded,
   popupOpened,
   popupClosed,
+  updateStartTime,
 };
 
 export type Actions = ActionType<typeof actions>;

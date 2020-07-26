@@ -16,6 +16,8 @@ import {
   isBefore,
   isSameDay,
   format,
+  differenceInMinutes,
+  addMinutes,
 } from "date-fns";
 import { Lesson, Class } from "./types";
 import { rootSaga } from "./rootSaga";
@@ -282,6 +284,26 @@ export const rootReducer: Reducer<State, Actions> = (
       case getType(actions.popupClosed):
         draft.popupOpen = false;
         break;
+
+      case getType(actions.updateStartTime): {
+        const lessons =
+          draft.lessons[
+            startOfDay(new Date(action.payload.time)).toISOString()
+          ];
+        const lesson = lessons.find((l) => l.id === action.payload.id);
+        if (lesson) {
+          const difference = differenceInMinutes(
+            new Date(lesson.end),
+            new Date(lesson.start)
+          );
+          lesson.start = action.payload.time;
+          lesson.end = addMinutes(
+            new Date(action.payload.time),
+            difference
+          ).toISOString();
+        }
+        break;
+      }
     }
   });
 

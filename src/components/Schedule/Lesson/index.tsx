@@ -1,5 +1,5 @@
 import React, { createRef, useState } from "react";
-
+import { useDrag, useDrop } from "react-dnd";
 import { ScaleTime } from "d3";
 import { format, startOfDay } from "date-fns";
 import { LessonWrapper } from "./style";
@@ -23,21 +23,35 @@ export const Lesson: React.FC<{
     dispatch(actions.lessonFocussed(lesson));
   };
 
-  const [zIndex, setZIndex] = useState(1);
+  const [{ isOver, isOverCurrent }, drop] = useDrop({
+    accept: "*",
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      isOverCurrent: monitor.isOver({ shallow: true }),
+    }),
+  });
+
+  let zIndex = 1;
+  if ((isOverCurrent || isOver) && zIndex !== 0) zIndex = 0;
+
+  const [{ opacity }, drag] = useDrag({
+    item: { type: "*", id: lesson.id },
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.8 : 1,
+    }),
+  });
   return (
     <LessonWrapper
       tabIndex={0}
       colour={colour}
-      ref={ref}
+      ref={drag}
       onClick={handleClick}
       height={`${
         scale(new Date(lesson.end)) - scale(new Date(lesson.start))
       }px`}
-      style={{ zIndex: zIndex }}
+      style={{ zIndex: 1 }}
       transform={`translateY(${scale(new Date(lesson.start)).toFixed(0)}px)`}
       key={lesson.id}
-      onMouseEnter={() => setZIndex(10)}
-      onMouseLeave={() => setZIndex(1)}
     >
       <span>
         <p>{lesson.subject}</p>
