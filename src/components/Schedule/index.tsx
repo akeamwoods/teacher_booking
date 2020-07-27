@@ -12,6 +12,7 @@ export const Schedule = () => {
   const lessons = useTypedSelector(
     (state) => state.lessons[state.selectedDate]
   );
+  const focussedLesson = useTypedSelector((state) => state.focussedLesson);
   const day = useTypedSelector((state) => state.selectedDate);
   const tickHeight = 35;
 
@@ -40,6 +41,7 @@ export const Schedule = () => {
               key={lesson.id}
               lesson={lesson}
               scale={scale}
+              isFocussed={focussedLesson?.id === lesson.id ?? false}
             />
           ))}
       </GridContainer>

@@ -66,12 +66,12 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
             rowIndex={index}
           >
             <SeriesRow style={style} tabIndex={0} color={series[index].color}>
-              <div>
+              <div style={{ width: "50px" }}>
                 <span />
-                <p>{index < 9 ? "0" + (index + 1) : index + 1}</p>
+                <p>{index + 1}</p>
               </div>
               <p>{format(new Date(series[index].start), "EEEE do MMMM Y")}</p>
-              <div>
+              <div style={{ flex: 1, justifyContent: "flex-end" }}>
                 <Button>
                   <FaUnlink />
                 </Button>

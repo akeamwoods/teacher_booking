@@ -12,7 +12,8 @@ export const Lesson: React.FC<{
   lesson: LessonType;
   scale: ScaleTime<number, number>;
   colour: string;
-}> = React.memo(({ lesson, scale, colour }) => {
+  isFocussed: boolean;
+}> = React.memo(({ lesson, scale, colour, isFocussed }) => {
   const dispatch = useDispatch();
   const handleClick = (e: React.MouseEvent<SVGRectElement, MouseEvent>) => {
     e.currentTarget.scrollIntoView({
@@ -36,8 +37,8 @@ export const Lesson: React.FC<{
       tabIndex={0}
       colour={colour}
       ref={drag}
-      onClick={handleClick}
-      style={{ zIndex: 1 }}
+      onMouseDown={handleClick}
+      style={{ zIndex: isFocussed ? 10 : 1 }}
       height={`${scale(end) - scale(start)}px`}
       transform={`translateY(${scale(start).toFixed(0)}px)`}
       smallHeight={differenceInHours(end, start) < 1}
