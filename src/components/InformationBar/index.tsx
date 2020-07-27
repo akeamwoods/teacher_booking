@@ -21,6 +21,7 @@ import {
   FaTrash,
   FaQuestionCircle,
   FaLink,
+  FaUnlink,
 } from "react-icons/fa";
 import { useKeyboardEvent } from "../../hooks/useKeyboardEvent";
 import { Popup } from "../Popup";
@@ -98,13 +99,18 @@ export const InformationBar: React.FC<{
                     </Button>
                     <LinkedButton
                       isLinked={lesson.seriesId ? true : false}
+                      disabled={lesson.seriesId === undefined}
                       onClick={() => {
                         setVisibility(true);
                         setMode("series");
                         dispatch(actions.popupOpened());
                       }}
                     >
-                      <FaLink size="22" />
+                      {lesson.seriesId ? (
+                        <FaLink size="22" />
+                      ) : (
+                        <FaUnlink size="22" />
+                      )}
                     </LinkedButton>
                     <Button
                       onClick={() =>

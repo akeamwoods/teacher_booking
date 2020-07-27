@@ -55,6 +55,9 @@ const updateStartTime = createAction("lesson start time updated")<{
   id: string;
   time: string;
 }>();
+
+const seriesDeleted = createAction("series deleted")<string>();
+
 export const actions = {
   selectedMonthChanged,
   selectedDayChanged,
@@ -70,6 +73,7 @@ export const actions = {
   popupOpened,
   popupClosed,
   updateStartTime,
+  seriesDeleted,
 };
 
 export type Actions = ActionType<typeof actions>;

@@ -30,7 +30,7 @@ const persistConfig = {
   storage,
   blacklist: [
     "selectedDate",
-    "lessons",
+    // "lessons",
     "classes",
     "focussedLesson",
     "infoPanelOpen",
@@ -311,6 +311,20 @@ export const rootReducer: Reducer<State, Actions> = (
 
         break;
       }
+
+      case getType(actions.seriesDeleted):
+        for (const [key, _] of Object.entries(draft.lessons)) {
+          draft.lessons[key] = draft.lessons[key].filter(
+            (lesson) => lesson.seriesId !== action.payload
+          );
+          if (!draft.lessons[key].length) delete draft.lessons[key];
+        }
+        if (
+          draft.focussedLesson?.seriesId &&
+          draft.focussedLesson.seriesId === action.payload
+        )
+          draft.focussedLesson = undefined;
+        break;
     }
   });
 

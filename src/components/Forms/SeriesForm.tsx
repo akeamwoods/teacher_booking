@@ -18,8 +18,11 @@ import {
   SeriesRow,
   Button,
 } from "./style";
+import { useDispatch } from "react-redux";
+import { actions } from "../../store/actions";
 
 export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
+  const dispatch = useDispatch();
   const lessons = useTypedSelector((state) =>
     Array.prototype.concat
       .apply([], Object.values(state.lessons))
@@ -146,12 +149,22 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
           </ListWrapper>
         )}
         {!series ? (
-          <SubmitButton
-            type="button"
-            onClick={() => (lessons ? setSeries(lessons) : void {})}
-          >
-            View Lessons
-          </SubmitButton>
+          <span style={{ display: "flex" }}>
+            <SubmitButton
+              type="button"
+              style={{ flex: 1 }}
+              onClick={() => (lessons ? setSeries(lessons) : void {})}
+            >
+              View Lessons
+            </SubmitButton>
+            <SubmitButton
+              type="button"
+              style={{ flex: 1 }}
+              onClick={() => dispatch(actions.seriesDeleted(lesson.seriesId!))}
+            >
+              Delete Series
+            </SubmitButton>
+          </span>
         ) : (
           <SubmitButton type="button" onClick={() => setSeries(undefined)}>
             View Series

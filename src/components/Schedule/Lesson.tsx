@@ -16,13 +16,15 @@ export const Lesson: React.FC<{
 }> = React.memo(({ lesson, scale, colour, isFocussed }) => {
   const dispatch = useDispatch();
   const handleClick = (e: React.MouseEvent<SVGRectElement, MouseEvent>) => {
+    dispatch(actions.lessonFocussed(lesson));
+  };
+
+  const handleRelease = (e: React.MouseEvent<SVGRectElement, MouseEvent>) => {
     e.currentTarget.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
-    dispatch(actions.lessonFocussed(lesson));
   };
-
   const [_, drag] = useDrag({
     item: { type: "*", id: lesson.id },
     collect: (monitor) => ({
@@ -38,6 +40,7 @@ export const Lesson: React.FC<{
       colour={colour}
       ref={drag}
       onMouseDown={handleClick}
+      onMouseUp={handleRelease}
       style={{ zIndex: isFocussed ? 10 : 1 }}
       height={`${scale(end) - scale(start)}px`}
       transform={`translateY(${scale(start).toFixed(0)}px)`}
