@@ -83,7 +83,7 @@ export const InformationBar: React.FC<{
                 <FaTimes />
               </CloseButton>
               <img
-                src={process.env.PUBLIC_URL + "blackboard.svg"}
+                src={process.env.PUBLIC_URL + "/blackboard.svg"}
                 alt="Blackboard Icon"
               />
 

@@ -7,7 +7,7 @@ export const UserBar = () => {
       <img
         color="white"
         height="200px"
-        src={process.env.PUBLIC_URL + "avatar.png"}
+        src={process.env.PUBLIC_URL + "/avatar.png"}
         alt="Avatar"
       />
     </Wrapper>

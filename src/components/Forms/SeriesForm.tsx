@@ -95,7 +95,7 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
       <img
         style={{ margin: "20px" }}
         height="100px"
-        src={process.env.PUBLIC_URL + "link_calendar.svg"}
+        src={process.env.PUBLIC_URL + "/link_calendar.svg"}
         alt="New Lesson Icon"
       />
       <Form onSubmit={(e) => e.preventDefault()}>

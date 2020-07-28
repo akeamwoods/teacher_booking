@@ -38,7 +38,7 @@ export const NewLessonForm: React.FC<{
       <img
         style={{ margin: "20px" }}
         height="100px"
-        src={process.env.PUBLIC_URL + "calendar.svg"}
+        src={process.env.PUBLIC_URL + "/calendar.svg"}
         alt="New Lesson Icon"
       />
       <Form

@@ -53,7 +53,7 @@ export const EditLessonForm: React.FC<{
       <img
         style={{ margin: "20px" }}
         height="100px"
-        src={process.env.PUBLIC_URL + "edit_calendar.svg"}
+        src={process.env.PUBLIC_URL + "/edit_calendar.svg"}
         alt="Update Lesson Icon"
       />
       <Form
