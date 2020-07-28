@@ -10,18 +10,17 @@ import {
   setMonth,
   getMonth,
   startOfDay,
-  getDay,
-  addDays,
-  isBefore,
-  isSameDay,
   format,
   differenceInMinutes,
   addMinutes,
 } from "date-fns";
 import { Lesson, Class } from "./types";
 import { getLessonColour } from "../helpers/getLessonColour";
-import { getDayAsNumber } from "../helpers/getDayAsNumber";
 import { v4 as uuidv4 } from "uuid";
+import {
+  createDaysFromArray,
+  addDaysToDictionary,
+} from "../helpers/dateHelpers";
 
 const persistConfig = {
   key: "root",
@@ -84,15 +83,19 @@ export const rootReducer: Reducer<State, Actions> = (
 ) =>
   produce(state, (draft) => {
     switch (action.type) {
-      case getType(actions.selectedMonthChanged):
+      case getType(actions.selectedMonthChanged): {
         draft.selectedDate = setMonth(
           new Date(draft.selectedDate),
           getMonth(action.payload)
         ).toISOString();
         break;
-      case getType(actions.selectedDayChanged):
+      }
+
+      case getType(actions.selectedDayChanged): {
         draft.selectedDate = new Date(action.payload).toISOString();
         break;
+      }
+
       case getType(actions.newLessonCreated): {
         const key = startOfDay(new Date(action.payload.start)).toISOString();
         const lesson = {
@@ -108,69 +111,36 @@ export const rootReducer: Reducer<State, Actions> = (
           : (draft.lessons[key] = [lesson]);
         break;
       }
+
       case getType(actions.newSeriesCreated): {
-        const days = action.payload.series.days;
-        const start = action.payload.series.start;
-        const end = action.payload.series.end;
-        const startDayNumber = getDay(start);
         const startTime = `${format(
           new Date(action.payload.lesson.start),
           "HH"
         )}:${format(new Date(action.payload.lesson.start), "mm")}`;
+
         const endTime = `${format(
           new Date(action.payload.lesson.end),
           "HH"
         )}:${format(new Date(action.payload.lesson.end), "mm")}`;
-        let daysToAdd: Date[] = [];
 
-        Object.entries(days).forEach((entry) => {
-          if (entry[1]) {
-            const dayOfWeek = getDayAsNumber(entry[0]);
-            const x = (dayOfWeek - startDayNumber + 7) % 7;
-            let nextDay = addDays(start, x);
-            while (isBefore(nextDay, end) || isSameDay(nextDay, end)) {
-              daysToAdd.push(nextDay);
-              nextDay = addDays(nextDay, 7);
-            }
-          }
-        });
+        const daysToAdd = createDaysFromArray(
+          action.payload.series.days,
+          action.payload.series.start,
+          action.payload.series.end
+        );
 
-        daysToAdd.forEach((day) => {
-          const key = startOfDay(day).toISOString();
-
-          const lesson = {
-            ...action.payload.lesson,
-            id: uuidv4(),
-            start: new Date(
-              new Date(day.setHours(parseFloat(startTime))).setMinutes(
-                parseFloat(startTime.slice(-2))
-              )
-            ).toISOString(),
-            end: new Date(
-              new Date(day.setHours(parseFloat(endTime))).setMinutes(
-                parseFloat(endTime.slice(-2))
-              )
-            ).toISOString(),
-            color: getLessonColour(
-              draft.lessons[key]
-                ? draft.lessons[key].map((lesson) => lesson.color)
-                : []
-            ),
-          };
-
-          draft.lessons[key]
-            ? (draft.lessons[key] = [...draft.lessons[key], lesson])
-            : (draft.lessons[key] = [lesson]);
-        });
-
+        addDaysToDictionary(
+          daysToAdd,
+          action.payload.lesson,
+          draft.lessons,
+          startTime,
+          endTime
+        );
         break;
       }
+
       case getType(actions.lessonEditedSeriesAdded): {
         const seriesId = uuidv4();
-        const days = action.payload.series.days;
-        const start = action.payload.series.start;
-        const end = action.payload.series.end;
-        const startDayNumber = getDay(start);
         const startTime = `${format(
           new Date(action.payload.lesson.start),
           "HH"
@@ -179,60 +149,32 @@ export const rootReducer: Reducer<State, Actions> = (
           new Date(action.payload.lesson.end),
           "HH"
         )}:${format(new Date(action.payload.lesson.end), "mm")}`;
-        let daysToAdd: Date[] = [];
 
+        // remove old lesson details from dictionary
         draft.lessons[action.payload.oldKey] = [
           ...draft.lessons[action.payload.oldKey].filter(
             (lesson) => lesson.id !== action.payload.lesson.id
           ),
         ];
 
-        Object.entries(days).forEach((entry) => {
-          if (entry[1]) {
-            const dayOfWeek = getDayAsNumber(entry[0]);
-            const x = (dayOfWeek - startDayNumber + 7) % 7;
-            let nextDay = addDays(start, x);
-            while (isBefore(nextDay, end) || isSameDay(nextDay, end)) {
-              daysToAdd.push(nextDay);
-              nextDay = addDays(nextDay, 7);
-            }
-          }
-        });
+        const daysToAdd = createDaysFromArray(
+          action.payload.series.days,
+          action.payload.series.start,
+          action.payload.series.end
+        );
 
-        daysToAdd.forEach((day) => {
-          const key = startOfDay(day).toISOString();
-
-          const lesson = {
-            ...action.payload.lesson,
-            seriesId: action.payload.lesson.seriesId
-              ? action.payload.lesson.seriesId
-              : seriesId,
-            id: uuidv4(),
-            start: new Date(
-              new Date(day.setHours(parseFloat(startTime))).setMinutes(
-                parseFloat(startTime.slice(-2))
-              )
-            ).toISOString(),
-            end: new Date(
-              new Date(day.setHours(parseFloat(endTime))).setMinutes(
-                parseFloat(endTime.slice(-2))
-              )
-            ).toISOString(),
-            color: getLessonColour(
-              draft.lessons[key]
-                ? draft.lessons[key].map((lesson) => lesson.color)
-                : []
-            ),
-          };
-
-          draft.lessons[key]
-            ? (draft.lessons[key] = [...draft.lessons[key], lesson])
-            : (draft.lessons[key] = [lesson]);
-        });
-
+        addDaysToDictionary(
+          daysToAdd,
+          action.payload.lesson,
+          draft.lessons,
+          startTime,
+          endTime,
+          seriesId
+        );
         break;
       }
-      case getType(actions.lessonDeleted):
+
+      case getType(actions.lessonDeleted): {
         draft.lessons[action.payload.date] = [
           ...draft.lessons[action.payload.date].filter(
             (lesson) => lesson.id !== action.payload.id
@@ -248,22 +190,31 @@ export const rootReducer: Reducer<State, Actions> = (
         )
           draft.focussedLesson = undefined; // if deleted item is focussed, removed
         break;
-      case getType(actions.lessonFocussed):
+      }
+
+      case getType(actions.lessonFocussed): {
         draft.focussedLesson = action.payload;
         draft.infoPanelColor = action.payload.color;
         draft.infoPanelOpen = true;
         break;
-      case getType(actions.lessonUnfocussed):
+      }
+
+      case getType(actions.lessonUnfocussed): {
         draft.focussedLesson = undefined;
         break;
-      case getType(actions.closePanelButtonPressed):
+      }
+
+      case getType(actions.closePanelButtonPressed): {
         draft.infoPanelOpen = false;
         break;
+      }
+
       case getType(actions.lessonEdited): {
         const oldKey = action.payload.oldKey;
         const newKey = startOfDay(
           new Date(action.payload.lesson.start)
         ).toISOString();
+
         //remove old lesson
         draft.lessons[oldKey] = [
           ...draft.lessons[oldKey].filter(
@@ -271,6 +222,7 @@ export const rootReducer: Reducer<State, Actions> = (
           ),
         ];
 
+        // update dictionary with new details
         draft.lessons[newKey]
           ? (draft.lessons[newKey] = [
               ...draft.lessons[newKey],
@@ -278,17 +230,22 @@ export const rootReducer: Reducer<State, Actions> = (
             ])
           : (draft.lessons[newKey] = [action.payload.lesson]);
 
+        // update focussed lesson if it has been edited
         if (draft.focussedLesson?.id === action.payload.lesson.id) {
           draft.focussedLesson = action.payload.lesson;
         }
         break;
       }
-      case getType(actions.popupOpened):
+
+      case getType(actions.popupOpened): {
         draft.popupOpen = true;
         break;
-      case getType(actions.popupClosed):
+      }
+
+      case getType(actions.popupClosed): {
         draft.popupOpen = false;
         break;
+      }
 
       case getType(actions.updateStartTime): {
         const lessons =
@@ -297,9 +254,8 @@ export const rootReducer: Reducer<State, Actions> = (
           ];
         const lesson = lessons.find((l) => l.id === action.payload.id);
         if (lesson) {
-          if (lesson.seriesId) {
-            lesson.seriesId = undefined;
-          }
+          if (lesson.seriesId) lesson.seriesId = undefined;
+
           const difference = differenceInMinutes(
             new Date(lesson.end),
             new Date(lesson.start)
@@ -309,15 +265,14 @@ export const rootReducer: Reducer<State, Actions> = (
             new Date(action.payload.time),
             difference
           ).toISOString();
-          if (draft.focussedLesson && draft.focussedLesson.id === lesson.id) {
-            draft.focussedLesson = lesson;
-          }
-        }
 
+          if (draft.focussedLesson && draft.focussedLesson.id === lesson.id)
+            draft.focussedLesson = lesson;
+        }
         break;
       }
 
-      case getType(actions.seriesDeleted):
+      case getType(actions.seriesDeleted): {
         for (const [key] of Object.entries(draft.lessons)) {
           draft.lessons[key] = draft.lessons[key].filter(
             (lesson) => lesson.seriesId !== action.payload
@@ -330,13 +285,11 @@ export const rootReducer: Reducer<State, Actions> = (
         )
           draft.focussedLesson = undefined;
         break;
+      }
     }
   });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 export const store = createStore(persistedReducer, composeWithDevTools());
-
 export const persistor = persistStore(store);
-
 export const useTypedSelector: TypedUseSelectorHook<State> = useSelector;
