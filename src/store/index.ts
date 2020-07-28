@@ -1,8 +1,7 @@
 import { Actions, actions } from "./actions";
-import { Reducer, createStore, applyMiddleware } from "redux";
+import { Reducer, createStore } from "redux";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import createSagaMiddleware from "redux-saga";
 import produce from "immer";
 import { getType } from "typesafe-actions";
 import { persistStore, persistReducer } from "redux-persist";
@@ -20,7 +19,6 @@ import {
   addMinutes,
 } from "date-fns";
 import { Lesson, Class } from "./types";
-import { rootSaga } from "./rootSaga";
 import { getLessonColour } from "../helpers/getLessonColour";
 import { getDayAsNumber } from "../helpers/getDayAsNumber";
 import { v4 as uuidv4 } from "uuid";
@@ -75,6 +73,7 @@ const initialState = () => ({
   focussedLesson: undefined as undefined | Lesson,
   infoPanelOpen: false,
   popupOpen: false,
+  infoPanelColor: undefined as string | undefined,
 });
 
 export type State = Readonly<ReturnType<typeof initialState>>;
@@ -239,19 +238,25 @@ export const rootReducer: Reducer<State, Actions> = (
             (lesson) => lesson.id !== action.payload.id
           ),
         ];
-        // remove key is no values
-        if (!draft.lessons[action.payload.date].length) {
-          delete draft.lessons[action.payload.date];
-        }
+
+        if (!draft.lessons[action.payload.date].length)
+          delete draft.lessons[action.payload.date]; // remove key if it has no values
+
+        if (
+          draft.focussedLesson &&
+          draft.focussedLesson.id === action.payload.id
+        )
+          draft.focussedLesson = undefined; // if deleted item is focussed, removed
         break;
       case getType(actions.lessonFocussed):
         draft.focussedLesson = action.payload;
+        draft.infoPanelColor = action.payload.color;
         draft.infoPanelOpen = true;
         break;
       case getType(actions.lessonUnfocussed):
         draft.focussedLesson = undefined;
         break;
-      case getType(actions.infoPanelClosed):
+      case getType(actions.closePanelButtonPressed):
         draft.infoPanelOpen = false;
         break;
       case getType(actions.lessonEdited): {
@@ -328,15 +333,10 @@ export const rootReducer: Reducer<State, Actions> = (
     }
   });
 
-const sagaMiddleware = createSagaMiddleware();
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(
-  persistedReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
-);
-sagaMiddleware.run(rootSaga);
+export const store = createStore(persistedReducer, composeWithDevTools());
+
 export const persistor = persistStore(store);
 
 export const useTypedSelector: TypedUseSelectorHook<State> = useSelector;

@@ -79,6 +79,7 @@ export const LessonWrapper = styled.rect.attrs<{
   transition: 0.3s;
   opacity: 0.8;
   overflow: hidden;
+  z-index: 1;
 
   :hover {
     opacity: 0.9;

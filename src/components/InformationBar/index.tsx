@@ -34,6 +34,7 @@ export const InformationBar: React.FC<{
   lesson: Lesson | undefined;
 }> = React.memo(({ lesson }) => {
   const isOpen = useTypedSelector((state) => state.infoPanelOpen);
+  const color = useTypedSelector((state) => state.infoPanelColor);
   const [isVisible, setVisibility] = useState(false);
   const [mode, setMode] = useState("edit" as "edit" | "series");
   const transitions = useTransition(isOpen, null, {
@@ -75,7 +76,7 @@ export const InformationBar: React.FC<{
       {transitions.map(
         ({ item, key, props }) =>
           item && (
-            <Wrapper background={lesson?.color} style={props} key={key}>
+            <Wrapper background={color} style={props} key={key}>
               <CloseButton
                 onClick={() => dispatch(actions.closePanelButtonPressed())}
               >
@@ -85,36 +86,38 @@ export const InformationBar: React.FC<{
                 src={process.env.PUBLIC_URL + "blackboard.svg"}
                 alt="Blackboard Icon"
               />
-              {lesson && (
-                <div>
-                  <ButtonBar>
-                    <Button
-                      onClick={() => {
-                        setVisibility(true);
-                        setMode("edit");
-                        dispatch(actions.popupOpened());
-                      }}
-                    >
-                      <FaEdit size="22" />
-                    </Button>
-                    <LinkedButton
-                      isLinked={lesson.seriesId ? true : false}
-                      disabled={lesson.seriesId === undefined}
-                      onClick={() => {
-                        setVisibility(true);
-                        setMode("series");
-                        dispatch(actions.popupOpened());
-                      }}
-                    >
-                      {lesson.seriesId ? (
-                        <FaLink size="22" />
-                      ) : (
-                        <FaUnlink size="22" />
-                      )}
-                    </LinkedButton>
-                    <Button
-                      onClick={() =>
-                        dispatch(
+
+              <ButtonBar>
+                <Button
+                  disabled={!lesson}
+                  onClick={() => {
+                    setVisibility(true);
+                    setMode("edit");
+                    dispatch(actions.popupOpened());
+                  }}
+                >
+                  <FaEdit size="22" />
+                </Button>
+                <LinkedButton
+                  isLinked={!lesson || !lesson.seriesId}
+                  disabled={!lesson || !lesson.seriesId}
+                  onClick={() => {
+                    setVisibility(true);
+                    setMode("series");
+                    dispatch(actions.popupOpened());
+                  }}
+                >
+                  {lesson?.seriesId ? (
+                    <FaLink size="22" />
+                  ) : (
+                    <FaUnlink size="22" />
+                  )}
+                </LinkedButton>
+                <Button
+                  disabled={!lesson}
+                  onClick={() =>
+                    lesson
+                      ? dispatch(
                           actions.lessonDeleted({
                             date: startOfDay(
                               new Date(lesson.start)
@@ -122,57 +125,58 @@ export const InformationBar: React.FC<{
                             id: lesson.id,
                           })
                         )
-                      }
-                    >
-                      <FaTrash size="22" />
-                    </Button>
-                  </ButtonBar>
-                  <Section>
-                    <SubHeading>Subject</SubHeading>
-                    <Heading>{lesson.subject}</Heading>
-                  </Section>
-                  <Section>
-                    <SubHeading>Date</SubHeading>
-                    <Heading>
-                      {lesson.start
-                        ? format(new Date(lesson.start), "do MMMM Y")
-                        : "N/A"}
-                    </Heading>
-                  </Section>
-                  <Section>
-                    <SubHeading>Time</SubHeading>
-                    <Heading>
-                      {`${format(new Date(lesson.start!), "HH:mm")} - ${format(
-                        new Date(lesson.end),
+                      : void {}
+                  }
+                >
+                  <FaTrash size="22" />
+                </Button>
+              </ButtonBar>
+              <Section>
+                <SubHeading>Subject</SubHeading>
+                <Heading>{lesson?.subject ?? "N/A"}</Heading>
+              </Section>
+              <Section>
+                <SubHeading>Date</SubHeading>
+                <Heading>
+                  {lesson?.start
+                    ? format(new Date(lesson.start), "do MMMM Y")
+                    : "N/A"}
+                </Heading>
+              </Section>
+              <Section>
+                <SubHeading>Time</SubHeading>
+                <Heading>
+                  {lesson
+                    ? `${format(new Date(lesson?.start!), "HH:mm")} - ${format(
+                        new Date(lesson?.end),
                         "HH:mm"
-                      )}`}
-                    </Heading>
-                  </Section>
-                  <>
-                    <Section>
-                      <SubHeading>Year</SubHeading>
-                      <Heading>{yearGroup?.year ?? "N/A"}</Heading>
-                    </Section>
-                    <Section>
-                      <SubHeading>Class</SubHeading>
-                      <ButtonSpan>
-                        <Heading>{yearGroup?.group ?? "None"}</Heading>
-                      </ButtonSpan>
-                    </Section>
-                    <Section>
-                      <SubHeading>Students</SubHeading>
-                      <ButtonSpan>
-                        <Heading>{yearGroup?.students.length ?? "0"}</Heading>
-                        {lesson.class && (
-                          <Button>
-                            <FaQuestionCircle />
-                          </Button>
-                        )}
-                      </ButtonSpan>
-                    </Section>
-                  </>
-                </div>
-              )}
+                      )}`
+                    : "N/A"}
+                </Heading>
+              </Section>
+              <>
+                <Section>
+                  <SubHeading>Year</SubHeading>
+                  <Heading>{yearGroup?.year ?? "N/A"}</Heading>
+                </Section>
+                <Section>
+                  <SubHeading>Class</SubHeading>
+                  <ButtonSpan>
+                    <Heading>{yearGroup?.group ?? "N/A"}</Heading>
+                  </ButtonSpan>
+                </Section>
+                <Section>
+                  <SubHeading>Students</SubHeading>
+                  <ButtonSpan>
+                    <Heading>{yearGroup?.students.length ?? "N/A"}</Heading>
+                    {lesson && lesson.class && (
+                      <Button>
+                        <FaQuestionCircle />
+                      </Button>
+                    )}
+                  </ButtonSpan>
+                </Section>
+              </>
             </Wrapper>
           )
       )}

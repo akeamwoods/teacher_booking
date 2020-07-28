@@ -1,6 +1,5 @@
 import React from "react";
 import { InformationBar } from "../../../components/InformationBar";
-import { UserBar } from "../../../components/UserBar";
 import { useTypedSelector } from "../../../store";
 
 export const SideBar = () => {
@@ -8,8 +7,7 @@ export const SideBar = () => {
 
   return (
     <>
-      <span style={{ position: "relative" }}>
-        <UserBar />
+      <span style={{ position: "relative", display: "flex" }}>
         <InformationBar lesson={focussedLesson} />
       </span>
     </>

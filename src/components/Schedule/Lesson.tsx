@@ -41,7 +41,7 @@ export const Lesson: React.FC<{
       ref={drag}
       onMouseDown={handleClick}
       onMouseUp={handleRelease}
-      style={{ zIndex: isFocussed ? 10 : 1 }}
+      style={{ zIndex: isFocussed ? 2 : 1 }}
       height={`${scale(end) - scale(start)}px`}
       transform={`translateY(${scale(start).toFixed(0)}px)`}
       smallHeight={differenceInHours(end, start) < 1}
