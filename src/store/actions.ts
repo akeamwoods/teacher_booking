@@ -41,9 +41,15 @@ const lessonEditedSeriesAdded = createAction(
 }>();
 
 const lessonDeleted = createAction("lesson deleted")<{
-  date: string;
+  key: string;
   id: string;
 }>();
+
+const lessonUnlinked = createAction("lesson unlinked")<{
+  key: string;
+  id: string;
+}>();
+
 const lessonFocussed = createAction("lesson focussed")<Lesson>();
 const lessonUnfocussed = createAction("lesson unfocussed")();
 const infoPanelClosed = createAction("info panel closed")();
@@ -65,6 +71,7 @@ export const actions = {
   newSeriesCreated,
   lessonEdited,
   lessonDeleted,
+  lessonUnlinked,
   lessonFocussed,
   infoPanelClosed,
   lessonUnfocussed,

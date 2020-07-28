@@ -57,7 +57,7 @@ export const Lesson: React.FC<{
           e.stopPropagation();
           dispatch(
             actions.lessonDeleted({
-              date: startOfDay(start).toISOString(),
+              key: startOfDay(start).toISOString(),
               id: lesson.id,
             })
           );

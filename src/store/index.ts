@@ -144,20 +144,29 @@ export const rootReducer: Reducer<State, Actions> = (
       }
 
       case getType(actions.lessonDeleted): {
-        draft.lessons[action.payload.date] = [
-          ...draft.lessons[action.payload.date].filter(
+        draft.lessons[action.payload.key] = [
+          ...draft.lessons[action.payload.key].filter(
             (lesson) => lesson.id !== action.payload.id
           ),
         ];
 
-        if (!draft.lessons[action.payload.date].length)
-          delete draft.lessons[action.payload.date]; // remove key if it has no values
+        if (!draft.lessons[action.payload.key].length)
+          delete draft.lessons[action.payload.key]; // remove key if it has no values
 
         if (
           draft.focussedLesson &&
           draft.focussedLesson.id === action.payload.id
         )
           draft.focussedLesson = undefined; // if deleted item is focussed, removed
+        break;
+      }
+
+      case getType(actions.lessonUnlinked): {
+        const lesson = draft.lessons[action.payload.key].find(
+          (lesson) => lesson.seriesId === action.payload.id
+        );
+        if (lesson) lesson.seriesId = undefined;
+
         break;
       }
 

@@ -5,7 +5,7 @@ import {
   CellMeasurer,
   CellMeasurerCache,
 } from "react-virtualized";
-import { format } from "date-fns";
+import { format, startOfDay } from "date-fns";
 import { FaUnlink, FaTimes } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Lesson } from "../../store/types";
@@ -79,10 +79,32 @@ export const SeriesForm: React.FC<{
               </div>
               <p>{format(new Date(lessons[index].start), "EEEE do MMMM Y")}</p>
               <div style={{ flex: 1, justifyContent: "flex-end" }}>
-                <Button>
+                <Button
+                  onClick={() =>
+                    dispatch(
+                      actions.lessonUnlinked({
+                        key: startOfDay(
+                          new Date(lessons[index].start)
+                        ).toISOString(),
+                        id: lessons[index].seriesId,
+                      })
+                    )
+                  }
+                >
                   <FaUnlink />
                 </Button>
-                <Button>
+                <Button
+                  onClick={() =>
+                    dispatch(
+                      actions.lessonDeleted({
+                        key: startOfDay(
+                          new Date(lessons[index].start)
+                        ).toISOString(),
+                        id: lessons[index].id,
+                      })
+                    )
+                  }
+                >
                   <FaTimes />
                 </Button>
               </div>

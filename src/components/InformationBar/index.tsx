@@ -119,7 +119,7 @@ export const InformationBar: React.FC<{
                     lesson
                       ? dispatch(
                           actions.lessonDeleted({
-                            date: startOfDay(
+                            key: startOfDay(
                               new Date(lesson.start)
                             ).toISOString(),
                             id: lesson.id,
