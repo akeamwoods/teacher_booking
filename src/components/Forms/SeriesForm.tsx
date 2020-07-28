@@ -7,6 +7,7 @@ import {
 } from "react-virtualized";
 import { format } from "date-fns";
 import { FaUnlink, FaTimes } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { Lesson } from "../../store/types";
 import { useTypedSelector } from "../../store";
 import {
@@ -15,19 +16,22 @@ import {
   SubmitButton,
   ListWrapper,
   SeriesSpan,
+  ButtonSpan,
   SeriesRow,
   Button,
 } from "./style";
-import { useDispatch } from "react-redux";
 import { actions } from "../../store/actions";
 
-export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
+export const SeriesForm: React.FC<{
+  lesson: Lesson | undefined;
+  isOpen: (value: React.SetStateAction<boolean>) => void;
+}> = ({ lesson, isOpen }) => {
   const dispatch = useDispatch();
   const lessons = useTypedSelector((state) =>
     Array.prototype.concat
       .apply([], Object.values(state.lessons))
       .filter((l: Lesson) => l.seriesId)
-      .filter((l) => l.seriesId === lesson.seriesId)
+      .filter((l) => l.seriesId === lesson?.seriesId ?? [])
       .sort(function compare(a: Lesson, b: Lesson) {
         const dateA = new Date(a.start);
         const dateB = new Date(b.start);
@@ -37,15 +41,15 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
 
   const last: Lesson = lessons
     .reverse()
-    .find((l: Lesson) => l.seriesId === lesson.seriesId);
+    .find((l: Lesson) => l.seriesId === lesson?.seriesId ?? undefined);
 
   const first: Lesson = lessons
     .reverse()
-    .find((l: Lesson) => l.seriesId === lesson.seriesId);
+    .find((l: Lesson) => l.seriesId === lesson?.seriesId ?? undefined);
 
   const size = lessons.length;
 
-  const [series, setSeries] = useState(undefined as undefined | Lesson[]);
+  const [viewSeries, setViewSeries] = useState(false);
 
   const [cache] = useState(
     new CellMeasurerCache({
@@ -54,13 +58,13 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
     })
   );
 
-  const rowCount = series?.length ?? 0;
+  const rowCount = lessons?.length ?? 0;
 
   //@ts-ignore
   const renderRow = ({ index, key, style, parent }) => {
     return (
       <>
-        {series && (
+        {lessons && (
           <CellMeasurer
             key={key}
             cache={cache}
@@ -68,12 +72,12 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
             columnIndex={0}
             rowIndex={index}
           >
-            <SeriesRow style={style} tabIndex={0} color={series[index].color}>
+            <SeriesRow style={style} tabIndex={0} color={lessons[index].color}>
               <div style={{ width: "50px" }}>
                 <span />
                 <p>{index + 1}</p>
               </div>
-              <p>{format(new Date(series[index].start), "EEEE do MMMM Y")}</p>
+              <p>{format(new Date(lessons[index].start), "EEEE do MMMM Y")}</p>
               <div style={{ flex: 1, justifyContent: "flex-end" }}>
                 <Button>
                   <FaUnlink />
@@ -99,26 +103,32 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
         alt="New Lesson Icon"
       />
       <Form onSubmit={(e) => e.preventDefault()}>
-        {last && first && !series && (
+        {!viewSeries && (
           <>
             <SeriesSpan>
               <p>Subject</p>
-              <h3>{lesson.subject}</h3>
+              <h3>{lesson?.subject ?? "N/A"}</h3>
             </SeriesSpan>
             <SeriesSpan>
               <p>Series Duration</p>
-              <h3>{`${format(new Date(first.start), "do MMMM Y")} - ${format(
-                new Date(last.start),
-                "do MMM Y"
-              )}`}</h3>
+              <h3>
+                {first && last
+                  ? `${format(new Date(first.start), "do MMMM Y")} - ${format(
+                      new Date(last.start),
+                      "do MMM Y"
+                    )}`
+                  : "N/A"}
+              </h3>
             </SeriesSpan>
             <SeriesSpan>
               <p>Time</p>
               <h3>
-                {`${format(new Date(lesson.start!), "HH:mm")} - ${format(
-                  new Date(lesson.end),
-                  "HH:mm"
-                )}`}
+                {lesson
+                  ? `${format(new Date(lesson?.start!), "HH:mm")} - ${format(
+                      new Date(lesson?.end),
+                      "HH:mm"
+                    )}`
+                  : "N/A"}
               </h3>
             </SeriesSpan>
             <SeriesSpan style={{ marginBottom: "10px" }}>
@@ -127,7 +137,7 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
             </SeriesSpan>
           </>
         )}
-        {series && (
+        {lessons && viewSeries && (
           <ListWrapper>
             <AutoSizer>
               {({ width, height }) => {
@@ -148,25 +158,30 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
             </AutoSizer>
           </ListWrapper>
         )}
-        {!series ? (
-          <span style={{ display: "flex" }}>
+        {!viewSeries ? (
+          <ButtonSpan>
             <SubmitButton
               type="button"
-              style={{ flex: 1 }}
-              onClick={() => (lessons ? setSeries(lessons) : void {})}
-            >
-              View Lessons
-            </SubmitButton>
-            <SubmitButton
-              type="button"
-              style={{ flex: 1 }}
-              onClick={() => dispatch(actions.seriesDeleted(lesson.seriesId!))}
+              disabled={!lesson}
+              onClick={() => {
+                lesson
+                  ? dispatch(actions.seriesDeleted(lesson.seriesId!))
+                  : void {};
+                isOpen(false);
+              }}
             >
               Delete Series
             </SubmitButton>
-          </span>
+            <SubmitButton
+              disabled={!lessons.length}
+              type="button"
+              onClick={() => setViewSeries(true)}
+            >
+              View Lessons
+            </SubmitButton>
+          </ButtonSpan>
         ) : (
-          <SubmitButton type="button" onClick={() => setSeries(undefined)}>
+          <SubmitButton type="button" onClick={() => setViewSeries(false)}>
             View Series
           </SubmitButton>
         )}

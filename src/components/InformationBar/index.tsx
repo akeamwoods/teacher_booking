@@ -68,8 +68,8 @@ export const InformationBar: React.FC<{
             initialDate={startOfDay(new Date(lesson.start)).toISOString()}
             lesson={lesson}
           />
-        ) : lesson && mode === "series" ? (
-          <SeriesForm lesson={lesson} />
+        ) : mode === "series" ? (
+          <SeriesForm lesson={lesson} isOpen={setVisibility} />
         ) : null}
       </Popup>
 

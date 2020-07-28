@@ -72,6 +72,7 @@ export const SeriesSpan = styled.span`
   display: flex;
   justify-content: center;
   flex-direction: column;
+
   p,
   h3 {
     margin: 0;
@@ -85,6 +86,20 @@ export const SeriesSpan = styled.span`
 
   :not(:first-child) {
     margin-top: 10px;
+  }
+`;
+
+export const ButtonSpan = styled(SeriesSpan)`
+  flex-direction: row;
+  button {
+    flex: 1;
+    :first-child {
+      margin-right: 5px;
+      background: #f32222;
+    }
+    :last-child {
+      margin-left: 5px;
+    }
   }
 `;
 

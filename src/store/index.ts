@@ -253,6 +253,7 @@ export const rootReducer: Reducer<State, Actions> = (
           draft.focussedLesson.seriesId === action.payload
         )
           draft.focussedLesson = undefined;
+        draft.popupOpen = false;
         break;
       }
     }
