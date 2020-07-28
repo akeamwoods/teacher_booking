@@ -47,7 +47,7 @@ export const SeriesForm: React.FC<{ lesson: Lesson }> = ({ lesson }) => {
 
   const [series, setSeries] = useState(undefined as undefined | Lesson[]);
 
-  const [cache, setCache] = useState(
+  const [cache] = useState(
     new CellMeasurerCache({
       fixedWidth: true,
       defaultHeight: 100,

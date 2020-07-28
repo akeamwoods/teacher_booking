@@ -23,7 +23,7 @@ export const Lesson: React.FC<{
     });
   };
 
-  const [_, drag] = useDrag({
+  const [, drag] = useDrag({
     item: { type: "*", id: lesson.id },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.8 : 1,

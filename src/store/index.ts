@@ -318,7 +318,7 @@ export const rootReducer: Reducer<State, Actions> = (
       }
 
       case getType(actions.seriesDeleted):
-        for (const [key, _] of Object.entries(draft.lessons)) {
+        for (const [key] of Object.entries(draft.lessons)) {
           draft.lessons[key] = draft.lessons[key].filter(
             (lesson) => lesson.seriesId !== action.payload
           );
