@@ -28,7 +28,7 @@ const persistConfig = {
   storage,
   blacklist: [
     "selectedDate",
-    // "lessons",
+    "lessons",
     "classes",
     "focussedLesson",
     "infoPanelOpen",
