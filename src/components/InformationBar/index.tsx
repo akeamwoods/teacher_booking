@@ -99,7 +99,7 @@ export const InformationBar: React.FC<{
                   <FaEdit size="22" />
                 </Button>
                 <LinkedButton
-                  isLinked={!lesson || !lesson.seriesId}
+                  isLinked={lesson?.seriesId ? true : false}
                   disabled={!lesson || !lesson.seriesId}
                   onClick={() => {
                     setVisibility(true);
