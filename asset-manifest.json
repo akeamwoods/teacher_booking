@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/teacher_booking/static/css/main.167331c4.chunk.css",
-    "main.js": "/teacher_booking/static/js/main.a67e11b3.chunk.js",
-    "main.js.map": "/teacher_booking/static/js/main.a67e11b3.chunk.js.map",
+    "main.js": "/teacher_booking/static/js/main.398be283.chunk.js",
+    "main.js.map": "/teacher_booking/static/js/main.398be283.chunk.js.map",
     "runtime-main.js": "/teacher_booking/static/js/runtime-main.6b7988ad.js",
     "runtime-main.js.map": "/teacher_booking/static/js/runtime-main.6b7988ad.js.map",
-    "static/js/2.9077f41f.chunk.js": "/teacher_booking/static/js/2.9077f41f.chunk.js",
-    "static/js/2.9077f41f.chunk.js.map": "/teacher_booking/static/js/2.9077f41f.chunk.js.map",
+    "static/js/2.53401143.chunk.js": "/teacher_booking/static/js/2.53401143.chunk.js",
+    "static/js/2.53401143.chunk.js.map": "/teacher_booking/static/js/2.53401143.chunk.js.map",
     "index.html": "/teacher_booking/index.html",
-    "precache-manifest.5018badfbe927830f379666b53703ab9.js": "/teacher_booking/precache-manifest.5018badfbe927830f379666b53703ab9.js",
+    "precache-manifest.3dca3fab33f480f76b674e7b8d2c2fa1.js": "/teacher_booking/precache-manifest.3dca3fab33f480f76b674e7b8d2c2fa1.js",
     "service-worker.js": "/teacher_booking/service-worker.js",
     "static/css/main.167331c4.chunk.css.map": "/teacher_booking/static/css/main.167331c4.chunk.css.map",
-    "static/js/2.9077f41f.chunk.js.LICENSE.txt": "/teacher_booking/static/js/2.9077f41f.chunk.js.LICENSE.txt"
+    "static/js/2.53401143.chunk.js.LICENSE.txt": "/teacher_booking/static/js/2.53401143.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.6b7988ad.js",
-    "static/js/2.9077f41f.chunk.js",
+    "static/js/2.53401143.chunk.js",
     "static/css/main.167331c4.chunk.css",
-    "static/js/main.a67e11b3.chunk.js"
+    "static/js/main.398be283.chunk.js"
   ]
 }
