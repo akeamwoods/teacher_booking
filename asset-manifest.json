@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/teacher_booking/static/css/main.167331c4.chunk.css",
-    "main.js": "/teacher_booking/static/js/main.f4888a41.chunk.js",
-    "main.js.map": "/teacher_booking/static/js/main.f4888a41.chunk.js.map",
+    "main.js": "/teacher_booking/static/js/main.129e7b7b.chunk.js",
+    "main.js.map": "/teacher_booking/static/js/main.129e7b7b.chunk.js.map",
     "runtime-main.js": "/teacher_booking/static/js/runtime-main.6b7988ad.js",
     "runtime-main.js.map": "/teacher_booking/static/js/runtime-main.6b7988ad.js.map",
     "static/js/2.9077f41f.chunk.js": "/teacher_booking/static/js/2.9077f41f.chunk.js",
     "static/js/2.9077f41f.chunk.js.map": "/teacher_booking/static/js/2.9077f41f.chunk.js.map",
     "index.html": "/teacher_booking/index.html",
-    "precache-manifest.b25d911bce8772440579f753e43cafb1.js": "/teacher_booking/precache-manifest.b25d911bce8772440579f753e43cafb1.js",
+    "precache-manifest.8e3c983a803e020d7b802a84a8a028a7.js": "/teacher_booking/precache-manifest.8e3c983a803e020d7b802a84a8a028a7.js",
     "service-worker.js": "/teacher_booking/service-worker.js",
     "static/css/main.167331c4.chunk.css.map": "/teacher_booking/static/css/main.167331c4.chunk.css.map",
     "static/js/2.9077f41f.chunk.js.LICENSE.txt": "/teacher_booking/static/js/2.9077f41f.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.6b7988ad.js",
     "static/js/2.9077f41f.chunk.js",
     "static/css/main.167331c4.chunk.css",
-    "static/js/main.f4888a41.chunk.js"
+    "static/js/main.129e7b7b.chunk.js"
   ]
 }
