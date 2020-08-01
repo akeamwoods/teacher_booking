@@ -89,6 +89,7 @@ export const InformationBar: React.FC<{
 
               <ButtonBar>
                 <Button
+                  title="Edit Lesson"
                   disabled={!lesson}
                   onClick={() => {
                     setVisibility(true);
@@ -100,6 +101,9 @@ export const InformationBar: React.FC<{
                 </Button>
                 <LinkedButton
                   isLinked={lesson?.seriesId ? true : false}
+                  title={
+                    lesson?.seriesId ? "Series Linked" : "Not part of a series"
+                  }
                   disabled={!lesson || !lesson.seriesId}
                   onClick={() => {
                     setVisibility(true);
@@ -115,6 +119,7 @@ export const InformationBar: React.FC<{
                 </LinkedButton>
                 <Button
                   disabled={!lesson}
+                  title="Delete Lesson"
                   onClick={() =>
                     lesson
                       ? dispatch(

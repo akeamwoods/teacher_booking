@@ -165,7 +165,12 @@ export const rootReducer: Reducer<State, Actions> = (
         const lesson = draft.lessons[action.payload.key].find(
           (lesson) => lesson.seriesId === action.payload.id
         );
-        if (lesson) lesson.seriesId = undefined;
+        if (lesson) {
+          lesson.seriesId = undefined;
+
+          if (draft.focussedLesson && draft.focussedLesson.id === lesson.id)
+            draft.focussedLesson.seriesId = undefined; // if deleted item is focussed, removed
+        }
 
         break;
       }

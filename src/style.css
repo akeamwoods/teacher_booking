@@ -28,6 +28,10 @@ button svg {
   transition: 0.3s;
   opacity: 0.6;
 }
+
+button[disabled] svg {
+  opacity: 0.4 !important;
+}
 button:hover svg {
   opacity: 1;
 }
