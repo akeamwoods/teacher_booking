@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f012af4236b65413ea793213839830d4",
+    "revision": "dbc8c5f6679b83e83e579f0422651700",
     "url": "/teacher_booking/index.html"
   },
   {
-    "revision": "cadcce104e9d1bcec24b",
-    "url": "/teacher_booking/static/css/main.167331c4.chunk.css"
+    "revision": "c9d83718f75e64600c11",
+    "url": "/teacher_booking/static/css/main.84c75b44.chunk.css"
   },
   {
     "revision": "4697aecd120f1a7325ef",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/teacher_booking/static/js/2.53401143.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "cadcce104e9d1bcec24b",
-    "url": "/teacher_booking/static/js/main.398be283.chunk.js"
+    "revision": "c9d83718f75e64600c11",
+    "url": "/teacher_booking/static/js/main.d4907302.chunk.js"
   },
   {
     "revision": "27b6ae749ec4008e89b0",
