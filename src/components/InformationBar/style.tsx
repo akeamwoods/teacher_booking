@@ -13,6 +13,7 @@ export const Wrapper = styled(animated.div).attrs<{
   flex: 1;
   img {
     width: 80%;
+    max-width: 185px;
   }
 `;
 
