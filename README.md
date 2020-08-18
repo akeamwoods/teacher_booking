@@ -1,5 +1,12 @@
 # Teacher Booking System
 ## NOT COMPLETE.
+Things to do:
+1. Mobile Friendly
+2. Implement Class/Student creation
+3. Handle overlapping lessons
+4. Tidy code
+5. Tweak styling
+
 ### Demo: http://akeamwoods.github.io/teacher_booking
 
 ### Features:
@@ -9,9 +16,3 @@
 4. Edit/delete lessons
 5. Edit/delete series
 
-### Things to do:
-1. Mobile Friendly
-2. Implement Class/Student creation
-3. Handle overlapping lessons
-4. Tidy code
-5. Tweak styling
