@@ -16,3 +16,5 @@ Things to do:
 4. Edit/delete lessons
 5. Edit/delete series
 
+All components in this project were created by myself.
+
